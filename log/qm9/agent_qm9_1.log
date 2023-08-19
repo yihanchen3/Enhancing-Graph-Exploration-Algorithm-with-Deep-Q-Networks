@@ -95,3 +95,4 @@ Epoch: 090, LR: 0.000092, Loss: 0.0069948, Validation MAE: 0.0948671, Test MAE: 
 Epoch: 091, LR: 0.000092, Loss: 0.0070758, Validation MAE: 0.1054559, Test MAE: 0.0892707, Time: 1397.6066, Mem: 13.070, Cached: 24.869
 Epoch: 092, LR: 0.000092, Loss: 0.0073982, Validation MAE: 0.0925032, Test MAE: 0.0892707, Time: 1398.2403, Mem: 13.070, Cached: 24.869
 Epoch: 093, LR: 0.000092, Loss: 0.0064733, Validation MAE: 0.0904291, Test MAE: 0.0892707, Time: 1397.9747, Mem: 13.070, Cached: 24.869
+Epoch: 094, LR: 0.000091, Loss: 0.0067227, Validation MAE: 0.0883087, Test MAE: 0.0880781, Time: 1446.7681, Mem: 13.479, Cached: 24.869

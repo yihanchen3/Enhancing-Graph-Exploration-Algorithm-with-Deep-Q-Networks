@@ -331,7 +331,9 @@ def main(args, cluster=None):
                 aux_loss = F.nll_loss(aux_logs.view(-1, aux_logs.size(-1)), data.y.unsqueeze(1).expand(-1,aux_logs.size(1)).clone().view(-1))
                 
                 loss = 0.75*loss + 0.25*aux_loss
+
             loss.backward()
+
             loss_all += data.num_graphs * loss.item()
             if args.clip_grad > 0:
                 nn.utils.clip_grad_norm_(model.parameters(), max_norm=args.clip_grad, norm_type=2) # Like in most transformers

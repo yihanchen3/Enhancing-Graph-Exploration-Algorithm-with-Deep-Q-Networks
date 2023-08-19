@@ -1,0 +1,5 @@
+Matplotlib is building the font cache; this may take a moment.
+Traceback (most recent call last):
+  File "/home/uceeyc6/AgentNet/synthetic.py", line 16, in <module>
+    from sage.all import graphs as sage_graphs
+ModuleNotFoundError: No module named 'sage.all'

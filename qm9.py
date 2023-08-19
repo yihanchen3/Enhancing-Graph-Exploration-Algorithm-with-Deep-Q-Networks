@@ -58,8 +58,6 @@ else:
     path = osp.join(osp.dirname(osp.realpath(__file__)), 'data', '1-QM9')
     dataset = QM9(path, transform=T.Compose([MyTransform(), T.Distance()]))
 
-
-
 dataset = dataset.shuffle()
 
 # Normalize targets to mean = 0 and std = 1.

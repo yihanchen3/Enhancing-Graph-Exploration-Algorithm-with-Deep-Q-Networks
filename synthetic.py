@@ -13,7 +13,7 @@ from torch_geometric.loader import DataLoader
 from torch_geometric.utils import degree
 from torch_geometric.utils.convert import from_networkx
 from torch_geometric.nn import GINConv, GINEConv, global_add_pool
-from sage.all import graphs as sage_graphs
+# from sage.all import graphs as sage_graphs
 from test_tube.hpc import SlurmCluster
 
 from util import cos_anneal, get_cosine_schedule_with_warmup
@@ -556,6 +556,10 @@ def main(args, cluster=None):
                     print('Epoch: {:03d}, LR: {:7f}, Gumbel Temp: {:7f}, Train Loss: {:.7f}, Train Accuracy: {:.7f}, Train Aux Accuracy: {:.7f}, Time: {:7f}'.format(epoch, lr, model.temp, train_loss, train_acc, train_aux_acc, time.time() - start), flush=True)
             train_acc = test(train_loader)
             train_accs.append(train_acc)
+
+            test_acc = test(test_loader)
+            test_accs.append(test_acc)
+            
             best_val_test_accs.append(best_val_test_acc)
             print('Train Acc: {:.7f}, Test Acc: {:7f}, Best Val: {:7f}, Test Acc (Best Val Epoch): {:7f}'.format(train_acc, test_acc, best_val_acc, best_val_test_acc), flush=True)            
         train_acc = torch.tensor(train_accs)

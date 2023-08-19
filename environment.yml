@@ -1,4 +1,4 @@
-name: AgentNet
+name: AgentNet2
 channels:
   - pytorch
   - pyg
@@ -13,7 +13,7 @@ dependencies:
   - networkx=2.7
   - matplotlib
   - pyg=2.0
-  - sage # Comment out on Windows, only used for 3-WL dataset
+  # - sage # Comment out on Windows, only used for 3-WL dataset
   - pip:
     - test_tube
     - ogb

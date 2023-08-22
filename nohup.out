@@ -1,63 +1,0 @@
-Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True)
----- Target: 0 ----
-Dataset: QM9(130831) - Data(x=[5, 11], edge_index=[2, 20], edge_attr=[20, 5], y=[1], pos=[5, 3], idx=[1], name='gdb_1', z=[5]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Dataset: QM9(130831) - Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Dataset: QM9(130831) - Data(x=[3, 11], edge_index=[2, 6], edge_attr=[6, 5], y=[1], pos=[3, 3], idx=[1], name='gdb_3', z=[3]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Reading dataframe...
-Adding fgs to dataset...
-  0%|          | 0/130831 [00:00<?, ?it/s]  0%|          | 18/130831 [00:00<12:13, 178.26it/s]  0%|          | 36/130831 [00:00<12:10, 179.12it/s]  0%|          | 55/130831 [00:00<12:06, 179.95it/s]  0%|          | 73/130831 [00:00<12:09, 179.27it/s]  0%|          | 92/130831 [00:00<12:07, 179.77it/s]  0%|          | 110/130831 [00:00<12:11, 178.78it/s]  0%|          | 129/130831 [00:00<12:05, 180.13it/s]  0%|          | 148/130831 [00:00<12:18, 176.99it/s]  0%|          | 166/130831 [00:00<12:16, 177.37it/s]  0%|          | 185/130831 [00:01<12:11, 178.63it/s]  0%|          | 203/130831 [00:01<12:11, 178.65it/s]  0%|          | 221/130831 [00:01<12:12, 178.40it/s]  0%|          | 239/130831 [00:01<12:12, 178.21it/s]  0%|          | 257/130831 [00:01<12:17, 177.16it/s]  0%|          | 275/130831 [00:01<12:14, 177.86it/s]  0%|          | 293/130831 [00:01<12:13, 178.01it/s]  0%|          | 312/130831 [00:01<12:07, 179.30it/s]  0%|          | 330/130831 [00:01<12:14, 177.72it/s]  0%|          | 349/130831 [00:01<12:08, 179.11it/s]Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True)
----- Target: 0 ----
-Dataset: QM9(130831) - Data(x=[5, 11], edge_index=[2, 20], edge_attr=[20, 5], y=[1], pos=[5, 3], idx=[1], name='gdb_1', z=[5]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Dataset: QM9(130831) - Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Dataset: QM9(130831) - Data(x=[3, 11], edge_index=[2, 6], edge_attr=[6, 5], y=[1], pos=[3, 3], idx=[1], name='gdb_3', z=[3]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Reading dataframe...
-Adding fgs to dataset...
-Dataset: QM9(130831) - Data(x=[5, 11], edge_index=[2, 20], edge_attr=[20, 5], y=[1], pos=[5, 3], idx=[1], name='gdb_1', z=[5]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Dataset: QM9(130831) - Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-Dataset: QM9(130831) - Data(x=[3, 11], edge_index=[2, 6], edge_attr=[6, 5], y=[1], pos=[3, 3], idx=[1], name='gdb_3', z=[3]) - Data(x=[2359210, 11], edge_index=[2, 4883516], edge_attr=[4883516, 4], y=[130831, 19], pos=[2359210, 3], idx=[130831], name=[130831], z=[2359210])
-40
-AgentNet
-Traceback (most recent call last):
-  File "/home/uceeyc6/AgentNet/qm9_2.py", line 157, in <module>
-    loss = train(epoch)
-  File "/home/uceeyc6/AgentNet/qm9_2.py", line 122, in train
-    for data in train_loader:
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 368, in __iter__
-    return self._get_iterator()
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 314, in _get_iterator
-    return _MultiProcessingDataLoaderIter(self)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 927, in __init__
-    w.start()
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/multiprocessing/process.py", line 121, in start
-    self._popen = self._Popen(self)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/multiprocessing/context.py", line 224, in _Popen
-    return _default_context.get_context().Process._Popen(process_obj)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/multiprocessing/context.py", line 277, in _Popen
-    return Popen(process_obj)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/multiprocessing/popen_fork.py", line 19, in __init__
-    self._launch(process_obj)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/multiprocessing/popen_fork.py", line 66, in _launch
-    self.pid = os.fork()
-OSError: [Errno 12] Cannot allocate memory
-Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True)
----- Target: 0 ----
-40 <class 'int'>
-AgentNet
-Traceback (most recent call last):
-  File "/home/uceeyc6/AgentNet/qm9_2.py", line 157, in <module>
-    loss = train(epoch)
-  File "/home/uceeyc6/AgentNet/qm9_2.py", line 125, in train
-    pred, aux_pred = model(data.x, data.edge_index, data.batch, data.edge_attr)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/uceeyc6/AgentNet/model.py", line 416, in forward
-    agent_neighbour_coo = torch_sparse.tensor.__getitem__(adj, agent_node[1]).coo()
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_sparse/tensor.py", line 585, in __getitem__
-    out = out.index_select(dim, item)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_sparse/index_select.py", line 98, in <lambda>
-    SparseTensor.index_select = lambda self, dim, idx: index_select(self, dim, idx)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_sparse/index_select.py", line 27, in index_select
-    perm += gather_csr(old_rowptr[idx] - rowptr[:-1], rowptr)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_scatter/segment_csr.py", line 114, in gather_csr
-    return torch.ops.torch_scatter.gather_csr(src, indptr, out)
-KeyboardInterrupt

@@ -288,6 +288,7 @@ def main(args, cluster=None):
 
     torch.manual_seed(0)
     np.random.seed(0)  
+
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f'Device: {device}')
     if args.model_type == 'GIN':

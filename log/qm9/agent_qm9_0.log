@@ -1,22 +1,46 @@
-Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True)
+Namespace(dropout=0.0, batch_size=8, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True)
 ---- Target: 0 ----
 40 <class 'int'>
+deivce_0 cpu
+deivce cuda
 AgentNet
+Epoch: 001, LR: 0.000100, Loss: 0.5410906, Validation MAE: 0.6443751, Test MAE: 0.6386777, Time: 8760.5102, Mem: 4.208, Cached: 5.883
+Epoch: 002, LR: 0.000100, Loss: 0.3699771, Validation MAE: 0.5716149, Test MAE: 0.5722510, Time: 8848.3359, Mem: 4.203, Cached: 6.242
+Epoch: 003, LR: 0.000100, Loss: 0.2641239, Validation MAE: 0.5197035, Test MAE: 0.5128767, Time: 8914.0371, Mem: 4.203, Cached: 6.477
+Epoch: 004, LR: 0.000100, Loss: 0.2049933, Validation MAE: 0.4433419, Test MAE: 0.4376149, Time: 8961.3701, Mem: 4.203, Cached: 6.479
+Epoch: 005, LR: 0.000100, Loss: 0.1639802, Validation MAE: 0.3897849, Test MAE: 0.3880568, Time: 8993.1783, Mem: 4.200, Cached: 6.479
+Epoch: 006, LR: 0.000100, Loss: 0.1306833, Validation MAE: 0.3437331, Test MAE: 0.3387881, Time: 9130.9380, Mem: 4.202, Cached: 6.479
+Epoch: 007, LR: 0.000100, Loss: 0.1115906, Validation MAE: 0.3236190, Test MAE: 0.3228780, Time: 9026.5112, Mem: 4.203, Cached: 6.479
 Traceback (most recent call last):
-  File "/home/uceeyc6/AgentNet/qm9_2.py", line 157, in <module>
-    loss = train(epoch)
-  File "/home/uceeyc6/AgentNet/qm9_2.py", line 125, in train
-    pred, aux_pred = model(data.x, data.edge_index, data.batch, data.edge_attr)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/uceeyc6/AgentNet/model.py", line 558, in forward
-    weight = self.edge_nn(active_edge_emb)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/nn/modules/container.py", line 141, in forward
-    input = module(input)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 103, in forward
-    return F.linear(input, self.weight, self.bias)
-RuntimeError: CUDA out of memory. Tried to allocate 654.00 MiB (GPU 0; 31.74 GiB total capacity; 3.58 GiB already allocated; 28.81 MiB free; 3.64 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+  File "/home/uceeyc6/AgentNet/qm9_2.py", line 179, in <module>
+    model.temp = cos_anneal(gumbel_warmup, gumbel_warmup + args.gumbel_decay_epochs, args.gumbel_temp, args.gumbel_min_temp, epoch)
+  File "/home/uceeyc6/AgentNet/qm9_2.py", line 144, in train
+    
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1204, in _next_data
+    return self._process_data(data)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1250, in _process_data
+    data.reraise()
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 3.
+Original Traceback (most recent call last):
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    return self.collate_fn(data)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/loader/dataloader.py", line 19, in __call__
+    return Batch.from_data_list(batch, self.follow_batch,
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/batch.py", line 68, in from_data_list
+    batch, slice_dict, inc_dict = collate(
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/collate.py", line 84, in collate
+    value, slices, incs = _collate(attr, values, data_list, stores,
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/collate.py", line 145, in _collate
+    storage = elem.storage()._new_shared(numel)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/storage.py", line 487, in _new_shared
+    untyped_storage = module._UntypedStorage._new_shared(size * cls().element_size())
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/storage.py", line 174, in _new_shared
+    return cls._new_using_fd(size)
+RuntimeError: unable to write to file </torch_4093957_847954027_8688>: No space left on device (28)
+

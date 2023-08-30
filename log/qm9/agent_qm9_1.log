@@ -225,3 +225,40 @@ Epoch: 220, LR: 0.000055, Loss: 0.0019291, Validation MAE: 0.0618474, Test MAE: 
 Epoch: 221, LR: 0.000055, Loss: 0.0018921, Validation MAE: 0.0517472, Test MAE: 0.0508300, Time: 1827.6887, Mem: 13.070, Cached: 19.447
 Epoch: 222, LR: 0.000055, Loss: 0.0019257, Validation MAE: 0.0512566, Test MAE: 0.0508300, Time: 1916.3797, Mem: 13.070, Cached: 19.447
 Epoch: 223, LR: 0.000054, Loss: 0.0018361, Validation MAE: 0.0530769, Test MAE: 0.0508300, Time: 1921.2980, Mem: 13.069, Cached: 19.447
+Epoch: 224, LR: 0.000054, Loss: 0.0019367, Validation MAE: 0.0726884, Test MAE: 0.0508300, Time: 1906.0506, Mem: 13.070, Cached: 19.447
+Epoch: 225, LR: 0.000054, Loss: 0.0018325, Validation MAE: 0.0529980, Test MAE: 0.0508300, Time: 1915.8431, Mem: 13.070, Cached: 19.447
+Epoch: 226, LR: 0.000053, Loss: 0.0019542, Validation MAE: 0.0547856, Test MAE: 0.0508300, Time: 1869.9274, Mem: 13.070, Cached: 19.447
+Epoch: 227, LR: 0.000053, Loss: 0.0017331, Validation MAE: 0.0536202, Test MAE: 0.0508300, Time: 1851.3985, Mem: 13.070, Cached: 19.447
+Traceback (most recent call last):
+  File "/home/uceeyc6/AgentNet/qm9_1.py", line 170, in <module>
+    val_error = test(val_loader)
+  File "/home/uceeyc6/AgentNet/qm9_1.py", line 151, in test
+    for data in loader:
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1224, in _next_data
+    return self._process_data(data)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1250, in _process_data
+    data.reraise()
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 3.
+Original Traceback (most recent call last):
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    return self.collate_fn(data)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/loader/dataloader.py", line 19, in __call__
+    return Batch.from_data_list(batch, self.follow_batch,
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/batch.py", line 68, in from_data_list
+    batch, slice_dict, inc_dict = collate(
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/collate.py", line 84, in collate
+    value, slices, incs = _collate(attr, values, data_list, stores,
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/collate.py", line 145, in _collate
+    storage = elem.storage()._new_shared(numel)
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/storage.py", line 487, in _new_shared
+    untyped_storage = module._UntypedStorage._new_shared(size * cls().element_size())
+  File "/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch/storage.py", line 174, in _new_shared
+    return cls._new_using_fd(size)
+RuntimeError: unable to write to file </torch_681265_617512350_120>: No space left on device (28)
+

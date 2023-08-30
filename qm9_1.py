@@ -1,5 +1,6 @@
 # This implementation is based on https://github.com/KarolisMart/DropGNN/blob/main/mpnn-qm9.py
 import os.path as osp
+import os
 import torch
 import torch.nn.functional as F
 from torch_geometric.datasets import QM9
@@ -9,7 +10,7 @@ from torch_geometric.utils import remove_self_loops
 import time
 
 from util import cos_anneal, get_cosine_schedule_with_warmup
-from model_2 import AgentNet, add_model_args
+from model_1 import AgentNet, add_model_args
 
 parser = add_model_args()
 parser.add_argument('--target', default=0)
@@ -19,6 +20,13 @@ args = parser.parse_args()
 print(args)
 target = int(args.target)
 print('---- Target: {} ----'.format(target))
+
+GPU_id = "2"
+os.environ['CUDA_VISIBLE_DEVICES'] = GPU_id
+print("torch.cuda.device_count: {}, Current GPU ID: {}".format(torch.cuda.device_count(), os.environ['CUDA_VISIBLE_DEVICES']))
+set_num_workers = 5
+print('set_num_workers:', set_num_workers,'get_num_threads:',torch.get_num_threads(),'batch_size:',args.batch_size)
+
 
 class MyTransform(object):
     def __call__(self, data):
@@ -58,32 +66,10 @@ else:
     path = osp.join(osp.dirname(osp.realpath(__file__)), 'data', '1-QM9')
     dataset = QM9(path, transform=T.Compose([MyTransform(), T.Distance()]))
 
-# # see dataset inside
-# print('Dataset: {} - {} - {}'.format(dataset, dataset[0], dataset.data))
-# print('Dataset: {} - {} - {}'.format(dataset, dataset[1], dataset.data))
-# print('Dataset: {} - {} - {}'.format(dataset, dataset[2], dataset.data))
 
-# # read dataframe
-# print('Reading dataframe...')
-# import pandas as pd
-# df = pd.read_csv('qm9_fgs.csv')
-
-# # add fgs to dataset
-# print('Adding fgs to dataset...')
-# from tqdm import tqdm
-# for data in tqdm(dataset):
-#     data.fgs = df[df['ID'] == data.name]['ifg']
-
-# # see revised dataset inside
-# print('Dataset: {} - {} - {}'.format(dataset, dataset[0], dataset.data))
-# print('Dataset: {} - {} - {}'.format(dataset, dataset[1], dataset.data))
-# print('Dataset: {} - {} - {}'.format(dataset, dataset[2], dataset.data))
-# # print('fgs', dataset[3].fgs)
 
 
 dataset = dataset.shuffle()
-
-print(torch.get_num_threads(),type(torch.get_num_threads()))
 
 # Normalize targets to mean = 0 and std = 1.
 tenpercent = int(len(dataset) * 0.1)
@@ -94,9 +80,9 @@ dataset.data.y = (dataset.data.y - mean) / std
 test_dataset = dataset[:tenpercent]
 val_dataset = dataset[tenpercent:2 * tenpercent]
 train_dataset = dataset[2 * tenpercent:]
-test_loader = DataLoader(test_dataset, batch_size=args.batch_size, num_workers=15)
-val_loader = DataLoader(val_dataset, batch_size=args.batch_size, num_workers=15)
-train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=15)
+test_loader = DataLoader(test_dataset, batch_size=args.batch_size, num_workers=set_num_workers)
+val_loader = DataLoader(val_dataset, batch_size=args.batch_size, num_workers=set_num_workers)
+train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=set_num_workers)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 use_aux_loss = args.aux_loss
@@ -140,9 +126,11 @@ def train(epoch):
         optimizer.step()
 
         dqn.q_eval.optimizer.step()
+        dqn.epsilon = dqn.epsilon - dqn.eps_dec if dqn.epsilon > dqn.eps_min else dqn.eps_min
         dqn.update_network_parameters()
+        reward = dqn.total_reward
 
-    return loss_all / len(train_loader.dataset)
+    return loss_all / len(train_loader.dataset), reward
 
 def test(loader):
     model.eval()
@@ -166,7 +154,7 @@ for epoch in range(1, args.epochs+1):
     else:
         gumbel_warmup = args.gumbel_warmup
     model.temp = cos_anneal(gumbel_warmup, gumbel_warmup + args.gumbel_decay_epochs, args.gumbel_temp, args.gumbel_min_temp, epoch)
-    loss = train(epoch)
+    loss,train_reward = train(epoch)
     val_error = test(val_loader)
     scheduler.step()#val_error
 
@@ -176,5 +164,7 @@ for epoch in range(1, args.epochs+1):
         test_error = test(test_loader)
         best_val_error = val_error
     
-    print('Epoch: {:03d}, LR: {:7f}, Loss: {:.7f}, Validation MAE: {:.7f}, Test MAE: {:.7f}, Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}'.format(
-        epoch, lr, loss, val_error, test_error, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3), flush=True)
+    print('Epoch: {:03d}, LR: {:7f}, Loss: {:.7f}, Validation MAE: {:.7f}, Test MAE: {:.7f}, Reward: {:.4f} Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}'.format(
+        epoch, lr, loss, val_error, test_error, train_reward, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3), flush=True)
+
+print('Best validation MAE: {:.7f}, Test MAE: {:.7f}'.format(best_val_error, test_error))

@@ -1,0 +1,7 @@
+Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True, num_worders=64, gpu_id='1')
+---- Target: 0 ----
+fgs data loaded
+HostName: turin.ee.ucl.ac.uk, LoginName: uceeyc6, Current GPU ID: 1/4, Num of workers: 64/64, CodeFile: /home/uceeyc6/AgentNet/qm9_3_fast_replay.py
+dataset info: 130194 Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4], node_num=[1], fgs=[4]) tensor([1., 0., 0., 0.]) tensor([4])
+AgentNet
+Epoch: 001/350, LR: 0.000100, StartTime: Wed Aug 30 01:16:51 2023

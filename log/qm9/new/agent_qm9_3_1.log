@@ -1,0 +1,210 @@
+Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=100, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='1', aux_loss=False, complete_graph=True)
+---- Target: 1 ----
+fgs data loaded
+torch.cuda.device_count: 4, Current GPU ID: 2
+set_num_workers: 15 get_num_threads: 64 batch_size: 32
+AgentNet
+Epoch: 001/100, LR: 0.000100, StartTime: Sun Aug 27 00:25:49 2023
+Epoch: 001, LR: 0.000100, Loss: 0.2597769, Validation MAE: 7.9964780, Test MAE: 8.0623299, Reward: -170.750, Time: 967.3109, Mem: 13.693, Cached: 71.314
+Epoch: 002/100, LR: 0.000100, StartTime: Sun Aug 27 00:41:56 2023
+Epoch: 002, LR: 0.000100, Loss: 0.3389819, Validation MAE: 2.1531806, Test MAE: 2.1750495, Reward: -126.625, Time: 1954.2580, Mem: 13.692, Cached: 23.732
+Epoch: 003/100, LR: 0.000100, StartTime: Sun Aug 27 01:14:30 2023
+Epoch: 003, LR: 0.000100, Loss: 0.1538906, Validation MAE: 1.6223420, Test MAE: 1.6177023, Reward: -134.500, Time: 1745.1116, Mem: 13.693, Cached: 23.732
+Epoch: 004/100, LR: 0.000100, StartTime: Sun Aug 27 01:43:35 2023
+Epoch: 004, LR: 0.000100, Loss: 0.1060881, Validation MAE: 1.8474517, Test MAE: 1.6177023, Reward: -169.750, Time: 1699.0201, Mem: 13.600, Cached: 23.732
+Epoch: 005/100, LR: 0.000100, StartTime: Sun Aug 27 02:11:54 2023
+Epoch: 005, LR: 0.000100, Loss: 0.2185529, Validation MAE: 7.5953832, Test MAE: 1.6177023, Reward: -75.625, Time: 1847.2546, Mem: 13.570, Cached: 23.732
+Epoch: 006/100, LR: 0.000100, StartTime: Sun Aug 27 02:42:42 2023
+Epoch: 006, LR: 0.000100, Loss: 0.3996150, Validation MAE: 3.3290231, Test MAE: 1.6177023, Reward: -82.750, Time: 1721.8412, Mem: 13.557, Cached: 23.732
+Epoch: 007/100, LR: 0.000100, StartTime: Sun Aug 27 03:11:23 2023
+Epoch: 007, LR: 0.000100, Loss: 0.2670940, Validation MAE: 3.1831449, Test MAE: 1.6177023, Reward: -153.125, Time: 1344.4501, Mem: 13.555, Cached: 23.732
+Epoch: 008/100, LR: 0.000099, StartTime: Sun Aug 27 03:33:48 2023
+Epoch: 008, LR: 0.000099, Loss: 0.4745581, Validation MAE: 3.4552308, Test MAE: 1.6177023, Reward: -131.875, Time: 1911.0785, Mem: 13.549, Cached: 23.732
+Epoch: 009/100, LR: 0.000099, StartTime: Sun Aug 27 04:05:39 2023
+Epoch: 009, LR: 0.000099, Loss: 0.5475562, Validation MAE: 3.5591793, Test MAE: 1.6177023, Reward: -180.500, Time: 1699.6811, Mem: 13.549, Cached: 23.732
+Epoch: 010/100, LR: 0.000099, StartTime: Sun Aug 27 04:33:59 2023
+Epoch: 010, LR: 0.000099, Loss: 0.6940559, Validation MAE: 4.7519098, Test MAE: 1.6177023, Reward: -238.625, Time: 1578.7136, Mem: 13.542, Cached: 23.732
+Epoch: 011/100, LR: 0.000099, StartTime: Sun Aug 27 05:00:17 2023
+Epoch: 011, LR: 0.000099, Loss: 0.7945878, Validation MAE: 5.7024147, Test MAE: 1.6177023, Reward: -194.125, Time: 1779.6565, Mem: 13.543, Cached: 23.732
+Epoch: 012/100, LR: 0.000099, StartTime: Sun Aug 27 05:29:57 2023
+Epoch: 012, LR: 0.000099, Loss: 0.8220213, Validation MAE: 5.1357243, Test MAE: 1.6177023, Reward: -239.875, Time: 1662.2307, Mem: 13.553, Cached: 23.732
+Epoch: 013/100, LR: 0.000098, StartTime: Sun Aug 27 05:57:39 2023
+Epoch: 013, LR: 0.000098, Loss: 0.8831187, Validation MAE: 5.0498834, Test MAE: 1.6177023, Reward: -210.000, Time: 1348.6732, Mem: 13.539, Cached: 23.732
+Epoch: 014/100, LR: 0.000098, StartTime: Sun Aug 27 06:20:08 2023
+Epoch: 014, LR: 0.000098, Loss: 0.8222871, Validation MAE: 5.0248497, Test MAE: 1.6177023, Reward: -234.250, Time: 887.1111, Mem: 13.544, Cached: 23.732
+Epoch: 015/100, LR: 0.000098, StartTime: Sun Aug 27 06:34:55 2023
+Epoch: 015, LR: 0.000098, Loss: 0.7986545, Validation MAE: 4.6529711, Test MAE: 1.6177023, Reward: -261.500, Time: 895.1645, Mem: 13.541, Cached: 23.732
+Epoch: 016/100, LR: 0.000097, StartTime: Sun Aug 27 06:49:50 2023
+Epoch: 016, LR: 0.000097, Loss: 0.6983124, Validation MAE: 4.4330482, Test MAE: 1.6177023, Reward: -253.125, Time: 886.7845, Mem: 13.548, Cached: 23.732
+Epoch: 017/100, LR: 0.000097, StartTime: Sun Aug 27 07:04:37 2023
+Epoch: 017, LR: 0.000097, Loss: 0.6855374, Validation MAE: 4.5745908, Test MAE: 1.6177023, Reward: -271.125, Time: 873.9777, Mem: 13.540, Cached: 23.732
+Epoch: 018/100, LR: 0.000096, StartTime: Sun Aug 27 07:19:11 2023
+Epoch: 018, LR: 0.000096, Loss: 0.7136022, Validation MAE: 4.8894245, Test MAE: 1.6177023, Reward: -228.000, Time: 875.0898, Mem: 13.547, Cached: 23.732
+Epoch: 019/100, LR: 0.000096, StartTime: Sun Aug 27 07:33:46 2023
+Epoch: 019, LR: 0.000096, Loss: 0.8096014, Validation MAE: 4.6850508, Test MAE: 1.6177023, Reward: -297.125, Time: 882.0343, Mem: 13.541, Cached: 23.732
+Epoch: 020/100, LR: 0.000096, StartTime: Sun Aug 27 07:48:28 2023
+Epoch: 020, LR: 0.000096, Loss: 0.7316073, Validation MAE: 5.4259373, Test MAE: 1.6177023, Reward: -195.500, Time: 893.5450, Mem: 13.544, Cached: 23.732
+Epoch: 021/100, LR: 0.000095, StartTime: Sun Aug 27 08:03:22 2023
+Epoch: 021, LR: 0.000095, Loss: 1.0068567, Validation MAE: 5.8275522, Test MAE: 1.6177023, Reward: -135.750, Time: 892.2248, Mem: 13.545, Cached: 23.732
+Epoch: 022/100, LR: 0.000095, StartTime: Sun Aug 27 08:18:14 2023
+Epoch: 022, LR: 0.000095, Loss: 1.0054240, Validation MAE: 5.6934839, Test MAE: 1.6177023, Reward: -121.750, Time: 891.3887, Mem: 13.550, Cached: 31.584
+Epoch: 023/100, LR: 0.000094, StartTime: Sun Aug 27 08:33:05 2023
+Epoch: 023, LR: 0.000094, Loss: 0.9985706, Validation MAE: 5.5649212, Test MAE: 1.6177023, Reward: -317.250, Time: 876.1757, Mem: 13.545, Cached: 31.584
+Epoch: 024/100, LR: 0.000094, StartTime: Sun Aug 27 08:47:41 2023
+Epoch: 024, LR: 0.000094, Loss: 1.0045152, Validation MAE: 5.3876828, Test MAE: 1.6177023, Reward: -189.500, Time: 880.6114, Mem: 13.541, Cached: 31.584
+Epoch: 025/100, LR: 0.000093, StartTime: Sun Aug 27 09:02:22 2023
+Epoch: 025, LR: 0.000093, Loss: 0.9673656, Validation MAE: 5.2927232, Test MAE: 1.6177023, Reward: -167.000, Time: 885.2519, Mem: 13.548, Cached: 31.584
+Epoch: 026/100, LR: 0.000092, StartTime: Sun Aug 27 09:17:07 2023
+Epoch: 026, LR: 0.000092, Loss: 0.9556537, Validation MAE: 5.4573638, Test MAE: 1.6177023, Reward: -238.250, Time: 890.5212, Mem: 13.554, Cached: 31.584
+Epoch: 027/100, LR: 0.000092, StartTime: Sun Aug 27 09:31:58 2023
+Epoch: 027, LR: 0.000092, Loss: 0.9655132, Validation MAE: 5.2014360, Test MAE: 1.6177023, Reward: -174.125, Time: 891.2045, Mem: 13.556, Cached: 31.584
+Epoch: 028/100, LR: 0.000091, StartTime: Sun Aug 27 09:46:49 2023
+Epoch: 028, LR: 0.000091, Loss: 0.9763477, Validation MAE: 6.0449890, Test MAE: 1.6177023, Reward: 218.000, Time: 887.0944, Mem: 13.553, Cached: 31.584
+Epoch: 029/100, LR: 0.000090, StartTime: Sun Aug 27 10:01:36 2023
+Epoch: 029, LR: 0.000090, Loss: 0.9752122, Validation MAE: 5.2007583, Test MAE: 1.6177023, Reward: -199.875, Time: 878.2203, Mem: 13.543, Cached: 31.584
+Epoch: 030/100, LR: 0.000090, StartTime: Sun Aug 27 10:16:14 2023
+Epoch: 030, LR: 0.000090, Loss: 1.1357165, Validation MAE: 5.6086677, Test MAE: 1.6177023, Reward: 34.500, Time: 878.3884, Mem: 13.536, Cached: 31.584
+Epoch: 031/100, LR: 0.000089, StartTime: Sun Aug 27 10:30:53 2023
+Epoch: 031, LR: 0.000089, Loss: 1.0636531, Validation MAE: 6.2224552, Test MAE: 1.6177023, Reward: -9.500, Time: 884.9922, Mem: 13.541, Cached: 31.584
+Epoch: 032/100, LR: 0.000088, StartTime: Sun Aug 27 10:45:38 2023
+Epoch: 032, LR: 0.000088, Loss: 1.1840936, Validation MAE: 6.1540658, Test MAE: 1.6177023, Reward: 62.500, Time: 893.4056, Mem: 13.545, Cached: 31.584
+Epoch: 033/100, LR: 0.000088, StartTime: Sun Aug 27 11:00:31 2023
+Epoch: 033, LR: 0.000088, Loss: 1.1216542, Validation MAE: 5.8775827, Test MAE: 1.6177023, Reward: -8.875, Time: 894.7594, Mem: 13.549, Cached: 31.584
+Epoch: 034/100, LR: 0.000087, StartTime: Sun Aug 27 11:15:26 2023
+Epoch: 034, LR: 0.000087, Loss: 1.0283596, Validation MAE: 5.4786265, Test MAE: 1.6177023, Reward: 50.625, Time: 881.5721, Mem: 13.536, Cached: 31.584
+Epoch: 035/100, LR: 0.000086, StartTime: Sun Aug 27 11:30:07 2023
+Epoch: 035, LR: 0.000086, Loss: 0.9633957, Validation MAE: 5.3382273, Test MAE: 1.6177023, Reward: -6.500, Time: 880.8067, Mem: 13.541, Cached: 31.584
+Epoch: 036/100, LR: 0.000085, StartTime: Sun Aug 27 11:44:48 2023
+Epoch: 036, LR: 0.000085, Loss: 0.9261180, Validation MAE: 5.2859069, Test MAE: 1.6177023, Reward: -163.625, Time: 885.8566, Mem: 13.537, Cached: 31.584
+Epoch: 037/100, LR: 0.000084, StartTime: Sun Aug 27 11:59:34 2023
+Epoch: 037, LR: 0.000084, Loss: 0.9207965, Validation MAE: 5.2994101, Test MAE: 1.6177023, Reward: -62.750, Time: 892.1063, Mem: 13.541, Cached: 31.584
+Epoch: 038/100, LR: 0.000084, StartTime: Sun Aug 27 12:14:26 2023
+Epoch: 038, LR: 0.000084, Loss: 0.9054536, Validation MAE: 5.1649836, Test MAE: 1.6177023, Reward: -22.000, Time: 888.0375, Mem: 13.541, Cached: 31.584
+Epoch: 039/100, LR: 0.000083, StartTime: Sun Aug 27 12:29:14 2023
+Epoch: 039, LR: 0.000083, Loss: 0.8983805, Validation MAE: 5.2367166, Test MAE: 1.6177023, Reward: 48.875, Time: 885.6882, Mem: 13.541, Cached: 31.584
+Epoch: 040/100, LR: 0.000082, StartTime: Sun Aug 27 12:44:00 2023
+Epoch: 040, LR: 0.000082, Loss: 0.8814886, Validation MAE: 5.6998344, Test MAE: 1.6177023, Reward: -85.625, Time: 689.9762, Mem: 13.537, Cached: 31.584
+Epoch: 041/100, LR: 0.000081, StartTime: Sun Aug 27 12:55:30 2023
+Epoch: 041, LR: 0.000081, Loss: 0.8787473, Validation MAE: 5.3763850, Test MAE: 1.6177023, Reward: 116.375, Time: 624.9636, Mem: 13.541, Cached: 31.584
+Epoch: 042/100, LR: 0.000080, StartTime: Sun Aug 27 13:05:55 2023
+Epoch: 042, LR: 0.000080, Loss: 0.8684067, Validation MAE: 5.0558542, Test MAE: 1.6177023, Reward: -9.750, Time: 646.9852, Mem: 13.541, Cached: 31.584
+Epoch: 043/100, LR: 0.000079, StartTime: Sun Aug 27 13:16:42 2023
+Epoch: 043, LR: 0.000079, Loss: 0.8509222, Validation MAE: 5.2133701, Test MAE: 1.6177023, Reward: 48.375, Time: 627.0700, Mem: 13.537, Cached: 31.584
+Epoch: 044/100, LR: 0.000078, StartTime: Sun Aug 27 13:27:09 2023
+Epoch: 044, LR: 0.000078, Loss: 0.8449677, Validation MAE: 5.0157019, Test MAE: 1.6177023, Reward: -11.750, Time: 647.5752, Mem: 13.537, Cached: 31.584
+Epoch: 045/100, LR: 0.000077, StartTime: Sun Aug 27 13:37:56 2023
+Epoch: 045, LR: 0.000077, Loss: 0.8363433, Validation MAE: 4.9939679, Test MAE: 1.6177023, Reward: 46.000, Time: 621.1373, Mem: 13.537, Cached: 31.584
+Epoch: 046/100, LR: 0.000076, StartTime: Sun Aug 27 13:48:18 2023
+Epoch: 046, LR: 0.000076, Loss: 0.8200798, Validation MAE: 4.8722356, Test MAE: 1.6177023, Reward: 77.250, Time: 644.5005, Mem: 13.541, Cached: 31.584
+Epoch: 047/100, LR: 0.000075, StartTime: Sun Aug 27 13:59:02 2023
+Epoch: 047, LR: 0.000075, Loss: 0.8089903, Validation MAE: 4.9702771, Test MAE: 1.6177023, Reward: 68.250, Time: 623.1702, Mem: 13.545, Cached: 31.584
+Epoch: 048/100, LR: 0.000074, StartTime: Sun Aug 27 14:09:25 2023
+Epoch: 048, LR: 0.000074, Loss: 0.7954414, Validation MAE: 4.8658408, Test MAE: 1.6177023, Reward: 65.375, Time: 646.1530, Mem: 13.541, Cached: 31.584
+Epoch: 049/100, LR: 0.000073, StartTime: Sun Aug 27 14:20:11 2023
+Epoch: 049, LR: 0.000073, Loss: 0.7860936, Validation MAE: 4.7845940, Test MAE: 1.6177023, Reward: 52.375, Time: 632.8295, Mem: 13.536, Cached: 31.584
+Epoch: 050/100, LR: 0.000072, StartTime: Sun Aug 27 14:30:44 2023
+Epoch: 050, LR: 0.000072, Loss: 0.7782581, Validation MAE: 4.7865072, Test MAE: 1.6177023, Reward: 79.000, Time: 762.7258, Mem: 13.549, Cached: 31.584
+Epoch: 051/100, LR: 0.000071, StartTime: Sun Aug 27 14:43:27 2023
+Epoch: 051, LR: 0.000071, Loss: 0.7660158, Validation MAE: 4.7800673, Test MAE: 1.6177023, Reward: 53.500, Time: 798.6326, Mem: 13.536, Cached: 31.584
+Epoch: 052/100, LR: 0.000070, StartTime: Sun Aug 27 14:56:46 2023
+Epoch: 052, LR: 0.000070, Loss: 0.7573550, Validation MAE: 4.7234774, Test MAE: 1.6177023, Reward: -121.750, Time: 815.1539, Mem: 13.541, Cached: 31.584
+Epoch: 053/100, LR: 0.000068, StartTime: Sun Aug 27 15:10:21 2023
+Epoch: 053, LR: 0.000068, Loss: 0.7472126, Validation MAE: 4.6726661, Test MAE: 1.6177023, Reward: 46.125, Time: 742.3236, Mem: 13.541, Cached: 31.584
+Epoch: 054/100, LR: 0.000067, StartTime: Sun Aug 27 15:22:43 2023
+Epoch: 054, LR: 0.000067, Loss: 0.7359494, Validation MAE: 4.6483275, Test MAE: 1.6177023, Reward: 126.625, Time: 713.2143, Mem: 13.541, Cached: 31.584
+Epoch: 055/100, LR: 0.000066, StartTime: Sun Aug 27 15:34:36 2023
+Epoch: 055, LR: 0.000066, Loss: 0.7318858, Validation MAE: 4.6008159, Test MAE: 1.6177023, Reward: 17.125, Time: 714.1856, Mem: 13.545, Cached: 31.584
+Epoch: 056/100, LR: 0.000065, StartTime: Sun Aug 27 15:46:31 2023
+Epoch: 056, LR: 0.000065, Loss: 0.7221025, Validation MAE: 4.5978687, Test MAE: 1.6177023, Reward: 87.250, Time: 715.4105, Mem: 13.545, Cached: 31.584
+Epoch: 057/100, LR: 0.000064, StartTime: Sun Aug 27 15:58:26 2023
+Epoch: 057, LR: 0.000064, Loss: 0.7147128, Validation MAE: 4.6219331, Test MAE: 1.6177023, Reward: -37.750, Time: 713.2178, Mem: 13.541, Cached: 31.584
+Epoch: 058/100, LR: 0.000063, StartTime: Sun Aug 27 16:10:19 2023
+Epoch: 058, LR: 0.000063, Loss: 0.7048043, Validation MAE: 4.5920905, Test MAE: 1.6177023, Reward: -95.625, Time: 711.7566, Mem: 13.541, Cached: 31.584
+Epoch: 059/100, LR: 0.000061, StartTime: Sun Aug 27 16:22:11 2023
+Epoch: 059, LR: 0.000061, Loss: 0.7017774, Validation MAE: 4.5667678, Test MAE: 1.6177023, Reward: 64.375, Time: 716.1669, Mem: 13.545, Cached: 31.584
+Epoch: 060/100, LR: 0.000060, StartTime: Sun Aug 27 16:34:07 2023
+Epoch: 060, LR: 0.000060, Loss: 0.6903597, Validation MAE: 4.5195358, Test MAE: 1.6177023, Reward: 74.375, Time: 716.4241, Mem: 13.541, Cached: 31.584
+Epoch: 061/100, LR: 0.000059, StartTime: Sun Aug 27 16:46:03 2023
+Epoch: 061, LR: 0.000059, Loss: 0.6902121, Validation MAE: 4.6236531, Test MAE: 1.6177023, Reward: -49.625, Time: 714.9404, Mem: 13.541, Cached: 31.584
+Epoch: 062/100, LR: 0.000058, StartTime: Sun Aug 27 16:57:58 2023
+Epoch: 062, LR: 0.000058, Loss: 0.6855225, Validation MAE: 4.5287150, Test MAE: 1.6177023, Reward: 32.000, Time: 711.8366, Mem: 13.537, Cached: 31.584
+Epoch: 063/100, LR: 0.000056, StartTime: Sun Aug 27 17:09:50 2023
+Epoch: 063, LR: 0.000056, Loss: 0.6762219, Validation MAE: 4.8261713, Test MAE: 1.6177023, Reward: 110.875, Time: 714.9760, Mem: 13.537, Cached: 31.584
+Epoch: 064/100, LR: 0.000055, StartTime: Sun Aug 27 17:21:45 2023
+Epoch: 064, LR: 0.000055, Loss: 0.6713998, Validation MAE: 4.4562103, Test MAE: 1.6177023, Reward: -13.000, Time: 711.3344, Mem: 13.536, Cached: 31.584
+Epoch: 065/100, LR: 0.000054, StartTime: Sun Aug 27 17:33:37 2023
+Epoch: 065, LR: 0.000054, Loss: 0.6633607, Validation MAE: 4.6161261, Test MAE: 1.6177023, Reward: -36.500, Time: 713.3781, Mem: 13.541, Cached: 31.584
+Epoch: 066/100, LR: 0.000052, StartTime: Sun Aug 27 17:45:30 2023
+Epoch: 066, LR: 0.000052, Loss: 0.6590595, Validation MAE: 4.5745301, Test MAE: 1.6177023, Reward: -108.500, Time: 713.5473, Mem: 13.537, Cached: 39.475
+Epoch: 067/100, LR: 0.000051, StartTime: Sun Aug 27 17:57:24 2023
+Epoch: 067, LR: 0.000051, Loss: 0.6561817, Validation MAE: 4.4530777, Test MAE: 1.6177023, Reward: 9.375, Time: 710.7845, Mem: 13.541, Cached: 39.475
+Epoch: 068/100, LR: 0.000050, StartTime: Sun Aug 27 18:09:14 2023
+Epoch: 068, LR: 0.000050, Loss: 0.6524580, Validation MAE: 4.4050827, Test MAE: 1.6177023, Reward: -77.875, Time: 711.1723, Mem: 13.536, Cached: 39.475
+Epoch: 069/100, LR: 0.000048, StartTime: Sun Aug 27 18:21:05 2023
+Epoch: 069, LR: 0.000048, Loss: 0.6491137, Validation MAE: 4.5689825, Test MAE: 1.6177023, Reward: 36.250, Time: 712.5719, Mem: 13.541, Cached: 39.475
+Epoch: 070/100, LR: 0.000047, StartTime: Sun Aug 27 18:32:58 2023
+Epoch: 070, LR: 0.000047, Loss: 0.6463622, Validation MAE: 4.4158876, Test MAE: 1.6177023, Reward: 46.750, Time: 708.6966, Mem: 13.537, Cached: 39.475
+Epoch: 071/100, LR: 0.000045, StartTime: Sun Aug 27 18:44:47 2023
+Epoch: 071, LR: 0.000045, Loss: 0.6394070, Validation MAE: 4.4394425, Test MAE: 1.6177023, Reward: 35.000, Time: 712.6425, Mem: 13.537, Cached: 39.475
+Epoch: 072/100, LR: 0.000044, StartTime: Sun Aug 27 18:56:39 2023
+Epoch: 072, LR: 0.000044, Loss: 0.6409740, Validation MAE: 4.3853810, Test MAE: 1.6177023, Reward: -58.000, Time: 712.5821, Mem: 13.541, Cached: 39.475
+Epoch: 073/100, LR: 0.000043, StartTime: Sun Aug 27 19:08:32 2023
+Epoch: 073, LR: 0.000043, Loss: 0.6293056, Validation MAE: 4.4010744, Test MAE: 1.6177023, Reward: 134.250, Time: 716.8359, Mem: 13.541, Cached: 39.475
+Epoch: 074/100, LR: 0.000041, StartTime: Sun Aug 27 19:20:29 2023
+Epoch: 074, LR: 0.000041, Loss: 0.6295900, Validation MAE: 4.3433231, Test MAE: 1.6177023, Reward: -47.375, Time: 710.3742, Mem: 13.537, Cached: 39.475
+Epoch: 075/100, LR: 0.000040, StartTime: Sun Aug 27 19:32:19 2023
+Epoch: 075, LR: 0.000040, Loss: 0.6241387, Validation MAE: 4.5899233, Test MAE: 1.6177023, Reward: 13.875, Time: 716.7845, Mem: 13.550, Cached: 39.475
+Epoch: 076/100, LR: 0.000038, StartTime: Sun Aug 27 19:44:16 2023
+Epoch: 076, LR: 0.000038, Loss: 0.6270147, Validation MAE: 4.4070225, Test MAE: 1.6177023, Reward: 155.500, Time: 710.0194, Mem: 13.541, Cached: 39.475
+Epoch: 077/100, LR: 0.000037, StartTime: Sun Aug 27 19:56:06 2023
+Epoch: 077, LR: 0.000037, Loss: 0.6223885, Validation MAE: 4.3583334, Test MAE: 1.6177023, Reward: 16.250, Time: 716.8024, Mem: 13.541, Cached: 39.475
+Epoch: 078/100, LR: 0.000035, StartTime: Sun Aug 27 20:08:03 2023
+Epoch: 078, LR: 0.000035, Loss: 0.6199230, Validation MAE: 4.2986061, Test MAE: 1.6177023, Reward: 7.500, Time: 713.9387, Mem: 13.541, Cached: 39.475
+Epoch: 079/100, LR: 0.000034, StartTime: Sun Aug 27 20:19:57 2023
+Epoch: 079, LR: 0.000034, Loss: 0.6163928, Validation MAE: 4.3076519, Test MAE: 1.6177023, Reward: 66.500, Time: 714.1572, Mem: 13.541, Cached: 39.475
+Epoch: 080/100, LR: 0.000032, StartTime: Sun Aug 27 20:31:51 2023
+Epoch: 080, LR: 0.000032, Loss: 0.6145696, Validation MAE: 4.3664136, Test MAE: 1.6177023, Reward: -38.875, Time: 713.0925, Mem: 13.536, Cached: 39.475
+Epoch: 081/100, LR: 0.000031, StartTime: Sun Aug 27 20:43:44 2023
+Epoch: 081, LR: 0.000031, Loss: 0.6116520, Validation MAE: 4.3656911, Test MAE: 1.6177023, Reward: 43.750, Time: 716.2392, Mem: 13.541, Cached: 39.475
+Epoch: 082/100, LR: 0.000029, StartTime: Sun Aug 27 20:55:40 2023
+Epoch: 082, LR: 0.000029, Loss: 0.6123412, Validation MAE: 4.4876117, Test MAE: 1.6177023, Reward: 38.875, Time: 710.7442, Mem: 13.541, Cached: 39.475
+Epoch: 083/100, LR: 0.000028, StartTime: Sun Aug 27 21:07:31 2023
+Epoch: 083, LR: 0.000028, Loss: 0.6054915, Validation MAE: 4.4265484, Test MAE: 1.6177023, Reward: -9.125, Time: 714.7083, Mem: 13.541, Cached: 39.475
+Epoch: 084/100, LR: 0.000026, StartTime: Sun Aug 27 21:19:26 2023
+Epoch: 084, LR: 0.000026, Loss: 0.6030328, Validation MAE: 4.2952743, Test MAE: 1.6177023, Reward: 26.000, Time: 714.1073, Mem: 13.537, Cached: 39.475
+Epoch: 085/100, LR: 0.000025, StartTime: Sun Aug 27 21:31:20 2023
+Epoch: 085, LR: 0.000025, Loss: 0.6040965, Validation MAE: 4.2664335, Test MAE: 1.6177023, Reward: 0.125, Time: 714.3531, Mem: 13.541, Cached: 39.475
+Epoch: 086/100, LR: 0.000023, StartTime: Sun Aug 27 21:43:14 2023
+Epoch: 086, LR: 0.000023, Loss: 0.6004161, Validation MAE: 4.3070835, Test MAE: 1.6177023, Reward: 24.125, Time: 715.5633, Mem: 13.541, Cached: 39.475
+Epoch: 087/100, LR: 0.000022, StartTime: Sun Aug 27 21:55:10 2023
+Epoch: 087, LR: 0.000022, Loss: 0.6016596, Validation MAE: 4.4976746, Test MAE: 1.6177023, Reward: -15.625, Time: 715.3593, Mem: 13.536, Cached: 39.475
+Epoch: 088/100, LR: 0.000020, StartTime: Sun Aug 27 22:07:05 2023
+Epoch: 088, LR: 0.000020, Loss: 0.5988824, Validation MAE: 4.2449109, Test MAE: 1.6177023, Reward: 8.750, Time: 712.4817, Mem: 13.537, Cached: 39.475
+Epoch: 089/100, LR: 0.000019, StartTime: Sun Aug 27 22:18:58 2023
+Epoch: 089, LR: 0.000019, Loss: 0.5920952, Validation MAE: 4.2700086, Test MAE: 1.6177023, Reward: 84.000, Time: 712.1038, Mem: 13.536, Cached: 39.475
+Epoch: 090/100, LR: 0.000017, StartTime: Sun Aug 27 22:30:50 2023
+Epoch: 090, LR: 0.000017, Loss: 0.5924317, Validation MAE: 4.2701657, Test MAE: 1.6177023, Reward: 50.125, Time: 714.6831, Mem: 13.541, Cached: 39.475
+Epoch: 091/100, LR: 0.000016, StartTime: Sun Aug 27 22:42:44 2023
+Epoch: 091, LR: 0.000016, Loss: 0.5914180, Validation MAE: 4.3148873, Test MAE: 1.6177023, Reward: 27.625, Time: 1347.5190, Mem: 13.541, Cached: 39.475
+Epoch: 092/100, LR: 0.000014, StartTime: Sun Aug 27 23:05:12 2023
+Epoch: 092, LR: 0.000014, Loss: 0.5897477, Validation MAE: 4.3033917, Test MAE: 1.6177023, Reward: 55.875, Time: 1556.0724, Mem: 13.536, Cached: 39.475
+Epoch: 093/100, LR: 0.000013, StartTime: Sun Aug 27 23:31:08 2023
+Epoch: 093, LR: 0.000013, Loss: 0.5891941, Validation MAE: 4.2696349, Test MAE: 1.6177023, Reward: -3.000, Time: 1553.5132, Mem: 13.545, Cached: 39.475
+Epoch: 094/100, LR: 0.000011, StartTime: Sun Aug 27 23:57:01 2023
+Epoch: 094, LR: 0.000011, Loss: 0.5875896, Validation MAE: 4.3865440, Test MAE: 1.6177023, Reward: 97.250, Time: 1551.6446, Mem: 13.541, Cached: 39.475
+Epoch: 095/100, LR: 0.000009, StartTime: Mon Aug 28 00:22:53 2023
+Epoch: 095, LR: 0.000009, Loss: 0.5839286, Validation MAE: 4.2263112, Test MAE: 1.6177023, Reward: 97.375, Time: 1552.8131, Mem: 13.537, Cached: 39.475
+Epoch: 096/100, LR: 0.000008, StartTime: Mon Aug 28 00:48:46 2023
+Epoch: 096, LR: 0.000008, Loss: 0.5816143, Validation MAE: 4.2821165, Test MAE: 1.6177023, Reward: 65.125, Time: 1553.7241, Mem: 13.541, Cached: 39.475
+Epoch: 097/100, LR: 0.000006, StartTime: Mon Aug 28 01:14:40 2023
+Epoch: 097, LR: 0.000006, Loss: 0.5803658, Validation MAE: 4.2426131, Test MAE: 1.6177023, Reward: 24.750, Time: 1553.9837, Mem: 13.541, Cached: 39.475
+Epoch: 098/100, LR: 0.000005, StartTime: Mon Aug 28 01:40:34 2023
+Epoch: 098, LR: 0.000005, Loss: 0.5801266, Validation MAE: 4.2763490, Test MAE: 1.6177023, Reward: -47.375, Time: 1551.7113, Mem: 13.536, Cached: 39.475
+Epoch: 099/100, LR: 0.000003, StartTime: Mon Aug 28 02:06:25 2023
+Epoch: 099, LR: 0.000003, Loss: 0.5801319, Validation MAE: 4.2466782, Test MAE: 1.6177023, Reward: 15.000, Time: 1553.1733, Mem: 13.541, Cached: 39.475
+Epoch: 100/100, LR: 0.000002, StartTime: Mon Aug 28 02:32:18 2023
+Epoch: 100, LR: 0.000002, Loss: 0.5777377, Validation MAE: 4.2643852, Test MAE: 1.6177023, Reward: 10.375, Time: 1552.7360, Mem: 13.545, Cached: 39.475
+---------------- Final Result ----------------
+Best Validation MAE: 1.6223420
+Test MAE: 1.6177023
+----------------------------------------------

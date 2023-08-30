@@ -1,5 +1,6 @@
 # This implementation is based on https://github.com/KarolisMart/DropGNN/blob/main/gin-graph_classification.py which was basied on https://github.com/weihua916/powerful-gnns and https://github.com/chrsmrrs/k-gnn/tree/master/examples
 import os.path as osp
+import os, socket
 import numpy as np
 import time
 import torch
@@ -14,28 +15,18 @@ import torch_geometric.transforms as T
 from sklearn.model_selection import StratifiedKFold
 from test_tube.hpc import SlurmCluster
 
-from util import cos_anneal, get_cosine_schedule_with_warmup, PTCDataset
-from model_2 import AgentNet, add_model_args
+from util import cos_anneal, get_cosine_schedule_with_warmup, PTCDataset, plot_learning_curve
+from model_1 import AgentNet, add_model_args
 from smp_models.ppgn import Powerful
 
 torch.set_printoptions(profile="full")
 
-import matplotlib.pyplot as plt
- 
- 
-def plot_learning_curve(episodes, records, title, ylabel, figure_file):
-    plt.figure()
-    plt.plot(episodes, records, linestyle='-', color='r')
-    plt.title(title)
-    plt.xlabel('episode')
-    plt.ylabel(ylabel)
- 
-    plt.show()
-    plt.savefig(figure_file)
-    plt.close()
-
-
 def main(args, cluster=None):
+
+    print('HostName: {}, LoginName: {}, CodeFile: {}'.format(socket.gethostname(), os.getlogin(),__file__), flush=True, end=', ')
+
+    os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_id
+    print("Current GPU ID: {}/{}".format(os.environ['CUDA_VISIBLE_DEVICES'],torch.cuda.device_count()), flush=True)
     print(args, flush=True)
 
     BATCH = args.batch_size
@@ -351,6 +342,7 @@ def main(args, cluster=None):
                  
                 loss = 0.75*loss + 0.25*aux_loss
 
+
             loss.backward(retain_graph=True)
 
             loss_all += data.num_graphs * loss.item()
@@ -358,17 +350,17 @@ def main(args, cluster=None):
                 nn.utils.clip_grad_norm_(model.parameters(), max_norm=args.clip_grad, norm_type=2) # Like in most transformers
             
 
-            # dqn update part
-            # dqn.q_eval.optimizer.zero_grad()
-
             loss_dqn = dqn.mean_loss + loss
             
-            loss_dqn.backward(retain_graph=True)
+            loss_dqn.backward()
 
             optimizer.step()
             
             dqn.q_eval.optimizer.step()
+            dqn.epsilon = dqn.epsilon - dqn.eps_dec if dqn.epsilon > dqn.eps_min else dqn.eps_min
             dqn.update_network_parameters()
+
+            reward = dqn.total_reward
 
             pred = logs.max(1)[1]
             correct += pred.eq(data.y).sum().item()
@@ -376,7 +368,7 @@ def main(args, cluster=None):
                 pred_aux = aux_logs.view(-1, aux_logs.size(-1)).max(1)[1]
                 n_aux += len(pred_aux)
                 correct_aux += pred_aux.eq(data.y.unsqueeze(1).expand(-1,aux_logs.size(1)).clone().view(-1)).sum().item()
-        return loss_all / n, correct / n, correct_aux / n_aux
+        return loss_all / n, correct / n, correct_aux / n_aux, reward
 
     def val(loader):
         model.eval()
@@ -400,12 +392,7 @@ def main(args, cluster=None):
         return correct / len(loader.dataset)
 
     acc = []
-
-    print(dataset[0])
-    print(dataset[0].x.dtype, dataset[0].x.shape)
-    print(dataset[0].edge_index.dtype, dataset[0].edge_index.shape)
-    print(dataset[0].x)
-
+    reward = []
 
     splits = separate_data(len(dataset), seed=0)
     print(model.__class__.__name__)
@@ -424,6 +411,7 @@ def main(args, cluster=None):
         
         test_acc = 0
         acc_temp = []
+        reward_tmp = []
         for epoch in range(1, args.epochs+1):
             if args.verbose or epoch == 350:
                 start = time.time()
@@ -434,29 +422,35 @@ def main(args, cluster=None):
             else:
                 gumbel_warmup = args.gumbel_warmup
             model.temp = cos_anneal(gumbel_warmup, gumbel_warmup + args.gumbel_decay_epochs, args.gumbel_temp, args.gumbel_min_temp, epoch)
-            train_loss, train_acc, train_aux_acc = train(epoch, train_loader, optimizer)
+            train_loss, train_acc, train_aux_acc, train_reward = train(epoch, train_loader, optimizer)
             scheduler.step()
             test_acc = test(test_loader)
             if args.verbose or epoch == 350:
-                print('Epoch: {:03d}, LR: {:.7f}, Gumbel Temp: {:.4f}, Train Loss: {:.7f}, Train Acc: {:.4f}, Train Aux Acc: {:.4f}, Test Acc: {:.4f}, Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}, Steps: {:02d}'.format(epoch, lr, model.temp, train_loss, train_acc, train_aux_acc, test_acc, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3, len(train_loader)), flush=True)
+                print('Epoch: {:03d}, LR: {:.7f}, Gumbel Temp: {:.4f}, Train Loss: {:.7f}, Train Acc: {:.4f}, Train Aux Acc: {:.4f}, Test Acc: {:.4f}, Reward: {:.4f} , Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}, Steps: {:02d}'.format(epoch, lr, model.temp, train_loss, train_acc, train_aux_acc, test_acc, train_reward, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3, len(train_loader)), flush=True)
             acc_temp.append(test_acc)
+            reward_tmp.append(train_reward)
         acc.append(torch.tensor(acc_temp))
+        reward.append(torch.tensor(reward_tmp))
 
-    
-    
+
     acc = torch.stack(acc, dim=0)
     acc_mean = acc.mean(dim=0)
-
-    print('size of acc', acc.size(),'size of acc_mean', acc_mean.size(), flush=True)
-    save_path = 'log/graph_classification_rl/' + time.time().__str__()
-    plot_learning_curve(np.arange(1, args.epochs+1), acc_mean, 'Learning Curve', 'Accuracy', save_path+args.dataset+'.png')
-    # plot_learning_curve
 
     best_epoch = acc_mean.argmax().item()
     print('---------------- Final Epoch Result ----------------')
     print('Mean: {:7f}, Std: {:7f}'.format(acc[:,-1].mean(), acc[:,-1].std(), ))
     print(f'---------------- Best Epoch: {best_epoch} ----------------')
     print('Mean: {:7f}, Std: {:7f}'.format(acc[:,best_epoch].mean(), acc[:,best_epoch].std()), flush=True)
+
+    # plot_learning_curve
+    print('size of acc', acc.size(),'size of acc_mean', acc_mean.size(), flush=True)
+    save_path = 'log/graph_classification_rl/results/figs/'
+    plot_learning_curve(np.arange(1, args.epochs+1), acc_mean, 'Learning Curve', 'Accuracy', save_path+args.dataset+'_rl_acc.png')
+
+    reward = torch.stack(reward, dim=0)
+    reward_mean = reward.mean(dim=0)
+    plot_learning_curve(np.arange(1, args.epochs+1), reward_mean, 'Learning Curve', 'Reward', save_path+args.dataset+'_rl_reward.png')
+
 
 if __name__ == '__main__':
     parser = add_model_args(None, hyper=True)
@@ -492,6 +486,7 @@ if __name__ == '__main__':
  
 
     parser.add_argument('--model_type', type=str, default='agent')
+    parser.add_argument('--gpu_id', type=str, default="0")
     
 
     args = parser.parse_args()

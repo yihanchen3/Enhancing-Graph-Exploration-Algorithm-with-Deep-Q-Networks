@@ -1,0 +1,255 @@
+torch.cuda.device_count: 4, Current GPU ID: 3
+----------------------------------------------------------------------------------------------------
+Hyperparameters:
+dropout             : 0.0
+use_aux_loss        : False
+lr                  : 0.0001
+num_agents          : 20
+reduce              : log
+epochs              : 350
+warmup              : 0
+self_loops          : True
+node_readout        : False
+use_step_readout_lin: False
+gumbel_temp         : 0.66666667
+gumbel_min_temp     : 0.66666667
+gumbel_warmup       : -1
+gumbel_decay_epochs : 500
+min_lr_mult         : 1e-07
+weight_decay        : 0.01
+num_pos_attention_heads: 1
+clip_grad           : 1.0
+readout_mlp         : False
+post_ln             : False
+attn_dropout        : 0.0
+no_time_cond        : False
+mlp_width_mult      : 2
+activation_function : leaky_relu
+negative_slope      : 0.01
+input_mlp           : True
+attn_width_mult     : 1
+importance_init     : False
+random_agent        : False
+test_argmax         : False
+global_agent_pool   : True
+agent_global_extra  : False
+basic_global_agent  : False
+basic_agent         : False
+bias_attention      : True
+visited_decay       : 0.9
+sparse_conv         : False
+mean_pool_only      : False
+edge_negative_slope : 0.2
+final_readout_only  : False
+batch_size          : 32
+hidden_units        : 128
+num_steps           : 16
+iters_per_epoch     : 50
+verbose             : True
+slurm               : False
+grid_search         : False
+gpu_jobs            : False
+dataset             : IMDB-BINARY
+one_hot_degree      : False
+baseline_in_mlp     : False
+layers_per_conv     : 1
+model_type          : agent
+hpc_exp_number      : None
+trials              : <bound method HyperOptArgumentParser.opt_trials of HyperOptArgumentParser(prog='graph_classification_rl.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel   : <bound method HyperOptArgumentParser.optimize_parallel of HyperOptArgumentParser(prog='graph_classification_rl.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_gpu: <bound method HyperOptArgumentParser.optimize_parallel_gpu of HyperOptArgumentParser(prog='graph_classification_rl.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_cpu: <bound method HyperOptArgumentParser.optimize_parallel_cpu of HyperOptArgumentParser(prog='graph_classification_rl.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+generate_trials     : <bound method HyperOptArgumentParser.generate_trials of HyperOptArgumentParser(prog='graph_classification_rl.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_trials_parallel_gpu: <bound method HyperOptArgumentParser.optimize_trials_parallel_gpu of HyperOptArgumentParser(prog='graph_classification_rl.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+
+Downloading https://www.chrsmrrs.com/graphkerneldatasets/IMDB-BINARY.zip
+Extracting /home/uceeyc6/AgentNet/data/IMDB-BINARY_constant/IMDB-BINARY/IMDB-BINARY.zip
+Processing...
+Done!
+IMDB-BINARY(1000)
+Mean Degree: 9.763920783996582
+Max Degree: 135
+Min Degree: 1
+Mean number of nodes: 19.773000717163086
+Max number of nodes: 136.0
+Min number of nodes: 12.0
+Number of graphs: 1000
+Number of runs: 19.773000717163086
+Sampling probability: 0.09627882014886556
+Device: cuda
+AgentNet
+---------------- Split 0 ----------------
+Epoch: 001, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.6974097, Train Acc: 0.5613, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -561.1875 , Time: 745.2865, Mem: 1.000, Cached: 1.234, Steps: 50
+Epoch: 002, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.6821718, Train Acc: 0.5619, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -567.5625 , Time: 941.5632, Mem: 1.010, Cached: 1.303, Steps: 50
+Epoch: 003, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.7207480, Train Acc: 0.5300, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -560.1250 , Time: 940.9676, Mem: 0.958, Cached: 1.303, Steps: 50
+Epoch: 004, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.7070684, Train Acc: 0.5069, Train Aux Acc: 0.0000, Test Acc: 0.6500, Reward: -563.0000 , Time: 940.5575, Mem: 1.006, Cached: 1.303, Steps: 50
+Epoch: 005, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.6938392, Train Acc: 0.5256, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -560.0625 , Time: 940.7573, Mem: 0.967, Cached: 1.303, Steps: 50
+Epoch: 006, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.6783939, Train Acc: 0.5600, Train Aux Acc: 0.0000, Test Acc: 0.5600, Reward: -566.7500 , Time: 940.4030, Mem: 0.974, Cached: 1.303, Steps: 50
+Epoch: 007, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.6891575, Train Acc: 0.5637, Train Aux Acc: 0.0000, Test Acc: 0.5300, Reward: -558.8125 , Time: 940.6952, Mem: 1.000, Cached: 1.303, Steps: 50
+Epoch: 008, LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.6799310, Train Acc: 0.5675, Train Aux Acc: 0.0000, Test Acc: 0.5300, Reward: -569.0625 , Time: 940.3977, Mem: 1.024, Cached: 1.303, Steps: 50
+Epoch: 009, LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.6857530, Train Acc: 0.5694, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -558.5625 , Time: 939.2434, Mem: 0.993, Cached: 1.303, Steps: 50
+Epoch: 010, LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.6950662, Train Acc: 0.5550, Train Aux Acc: 0.0000, Test Acc: 0.5600, Reward: -566.6875 , Time: 938.7918, Mem: 0.980, Cached: 1.303, Steps: 50
+Epoch: 011, LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.6767614, Train Acc: 0.5931, Train Aux Acc: 0.0000, Test Acc: 0.5900, Reward: -560.3750 , Time: 939.4440, Mem: 1.014, Cached: 1.303, Steps: 50
+Epoch: 012, LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.6797126, Train Acc: 0.5819, Train Aux Acc: 0.0000, Test Acc: 0.6600, Reward: -560.0000 , Time: 939.3099, Mem: 0.990, Cached: 1.303, Steps: 50
+Epoch: 013, LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.6845054, Train Acc: 0.5387, Train Aux Acc: 0.0000, Test Acc: 0.5400, Reward: -560.0625 , Time: 939.1448, Mem: 0.983, Cached: 1.303, Steps: 50
+Epoch: 014, LR: 0.0000998, Gumbel Temp: 0.6667, Train Loss: 0.6828619, Train Acc: 0.5713, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -561.5000 , Time: 939.2487, Mem: 1.021, Cached: 1.303, Steps: 50
+Epoch: 015, LR: 0.0000998, Gumbel Temp: 0.6667, Train Loss: 0.6812910, Train Acc: 0.5813, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -568.1250 , Time: 939.6067, Mem: 0.988, Cached: 1.303, Steps: 50
+Epoch: 016, LR: 0.0000998, Gumbel Temp: 0.6667, Train Loss: 0.7014600, Train Acc: 0.5250, Train Aux Acc: 0.0000, Test Acc: 0.6000, Reward: -563.3750 , Time: 941.4500, Mem: 0.974, Cached: 1.303, Steps: 50
+Epoch: 017, LR: 0.0000997, Gumbel Temp: 0.6667, Train Loss: 0.6794226, Train Acc: 0.5687, Train Aux Acc: 0.0000, Test Acc: 0.6100, Reward: -554.0625 , Time: 940.7089, Mem: 0.977, Cached: 1.303, Steps: 50
+Epoch: 018, LR: 0.0000997, Gumbel Temp: 0.6667, Train Loss: 0.6794972, Train Acc: 0.5825, Train Aux Acc: 0.0000, Test Acc: 0.6200, Reward: -568.4375 , Time: 940.1197, Mem: 1.008, Cached: 1.330, Steps: 50
+Epoch: 019, LR: 0.0000997, Gumbel Temp: 0.6667, Train Loss: 0.6755430, Train Acc: 0.5794, Train Aux Acc: 0.0000, Test Acc: 0.6700, Reward: -562.3125 , Time: 940.0830, Mem: 0.998, Cached: 1.330, Steps: 50
+Epoch: 020, LR: 0.0000996, Gumbel Temp: 0.6667, Train Loss: 0.6766839, Train Acc: 0.5731, Train Aux Acc: 0.0000, Test Acc: 0.5300, Reward: -560.2500 , Time: 941.0146, Mem: 0.982, Cached: 1.330, Steps: 50
+Epoch: 021, LR: 0.0000996, Gumbel Temp: 0.6667, Train Loss: 0.6934801, Train Acc: 0.5450, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -559.5000 , Time: 939.6657, Mem: 1.016, Cached: 1.344, Steps: 50
+Epoch: 022, LR: 0.0000996, Gumbel Temp: 0.6667, Train Loss: 0.6882130, Train Acc: 0.5381, Train Aux Acc: 0.0000, Test Acc: 0.4700, Reward: -563.4375 , Time: 939.6833, Mem: 0.972, Cached: 1.344, Steps: 50
+Epoch: 023, LR: 0.0000995, Gumbel Temp: 0.6667, Train Loss: 0.6848745, Train Acc: 0.5463, Train Aux Acc: 0.0000, Test Acc: 0.5900, Reward: -557.3125 , Time: 940.4886, Mem: 0.972, Cached: 1.344, Steps: 50
+Epoch: 024, LR: 0.0000995, Gumbel Temp: 0.6667, Train Loss: 0.6899381, Train Acc: 0.5481, Train Aux Acc: 0.0000, Test Acc: 0.6400, Reward: -561.5625 , Time: 940.1977, Mem: 0.958, Cached: 1.344, Steps: 50
+Epoch: 025, LR: 0.0000994, Gumbel Temp: 0.6667, Train Loss: 0.6839384, Train Acc: 0.5781, Train Aux Acc: 0.0000, Test Acc: 0.7000, Reward: -564.1250 , Time: 938.8364, Mem: 0.981, Cached: 1.344, Steps: 50
+Epoch: 026, LR: 0.0000994, Gumbel Temp: 0.6667, Train Loss: 0.6835296, Train Acc: 0.5669, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -559.1250 , Time: 939.7095, Mem: 1.020, Cached: 1.344, Steps: 50
+Epoch: 027, LR: 0.0000993, Gumbel Temp: 0.6667, Train Loss: 0.6755063, Train Acc: 0.5944, Train Aux Acc: 0.0000, Test Acc: 0.6300, Reward: -563.1250 , Time: 939.4607, Mem: 0.971, Cached: 1.344, Steps: 50
+Epoch: 028, LR: 0.0000993, Gumbel Temp: 0.6667, Train Loss: 0.6829519, Train Acc: 0.5856, Train Aux Acc: 0.0000, Test Acc: 0.5500, Reward: -565.3125 , Time: 939.7008, Mem: 0.985, Cached: 1.344, Steps: 50
+Epoch: 029, LR: 0.0000992, Gumbel Temp: 0.6667, Train Loss: 0.6855360, Train Acc: 0.5594, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -553.9375 , Time: 938.7419, Mem: 0.994, Cached: 1.344, Steps: 50
+Epoch: 030, LR: 0.0000992, Gumbel Temp: 0.6667, Train Loss: 0.6902275, Train Acc: 0.5400, Train Aux Acc: 0.0000, Test Acc: 0.6600, Reward: -561.4375 , Time: 939.0177, Mem: 1.015, Cached: 1.344, Steps: 50
+Epoch: 031, LR: 0.0000991, Gumbel Temp: 0.6667, Train Loss: 0.6813992, Train Acc: 0.5556, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -560.3125 , Time: 941.1231, Mem: 0.992, Cached: 1.344, Steps: 50
+Epoch: 032, LR: 0.0000990, Gumbel Temp: 0.6667, Train Loss: 0.6869664, Train Acc: 0.5419, Train Aux Acc: 0.0000, Test Acc: 0.5600, Reward: -569.1875 , Time: 941.4830, Mem: 0.979, Cached: 1.344, Steps: 50
+Epoch: 033, LR: 0.0000990, Gumbel Temp: 0.6667, Train Loss: 0.6818905, Train Acc: 0.5844, Train Aux Acc: 0.0000, Test Acc: 0.6600, Reward: -575.7500 , Time: 941.6197, Mem: 1.012, Cached: 1.344, Steps: 50
+Epoch: 034, LR: 0.0000989, Gumbel Temp: 0.6667, Train Loss: 0.6789055, Train Acc: 0.5731, Train Aux Acc: 0.0000, Test Acc: 0.6900, Reward: -564.7500 , Time: 939.4824, Mem: 1.003, Cached: 1.344, Steps: 50
+Epoch: 035, LR: 0.0000988, Gumbel Temp: 0.6667, Train Loss: 0.6778397, Train Acc: 0.5969, Train Aux Acc: 0.0000, Test Acc: 0.6000, Reward: -566.8125 , Time: 940.9561, Mem: 1.007, Cached: 1.346, Steps: 50
+Epoch: 036, LR: 0.0000988, Gumbel Temp: 0.6667, Train Loss: 0.6924430, Train Acc: 0.5431, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -569.1250 , Time: 939.7597, Mem: 1.019, Cached: 1.377, Steps: 50
+Epoch: 037, LR: 0.0000987, Gumbel Temp: 0.6667, Train Loss: 0.7036304, Train Acc: 0.5231, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -563.8125 , Time: 939.5656, Mem: 1.004, Cached: 1.377, Steps: 50
+Epoch: 038, LR: 0.0000986, Gumbel Temp: 0.6667, Train Loss: 0.6897046, Train Acc: 0.5413, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -566.8125 , Time: 939.2220, Mem: 0.973, Cached: 1.377, Steps: 50
+Epoch: 039, LR: 0.0000985, Gumbel Temp: 0.6667, Train Loss: 0.6982664, Train Acc: 0.5356, Train Aux Acc: 0.0000, Test Acc: 0.5800, Reward: -562.5000 , Time: 940.6920, Mem: 0.957, Cached: 1.377, Steps: 50
+Epoch: 040, LR: 0.0000985, Gumbel Temp: 0.6667, Train Loss: 0.6863536, Train Acc: 0.5587, Train Aux Acc: 0.0000, Test Acc: 0.6300, Reward: -567.1250 , Time: 940.0011, Mem: 0.961, Cached: 1.377, Steps: 50
+Epoch: 041, LR: 0.0000984, Gumbel Temp: 0.6667, Train Loss: 0.6965687, Train Acc: 0.5244, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -561.9375 , Time: 940.1302, Mem: 0.989, Cached: 1.377, Steps: 50
+Epoch: 042, LR: 0.0000983, Gumbel Temp: 0.6667, Train Loss: 0.6880119, Train Acc: 0.5500, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -569.3125 , Time: 939.5115, Mem: 0.946, Cached: 1.377, Steps: 50
+Epoch: 043, LR: 0.0000982, Gumbel Temp: 0.6667, Train Loss: 0.6831432, Train Acc: 0.5431, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -566.2500 , Time: 939.9783, Mem: 0.979, Cached: 1.377, Steps: 50
+Epoch: 044, LR: 0.0000981, Gumbel Temp: 0.6667, Train Loss: 0.6938531, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.5400, Reward: -568.5000 , Time: 938.6377, Mem: 1.007, Cached: 1.377, Steps: 50
+Epoch: 045, LR: 0.0000981, Gumbel Temp: 0.6667, Train Loss: 0.6891547, Train Acc: 0.5450, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -563.0000 , Time: 939.8605, Mem: 0.975, Cached: 1.377, Steps: 50
+Epoch: 046, LR: 0.0000980, Gumbel Temp: 0.6667, Train Loss: 0.7033367, Train Acc: 0.5075, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -564.0625 , Time: 939.1219, Mem: 0.972, Cached: 1.377, Steps: 50
+Epoch: 047, LR: 0.0000979, Gumbel Temp: 0.6667, Train Loss: 0.6871306, Train Acc: 0.5413, Train Aux Acc: 0.0000, Test Acc: 0.6100, Reward: -558.6250 , Time: 940.0038, Mem: 1.010, Cached: 1.404, Steps: 50
+Epoch: 048, LR: 0.0000978, Gumbel Temp: 0.6667, Train Loss: 0.6807629, Train Acc: 0.5563, Train Aux Acc: 0.0000, Test Acc: 0.6200, Reward: -563.6250 , Time: 938.8830, Mem: 0.973, Cached: 1.404, Steps: 50
+Epoch: 049, LR: 0.0000977, Gumbel Temp: 0.6667, Train Loss: 0.6831205, Train Acc: 0.5813, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -557.8750 , Time: 939.8295, Mem: 1.005, Cached: 1.404, Steps: 50
+Epoch: 050, LR: 0.0000976, Gumbel Temp: 0.6667, Train Loss: 0.7009797, Train Acc: 0.5369, Train Aux Acc: 0.0000, Test Acc: 0.6400, Reward: -563.0000 , Time: 938.7509, Mem: 0.995, Cached: 1.404, Steps: 50
+Epoch: 051, LR: 0.0000975, Gumbel Temp: 0.6667, Train Loss: 0.6863042, Train Acc: 0.5556, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -565.0000 , Time: 939.6406, Mem: 0.986, Cached: 1.404, Steps: 50
+Epoch: 052, LR: 0.0000974, Gumbel Temp: 0.6667, Train Loss: 0.6970350, Train Acc: 0.5431, Train Aux Acc: 0.0000, Test Acc: 0.6100, Reward: -575.1250 , Time: 939.0409, Mem: 0.962, Cached: 1.404, Steps: 50
+Epoch: 053, LR: 0.0000973, Gumbel Temp: 0.6667, Train Loss: 0.6843825, Train Acc: 0.5869, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -563.5000 , Time: 939.6765, Mem: 0.989, Cached: 1.404, Steps: 50
+Epoch: 054, LR: 0.0000972, Gumbel Temp: 0.6667, Train Loss: 0.6919397, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -551.8750 , Time: 938.6744, Mem: 1.009, Cached: 1.404, Steps: 50
+Epoch: 055, LR: 0.0000971, Gumbel Temp: 0.6667, Train Loss: 0.6944795, Train Acc: 0.5112, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -571.6250 , Time: 1078.4720, Mem: 0.983, Cached: 1.404, Steps: 50
+Epoch: 056, LR: 0.0000970, Gumbel Temp: 0.6667, Train Loss: 0.6910471, Train Acc: 0.5613, Train Aux Acc: 0.0000, Test Acc: 0.6800, Reward: -556.8750 , Time: 1258.2548, Mem: 0.965, Cached: 1.404, Steps: 50
+Epoch: 057, LR: 0.0000969, Gumbel Temp: 0.6667, Train Loss: 0.6888453, Train Acc: 0.5581, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -561.9375 , Time: 1304.4085, Mem: 0.983, Cached: 1.404, Steps: 50
+Epoch: 058, LR: 0.0000967, Gumbel Temp: 0.6667, Train Loss: 0.6922744, Train Acc: 0.5238, Train Aux Acc: 0.0000, Test Acc: 0.6400, Reward: -564.4375 , Time: 1301.4263, Mem: 0.987, Cached: 1.404, Steps: 50
+Epoch: 059, LR: 0.0000966, Gumbel Temp: 0.6667, Train Loss: 0.6947771, Train Acc: 0.5344, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -567.3125 , Time: 1294.9400, Mem: 0.967, Cached: 1.404, Steps: 50
+Epoch: 060, LR: 0.0000965, Gumbel Temp: 0.6667, Train Loss: 0.6903623, Train Acc: 0.5294, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -557.6250 , Time: 1340.6861, Mem: 0.995, Cached: 1.404, Steps: 50
+Epoch: 061, LR: 0.0000964, Gumbel Temp: 0.6667, Train Loss: 0.6887651, Train Acc: 0.5337, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -557.3125 , Time: 1301.4035, Mem: 1.007, Cached: 1.404, Steps: 50
+Epoch: 062, LR: 0.0000963, Gumbel Temp: 0.6667, Train Loss: 0.6869885, Train Acc: 0.5494, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -563.5625 , Time: 1299.9591, Mem: 0.999, Cached: 1.404, Steps: 50
+Epoch: 063, LR: 0.0000962, Gumbel Temp: 0.6667, Train Loss: 0.6871829, Train Acc: 0.5419, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -570.5000 , Time: 1298.2705, Mem: 1.002, Cached: 1.404, Steps: 50
+Epoch: 064, LR: 0.0000960, Gumbel Temp: 0.6667, Train Loss: 0.6868987, Train Acc: 0.5613, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -563.3750 , Time: 1298.5438, Mem: 0.995, Cached: 1.404, Steps: 50
+Epoch: 065, LR: 0.0000959, Gumbel Temp: 0.6667, Train Loss: 0.6971727, Train Acc: 0.5044, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -562.2500 , Time: 1314.8941, Mem: 0.976, Cached: 1.404, Steps: 50
+Epoch: 066, LR: 0.0000958, Gumbel Temp: 0.6667, Train Loss: 0.6866167, Train Acc: 0.5769, Train Aux Acc: 0.0000, Test Acc: 0.6300, Reward: -570.7500 , Time: 1296.9697, Mem: 1.007, Cached: 1.404, Steps: 50
+Epoch: 067, LR: 0.0000956, Gumbel Temp: 0.6667, Train Loss: 0.6930789, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -572.0625 , Time: 1297.2139, Mem: 0.993, Cached: 1.404, Steps: 50
+Epoch: 068, LR: 0.0000955, Gumbel Temp: 0.6667, Train Loss: 0.6932385, Train Acc: 0.5150, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -562.6250 , Time: 1298.7808, Mem: 0.976, Cached: 1.404, Steps: 50
+Epoch: 069, LR: 0.0000954, Gumbel Temp: 0.6667, Train Loss: 0.6906342, Train Acc: 0.5262, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -564.8125 , Time: 1299.9080, Mem: 0.986, Cached: 1.404, Steps: 50
+Epoch: 070, LR: 0.0000952, Gumbel Temp: 0.6667, Train Loss: 0.6917477, Train Acc: 0.5219, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -558.4375 , Time: 1104.4096, Mem: 0.975, Cached: 1.404, Steps: 50
+Epoch: 071, LR: 0.0000951, Gumbel Temp: 0.6667, Train Loss: 0.6992325, Train Acc: 0.5175, Train Aux Acc: 0.0000, Test Acc: 0.6700, Reward: -560.4375 , Time: 1100.3552, Mem: 0.969, Cached: 1.404, Steps: 50
+Epoch: 072, LR: 0.0000950, Gumbel Temp: 0.6667, Train Loss: 0.6922636, Train Acc: 0.5138, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -558.1250 , Time: 1172.1822, Mem: 0.968, Cached: 1.404, Steps: 50
+Epoch: 073, LR: 0.0000948, Gumbel Temp: 0.6667, Train Loss: 0.6945383, Train Acc: 0.5219, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -565.3125 , Time: 1093.1469, Mem: 0.998, Cached: 1.404, Steps: 50
+Epoch: 074, LR: 0.0000947, Gumbel Temp: 0.6667, Train Loss: 0.6959466, Train Acc: 0.5225, Train Aux Acc: 0.0000, Test Acc: 0.5300, Reward: -560.6250 , Time: 1111.1687, Mem: 0.991, Cached: 1.404, Steps: 50
+Epoch: 075, LR: 0.0000945, Gumbel Temp: 0.6667, Train Loss: 0.6921282, Train Acc: 0.5088, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -572.6875 , Time: 1294.1434, Mem: 1.009, Cached: 1.404, Steps: 50
+Epoch: 076, LR: 0.0000944, Gumbel Temp: 0.6667, Train Loss: 0.6930094, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -557.0625 , Time: 1661.6754, Mem: 0.968, Cached: 1.404, Steps: 50
+Epoch: 077, LR: 0.0000942, Gumbel Temp: 0.6667, Train Loss: 0.6889751, Train Acc: 0.5331, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -569.0000 , Time: 1026.7526, Mem: 0.985, Cached: 1.404, Steps: 50
+Epoch: 078, LR: 0.0000941, Gumbel Temp: 0.6667, Train Loss: 0.6938771, Train Acc: 0.5288, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -559.3750 , Time: 940.2994, Mem: 0.986, Cached: 1.404, Steps: 50
+Epoch: 079, LR: 0.0000939, Gumbel Temp: 0.6667, Train Loss: 0.6968654, Train Acc: 0.5369, Train Aux Acc: 0.0000, Test Acc: 0.6400, Reward: -563.0000 , Time: 939.3780, Mem: 0.970, Cached: 1.404, Steps: 50
+Epoch: 080, LR: 0.0000938, Gumbel Temp: 0.6667, Train Loss: 0.6895776, Train Acc: 0.5363, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -557.0000 , Time: 959.8510, Mem: 1.029, Cached: 1.404, Steps: 50
+Epoch: 081, LR: 0.0000936, Gumbel Temp: 0.6667, Train Loss: 0.6899833, Train Acc: 0.5219, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -564.3750 , Time: 993.2506, Mem: 0.972, Cached: 1.404, Steps: 50
+Epoch: 082, LR: 0.0000935, Gumbel Temp: 0.6667, Train Loss: 0.6925886, Train Acc: 0.5212, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -559.7500 , Time: 939.2364, Mem: 0.969, Cached: 1.404, Steps: 50
+Epoch: 083, LR: 0.0000933, Gumbel Temp: 0.6667, Train Loss: 0.6925395, Train Acc: 0.5306, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -569.0000 , Time: 939.3510, Mem: 1.030, Cached: 1.459, Steps: 50
+Epoch: 084, LR: 0.0000931, Gumbel Temp: 0.6667, Train Loss: 0.6907814, Train Acc: 0.5269, Train Aux Acc: 0.0000, Test Acc: 0.7100, Reward: -561.0625 , Time: 938.9088, Mem: 1.032, Cached: 1.459, Steps: 50
+Epoch: 085, LR: 0.0000930, Gumbel Temp: 0.6667, Train Loss: 0.6951983, Train Acc: 0.5225, Train Aux Acc: 0.0000, Test Acc: 0.6800, Reward: -573.2500 , Time: 938.9574, Mem: 1.000, Cached: 1.459, Steps: 50
+Epoch: 086, LR: 0.0000928, Gumbel Temp: 0.6667, Train Loss: 0.6969983, Train Acc: 0.5125, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -565.1250 , Time: 938.5464, Mem: 0.993, Cached: 1.459, Steps: 50
+Epoch: 087, LR: 0.0000926, Gumbel Temp: 0.6667, Train Loss: 0.6937803, Train Acc: 0.5131, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -570.2500 , Time: 938.8633, Mem: 1.011, Cached: 1.459, Steps: 50
+Epoch: 088, LR: 0.0000925, Gumbel Temp: 0.6667, Train Loss: 0.6899939, Train Acc: 0.5250, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -575.7500 , Time: 939.2031, Mem: 0.999, Cached: 1.459, Steps: 50
+Epoch: 089, LR: 0.0000923, Gumbel Temp: 0.6667, Train Loss: 0.6944572, Train Acc: 0.5169, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -575.1250 , Time: 938.9683, Mem: 0.985, Cached: 1.459, Steps: 50
+Epoch: 090, LR: 0.0000921, Gumbel Temp: 0.6667, Train Loss: 0.6914684, Train Acc: 0.5281, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -556.4375 , Time: 938.8679, Mem: 0.992, Cached: 1.459, Steps: 50
+Epoch: 091, LR: 0.0000920, Gumbel Temp: 0.6667, Train Loss: 0.6915389, Train Acc: 0.5181, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -564.0625 , Time: 938.9872, Mem: 0.951, Cached: 1.459, Steps: 50
+Epoch: 092, LR: 0.0000918, Gumbel Temp: 0.6667, Train Loss: 0.6943653, Train Acc: 0.4988, Train Aux Acc: 0.0000, Test Acc: 0.5300, Reward: -558.6875 , Time: 939.1208, Mem: 0.977, Cached: 1.459, Steps: 50
+Epoch: 093, LR: 0.0000916, Gumbel Temp: 0.6667, Train Loss: 0.6920442, Train Acc: 0.5288, Train Aux Acc: 0.0000, Test Acc: 0.5600, Reward: -569.4375 , Time: 939.7848, Mem: 0.993, Cached: 1.459, Steps: 50
+Epoch: 094, LR: 0.0000914, Gumbel Temp: 0.6667, Train Loss: 0.6963804, Train Acc: 0.5194, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -563.4375 , Time: 943.2389, Mem: 0.987, Cached: 1.459, Steps: 50
+Epoch: 095, LR: 0.0000912, Gumbel Temp: 0.6667, Train Loss: 0.6935746, Train Acc: 0.5281, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -557.0000 , Time: 941.6133, Mem: 0.994, Cached: 1.459, Steps: 50
+Epoch: 096, LR: 0.0000910, Gumbel Temp: 0.6667, Train Loss: 0.6959561, Train Acc: 0.5156, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -567.0000 , Time: 942.0092, Mem: 0.988, Cached: 1.459, Steps: 50
+Epoch: 097, LR: 0.0000909, Gumbel Temp: 0.6667, Train Loss: 0.6958754, Train Acc: 0.5138, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -573.8125 , Time: 942.4369, Mem: 1.003, Cached: 1.459, Steps: 50
+Epoch: 098, LR: 0.0000907, Gumbel Temp: 0.6667, Train Loss: 0.7022419, Train Acc: 0.4850, Train Aux Acc: 0.0000, Test Acc: 0.6000, Reward: -563.0625 , Time: 942.0341, Mem: 0.983, Cached: 1.459, Steps: 50
+Epoch: 099, LR: 0.0000905, Gumbel Temp: 0.6667, Train Loss: 0.6983821, Train Acc: 0.5125, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -560.2500 , Time: 941.0807, Mem: 1.000, Cached: 1.459, Steps: 50
+Epoch: 100, LR: 0.0000903, Gumbel Temp: 0.6667, Train Loss: 0.6954433, Train Acc: 0.5188, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -561.5000 , Time: 939.7501, Mem: 0.974, Cached: 1.459, Steps: 50
+Epoch: 101, LR: 0.0000901, Gumbel Temp: 0.6667, Train Loss: 0.6947162, Train Acc: 0.5331, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -572.3750 , Time: 939.4320, Mem: 1.003, Cached: 1.459, Steps: 50
+Epoch: 102, LR: 0.0000899, Gumbel Temp: 0.6667, Train Loss: 0.6930361, Train Acc: 0.5181, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -564.3125 , Time: 939.4985, Mem: 1.018, Cached: 1.459, Steps: 50
+Epoch: 103, LR: 0.0000897, Gumbel Temp: 0.6667, Train Loss: 0.6980689, Train Acc: 0.5262, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -563.3125 , Time: 940.2350, Mem: 0.993, Cached: 1.461, Steps: 50
+Epoch: 104, LR: 0.0000895, Gumbel Temp: 0.6667, Train Loss: 0.7043064, Train Acc: 0.5156, Train Aux Acc: 0.0000, Test Acc: 0.4800, Reward: -562.0000 , Time: 940.2098, Mem: 0.976, Cached: 1.461, Steps: 50
+Epoch: 105, LR: 0.0000893, Gumbel Temp: 0.6667, Train Loss: 0.6882969, Train Acc: 0.5444, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -560.2500 , Time: 947.3466, Mem: 1.014, Cached: 1.461, Steps: 50
+Epoch: 106, LR: 0.0000891, Gumbel Temp: 0.6667, Train Loss: 0.6928685, Train Acc: 0.5300, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -556.5625 , Time: 939.1429, Mem: 0.983, Cached: 1.461, Steps: 50
+Epoch: 107, LR: 0.0000889, Gumbel Temp: 0.6667, Train Loss: 0.6911333, Train Acc: 0.5406, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -567.8125 , Time: 942.8402, Mem: 0.994, Cached: 1.461, Steps: 50
+Epoch: 108, LR: 0.0000887, Gumbel Temp: 0.6667, Train Loss: 0.6909209, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.6500, Reward: -559.8750 , Time: 945.8987, Mem: 0.969, Cached: 1.461, Steps: 50
+Epoch: 109, LR: 0.0000885, Gumbel Temp: 0.6667, Train Loss: 0.6931233, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.7500, Reward: -558.3125 , Time: 941.4196, Mem: 0.967, Cached: 1.461, Steps: 50
+Epoch: 110, LR: 0.0000883, Gumbel Temp: 0.6667, Train Loss: 0.6892484, Train Acc: 0.5250, Train Aux Acc: 0.0000, Test Acc: 0.6900, Reward: -564.3750 , Time: 939.2666, Mem: 0.957, Cached: 1.461, Steps: 50
+Epoch: 111, LR: 0.0000881, Gumbel Temp: 0.6667, Train Loss: 0.6930498, Train Acc: 0.5194, Train Aux Acc: 0.0000, Test Acc: 0.5400, Reward: -561.5000 , Time: 942.3625, Mem: 0.995, Cached: 1.461, Steps: 50
+Epoch: 112, LR: 0.0000878, Gumbel Temp: 0.6667, Train Loss: 0.6962317, Train Acc: 0.5150, Train Aux Acc: 0.0000, Test Acc: 0.5600, Reward: -566.5000 , Time: 940.5472, Mem: 0.996, Cached: 1.461, Steps: 50
+Epoch: 113, LR: 0.0000876, Gumbel Temp: 0.6667, Train Loss: 0.6966565, Train Acc: 0.4988, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -558.8125 , Time: 940.8716, Mem: 0.993, Cached: 1.461, Steps: 50
+Epoch: 114, LR: 0.0000874, Gumbel Temp: 0.6667, Train Loss: 0.6996221, Train Acc: 0.5194, Train Aux Acc: 0.0000, Test Acc: 0.5900, Reward: -560.1875 , Time: 940.2103, Mem: 1.036, Cached: 1.461, Steps: 50
+Epoch: 115, LR: 0.0000872, Gumbel Temp: 0.6667, Train Loss: 0.6883010, Train Acc: 0.5381, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -561.1250 , Time: 941.1921, Mem: 1.062, Cached: 1.461, Steps: 50
+Epoch: 116, LR: 0.0000870, Gumbel Temp: 0.6667, Train Loss: 0.6921473, Train Acc: 0.5288, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -572.3750 , Time: 945.4339, Mem: 0.989, Cached: 1.461, Steps: 50
+Epoch: 117, LR: 0.0000868, Gumbel Temp: 0.6667, Train Loss: 0.6985981, Train Acc: 0.5031, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -565.5000 , Time: 939.6870, Mem: 0.961, Cached: 1.461, Steps: 50
+Epoch: 118, LR: 0.0000865, Gumbel Temp: 0.6667, Train Loss: 0.6930288, Train Acc: 0.5231, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -559.8750 , Time: 939.1695, Mem: 0.982, Cached: 1.461, Steps: 50
+Epoch: 119, LR: 0.0000863, Gumbel Temp: 0.6667, Train Loss: 0.7017547, Train Acc: 0.5106, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -565.2500 , Time: 939.1366, Mem: 0.962, Cached: 1.461, Steps: 50
+Epoch: 120, LR: 0.0000861, Gumbel Temp: 0.6667, Train Loss: 0.6900439, Train Acc: 0.5344, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -559.1875 , Time: 937.7414, Mem: 0.959, Cached: 1.461, Steps: 50
+Epoch: 121, LR: 0.0000858, Gumbel Temp: 0.6667, Train Loss: 0.7006094, Train Acc: 0.5119, Train Aux Acc: 0.0000, Test Acc: 0.4800, Reward: -567.3125 , Time: 938.3283, Mem: 0.982, Cached: 1.461, Steps: 50
+Epoch: 122, LR: 0.0000856, Gumbel Temp: 0.6667, Train Loss: 0.6936965, Train Acc: 0.5419, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -568.9375 , Time: 941.8273, Mem: 0.994, Cached: 1.461, Steps: 50
+Epoch: 123, LR: 0.0000854, Gumbel Temp: 0.6667, Train Loss: 0.6954352, Train Acc: 0.5244, Train Aux Acc: 0.0000, Test Acc: 0.4800, Reward: -572.6250 , Time: 944.5577, Mem: 0.994, Cached: 1.461, Steps: 50
+Epoch: 124, LR: 0.0000851, Gumbel Temp: 0.6667, Train Loss: 0.6939143, Train Acc: 0.5244, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -560.3750 , Time: 941.2915, Mem: 0.984, Cached: 1.461, Steps: 50
+Epoch: 125, LR: 0.0000849, Gumbel Temp: 0.6667, Train Loss: 0.6905404, Train Acc: 0.5131, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -561.3750 , Time: 942.1358, Mem: 1.003, Cached: 1.461, Steps: 50
+Epoch: 126, LR: 0.0000847, Gumbel Temp: 0.6667, Train Loss: 0.6947054, Train Acc: 0.5069, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -570.5000 , Time: 943.0513, Mem: 0.971, Cached: 1.461, Steps: 50
+Epoch: 127, LR: 0.0000844, Gumbel Temp: 0.6667, Train Loss: 0.7029011, Train Acc: 0.5106, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -565.3750 , Time: 944.5070, Mem: 1.010, Cached: 1.461, Steps: 50
+Epoch: 128, LR: 0.0000842, Gumbel Temp: 0.6667, Train Loss: 0.6959036, Train Acc: 0.5088, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -559.8125 , Time: 943.3182, Mem: 0.989, Cached: 1.461, Steps: 50
+Epoch: 129, LR: 0.0000839, Gumbel Temp: 0.6667, Train Loss: 0.6944865, Train Acc: 0.5231, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -559.9375 , Time: 942.9463, Mem: 0.974, Cached: 1.461, Steps: 50
+Epoch: 130, LR: 0.0000837, Gumbel Temp: 0.6667, Train Loss: 0.7013536, Train Acc: 0.4744, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -563.1250 , Time: 938.6059, Mem: 1.003, Cached: 1.461, Steps: 50
+Epoch: 131, LR: 0.0000835, Gumbel Temp: 0.6667, Train Loss: 0.6974272, Train Acc: 0.5119, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -564.7500 , Time: 944.0318, Mem: 0.993, Cached: 1.461, Steps: 50
+Epoch: 132, LR: 0.0000832, Gumbel Temp: 0.6667, Train Loss: 0.6963620, Train Acc: 0.5138, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -565.8125 , Time: 944.7740, Mem: 1.001, Cached: 1.461, Steps: 50
+Epoch: 133, LR: 0.0000830, Gumbel Temp: 0.6667, Train Loss: 0.6985221, Train Acc: 0.4994, Train Aux Acc: 0.0000, Test Acc: 0.6600, Reward: -558.9375 , Time: 939.8415, Mem: 0.996, Cached: 1.461, Steps: 50
+Epoch: 134, LR: 0.0000827, Gumbel Temp: 0.6667, Train Loss: 0.6891869, Train Acc: 0.5431, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -560.4375 , Time: 943.4970, Mem: 0.980, Cached: 1.461, Steps: 50
+Epoch: 135, LR: 0.0000825, Gumbel Temp: 0.6667, Train Loss: 0.6970610, Train Acc: 0.4969, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -560.1250 , Time: 939.7638, Mem: 0.998, Cached: 1.463, Steps: 50
+Epoch: 136, LR: 0.0000822, Gumbel Temp: 0.6667, Train Loss: 0.6918742, Train Acc: 0.5181, Train Aux Acc: 0.0000, Test Acc: 0.6800, Reward: -562.2500 , Time: 939.6397, Mem: 0.961, Cached: 1.463, Steps: 50
+Epoch: 137, LR: 0.0000819, Gumbel Temp: 0.6667, Train Loss: 0.6925338, Train Acc: 0.5288, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -562.6250 , Time: 939.8652, Mem: 1.002, Cached: 1.463, Steps: 50
+Epoch: 138, LR: 0.0000817, Gumbel Temp: 0.6667, Train Loss: 0.6991188, Train Acc: 0.5112, Train Aux Acc: 0.0000, Test Acc: 0.6100, Reward: -560.2500 , Time: 939.1931, Mem: 0.983, Cached: 1.463, Steps: 50
+Epoch: 139, LR: 0.0000814, Gumbel Temp: 0.6667, Train Loss: 0.6905007, Train Acc: 0.5281, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -566.0000 , Time: 939.9125, Mem: 0.994, Cached: 1.463, Steps: 50
+Epoch: 140, LR: 0.0000812, Gumbel Temp: 0.6667, Train Loss: 0.6965693, Train Acc: 0.5262, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -561.8125 , Time: 939.5128, Mem: 0.994, Cached: 1.463, Steps: 50
+Epoch: 141, LR: 0.0000809, Gumbel Temp: 0.6667, Train Loss: 0.6934400, Train Acc: 0.5119, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -565.3750 , Time: 939.6968, Mem: 1.025, Cached: 1.463, Steps: 50
+Epoch: 142, LR: 0.0000806, Gumbel Temp: 0.6667, Train Loss: 0.6959313, Train Acc: 0.5469, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -562.7500 , Time: 938.2598, Mem: 0.996, Cached: 1.463, Steps: 50
+Epoch: 143, LR: 0.0000804, Gumbel Temp: 0.6667, Train Loss: 0.6998149, Train Acc: 0.5069, Train Aux Acc: 0.0000, Test Acc: 0.4800, Reward: -565.8750 , Time: 1030.7235, Mem: 1.015, Cached: 1.463, Steps: 50
+Epoch: 144, LR: 0.0000801, Gumbel Temp: 0.6667, Train Loss: 0.7042729, Train Acc: 0.4856, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -560.2500 , Time: 1063.3746, Mem: 1.020, Cached: 1.463, Steps: 50
+Epoch: 145, LR: 0.0000798, Gumbel Temp: 0.6667, Train Loss: 0.6947105, Train Acc: 0.5119, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -560.1250 , Time: 1062.2996, Mem: 0.974, Cached: 1.463, Steps: 50
+Epoch: 146, LR: 0.0000796, Gumbel Temp: 0.6667, Train Loss: 0.6901227, Train Acc: 0.5425, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -558.3750 , Time: 1063.3815, Mem: 0.994, Cached: 1.463, Steps: 50
+Epoch: 147, LR: 0.0000793, Gumbel Temp: 0.6667, Train Loss: 0.6980063, Train Acc: 0.4850, Train Aux Acc: 0.0000, Test Acc: 0.4400, Reward: -561.6875 , Time: 1061.6757, Mem: 1.006, Cached: 1.463, Steps: 50
+Epoch: 148, LR: 0.0000790, Gumbel Temp: 0.6667, Train Loss: 0.6906920, Train Acc: 0.5256, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -550.4375 , Time: 1062.7965, Mem: 1.001, Cached: 1.463, Steps: 50
+Epoch: 149, LR: 0.0000787, Gumbel Temp: 0.6667, Train Loss: 0.6941004, Train Acc: 0.5019, Train Aux Acc: 0.0000, Test Acc: 0.5200, Reward: -568.3750 , Time: 1062.2384, Mem: 0.983, Cached: 1.463, Steps: 50
+Epoch: 150, LR: 0.0000785, Gumbel Temp: 0.6667, Train Loss: 0.6915249, Train Acc: 0.5275, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -566.6875 , Time: 1061.6199, Mem: 0.990, Cached: 1.463, Steps: 50
+Epoch: 151, LR: 0.0000782, Gumbel Temp: 0.6667, Train Loss: 0.6930878, Train Acc: 0.5000, Train Aux Acc: 0.0000, Test Acc: 0.5900, Reward: -560.2500 , Time: 1064.4910, Mem: 0.981, Cached: 1.463, Steps: 50
+Epoch: 152, LR: 0.0000779, Gumbel Temp: 0.6667, Train Loss: 0.7009996, Train Acc: 0.5188, Train Aux Acc: 0.0000, Test Acc: 0.5800, Reward: -562.1250 , Time: 1062.4576, Mem: 0.969, Cached: 1.463, Steps: 50
+Epoch: 153, LR: 0.0000776, Gumbel Temp: 0.6667, Train Loss: 0.7049940, Train Acc: 0.5169, Train Aux Acc: 0.0000, Test Acc: 0.6500, Reward: -568.8125 , Time: 1052.3398, Mem: 1.026, Cached: 1.465, Steps: 50
+Epoch: 154, LR: 0.0000773, Gumbel Temp: 0.6667, Train Loss: 0.6941153, Train Acc: 0.5175, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -561.3125 , Time: 1047.5170, Mem: 0.987, Cached: 1.465, Steps: 50
+Epoch: 155, LR: 0.0000771, Gumbel Temp: 0.6667, Train Loss: 0.6927971, Train Acc: 0.5206, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -565.6875 , Time: 1057.5840, Mem: 0.993, Cached: 1.465, Steps: 50
+Epoch: 156, LR: 0.0000768, Gumbel Temp: 0.6667, Train Loss: 0.6931923, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -558.5000 , Time: 1054.1120, Mem: 0.986, Cached: 1.465, Steps: 50
+Epoch: 157, LR: 0.0000765, Gumbel Temp: 0.6667, Train Loss: 0.6940113, Train Acc: 0.5156, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -565.7500 , Time: 1136.7477, Mem: 0.996, Cached: 1.465, Steps: 50
+Epoch: 158, LR: 0.0000762, Gumbel Temp: 0.6667, Train Loss: 0.6915735, Train Acc: 0.5294, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -559.5625 , Time: 1197.9740, Mem: 0.969, Cached: 1.465, Steps: 50
+Epoch: 159, LR: 0.0000759, Gumbel Temp: 0.6667, Train Loss: 0.6930906, Train Acc: 0.5244, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -566.5625 , Time: 1219.0116, Mem: 1.006, Cached: 1.465, Steps: 50
+Epoch: 160, LR: 0.0000756, Gumbel Temp: 0.6667, Train Loss: 0.6924268, Train Acc: 0.5181, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -558.6875 , Time: 1231.5361, Mem: 0.997, Cached: 1.465, Steps: 50
+Epoch: 161, LR: 0.0000753, Gumbel Temp: 0.6667, Train Loss: 0.6963344, Train Acc: 0.5262, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -562.1875 , Time: 1228.5835, Mem: 0.974, Cached: 1.465, Steps: 50
+Epoch: 162, LR: 0.0000750, Gumbel Temp: 0.6667, Train Loss: 0.7011967, Train Acc: 0.5200, Train Aux Acc: 0.0000, Test Acc: 0.5700, Reward: -562.8750 , Time: 1229.0917, Mem: 0.987, Cached: 1.465, Steps: 50
+Epoch: 163, LR: 0.0000747, Gumbel Temp: 0.6667, Train Loss: 0.6928896, Train Acc: 0.5387, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -562.9375 , Time: 1110.6167, Mem: 0.953, Cached: 1.465, Steps: 50
+Epoch: 164, LR: 0.0000744, Gumbel Temp: 0.6667, Train Loss: 0.6954163, Train Acc: 0.5238, Train Aux Acc: 0.0000, Test Acc: 0.6000, Reward: -561.5625 , Time: 1230.0556, Mem: 0.992, Cached: 1.465, Steps: 50
+Epoch: 165, LR: 0.0000741, Gumbel Temp: 0.6667, Train Loss: 0.6918985, Train Acc: 0.5250, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -564.8750 , Time: 1229.4059, Mem: 0.997, Cached: 1.465, Steps: 50
+Epoch: 166, LR: 0.0000738, Gumbel Temp: 0.6667, Train Loss: 0.6955091, Train Acc: 0.4994, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -562.8750 , Time: 1229.4415, Mem: 0.992, Cached: 1.465, Steps: 50
+Epoch: 167, LR: 0.0000735, Gumbel Temp: 0.6667, Train Loss: 0.7014027, Train Acc: 0.5212, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -571.4375 , Time: 1231.5096, Mem: 0.985, Cached: 1.465, Steps: 50
+Epoch: 168, LR: 0.0000732, Gumbel Temp: 0.6667, Train Loss: 0.6914592, Train Acc: 0.5175, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -561.4375 , Time: 1229.4297, Mem: 0.960, Cached: 1.465, Steps: 50
+Epoch: 169, LR: 0.0000729, Gumbel Temp: 0.6667, Train Loss: 0.6917146, Train Acc: 0.5331, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -571.7500 , Time: 1230.9552, Mem: 0.984, Cached: 1.465, Steps: 50
+Epoch: 170, LR: 0.0000726, Gumbel Temp: 0.6667, Train Loss: 0.6930777, Train Acc: 0.5131, Train Aux Acc: 0.0000, Test Acc: 0.5000, Reward: -560.7500 , Time: 1231.2488, Mem: 0.992, Cached: 1.465, Steps: 50
+Epoch: 171, LR: 0.0000723, Gumbel Temp: 0.6667, Train Loss: 0.6945290, Train Acc: 0.5069, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -565.3750 , Time: 1231.3380, Mem: 0.985, Cached: 1.465, Steps: 50
+Epoch: 172, LR: 0.0000720, Gumbel Temp: 0.6667, Train Loss: 0.6965478, Train Acc: 0.5162, Train Aux Acc: 0.0000, Test Acc: 0.5100, Reward: -562.8125 , Time: 1232.7422, Mem: 1.000, Cached: 1.465, Steps: 50
+Epoch: 173, LR: 0.0000717, Gumbel Temp: 0.6667, Train Loss: 0.6927629, Train Acc: 0.5138, Train Aux Acc: 0.0000, Test Acc: 0.6300, Reward: -560.8750 , Time: 1236.4496, Mem: 0.994, Cached: 1.465, Steps: 50
+Epoch: 174, LR: 0.0000713, Gumbel Temp: 0.6667, Train Loss: 0.6909176, Train Acc: 0.5262, Train Aux Acc: 0.0000, Test Acc: 0.4900, Reward: -562.6250 , Time: 1242.1814, Mem: 0.990, Cached: 1.465, Steps: 50

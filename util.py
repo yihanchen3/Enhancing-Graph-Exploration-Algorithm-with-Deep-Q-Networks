@@ -12,10 +12,24 @@ from torch_scatter.composite import scatter_softmax
 from torch_geometric.utils.num_nodes import maybe_num_nodes
 from torch_geometric.data import Data, InMemoryDataset, download_url, extract_zip
 from typing import Optional
-
+import matplotlib.pyplot as plt
 
 from torch_scatter import scatter_add
 from torch_scatter.utils import broadcast
+
+def plot_learning_curve(episodes, records, title, ylabel, figure_file):
+    plt.figure()
+    plt.plot(episodes, records, linestyle='-', color='r')
+    plt.title(title)
+    plt.xlabel('episode')
+    plt.ylabel(ylabel)
+ 
+    # plt.show()
+    plt.savefig(figure_file)
+    print('Figure saved to {}'.format(figure_file))
+    plt.close()
+
+
 
 def print_mem():
     print(torch.cuda.get_device_name(0))

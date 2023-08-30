@@ -34,8 +34,11 @@ def plot_learning_curve(episodes, records, title, ylabel, figure_file):
 
 
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = "5"
+os.environ['CUDA_VISIBLE_DEVICES'] = "1"
 print("torch.cuda.device_count() {}".format(torch.cuda.device_count()))
+print(torch.get_num_threads(),type(torch.get_num_threads()))
+set_num_workers =  2
+print('set_num_workers:', set_num_workers)
 
 parser = add_model_args()
 parser.add_argument('--target', default=0)
@@ -149,9 +152,7 @@ else:
 
 dataset = dataset.shuffle()
 
-print(torch.get_num_threads(),type(torch.get_num_threads()))
-set_num_workers =  torch.get_num_threads()
-print('set_num_workers:', set_num_workers)
+
 
 # Normalize targets to mean = 0 and std = 1.
 tenpercent = int(len(dataset) * 0.1)
@@ -250,6 +251,9 @@ for epoch in range(1, args.epochs+1):
     torch.cuda.reset_peak_memory_stats(0)
     start = time.time()
     lr = scheduler.optimizer.param_groups[0]['lr']
+
+    print('Epoch: {:03d}, LR: {:7f}, StartTime: {}'.format(epoch, lr, time.asctime()), flush=True)
+
     if args.gumbel_warmup < 0:
         gumbel_warmup = args.warmup
     else:
@@ -277,7 +281,7 @@ print('Test MAE: {:.7f}'.format(test_error))
 print('----------------------------------------------')
 
 
-save_path = 'log/qm9/results/'
+save_path = 'log/qm9/results/figs/'
 plot_learning_curve(np.arange(1, args.epochs+1), losses, 'Learning Curve', 'losses', save_path+args.dataset+'_losses.png')
 plot_learning_curve(np.arange(1, args.epochs+1), val_errors, 'Learning Curve', 'val_errors', save_path+args.dataset+'_val_errors.png')
 plot_learning_curve(np.arange(1, args.epochs+1), rewards, 'Learning Curve', 'rewards', save_path+args.dataset+'_rewards.png')

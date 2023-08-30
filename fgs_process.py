@@ -2,6 +2,8 @@ from collections import namedtuple
 from rdkit import Chem
 from rdkit.Chem.PandasTools import LoadSDF
 import os
+from argparse import ArgumentParser
+import pandas as pd
 
 def merge(mol, marked, aset):
   bset = set()
@@ -67,19 +69,19 @@ def identify_functional_groups(mol):
   return ifgs
 
 
-def main():
-    data_path = 'data/'
-    dataset_path = 'MPNN-QM9/'
-    sdf_name = 'raw/gdb9.sdf'
-    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
-    fgs_filename = os.path.join(data_path, dataset_path, 'fgs.csv')
+def main(df, fgs_filename,col_name='SMILES'):
+    # data_path = 'data/'
+    # dataset_path = 'MPNN-QM9/'
+    # sdf_name = 'raw/gdb9.sdf'
+    # sdf_path = os.path.join(data_path, dataset_path, sdf_name)
+    # fgs_filename = os.path.join(data_path, dataset_path, 'fgs.csv')
 
-    df = LoadSDF(sdf_path, smilesName='SMILES')
-    print('sdf loaded')
+    # df = LoadSDF(sdf_path, smilesName='SMILES')
+    # print('sdf loaded')
 
     fgs_list = []
 
-    df['ifg'] = df['SMILES'].apply(lambda x: identify_functional_groups(Chem.MolFromSmiles(x)))
+    df['ifg'] = df[col_name].apply(lambda x: identify_functional_groups(Chem.MolFromSmiles(x)))
     print('functional groups identified')
 
     for ifg in df['ifg']:
@@ -97,5 +99,39 @@ def main():
     print('csv saved: ', fgs_filename)
 
 if __name__ == "__main__":
-  main()
+  parser = ArgumentParser()
+  parser.add_argument('--dataset', type=str, default='qm9')
+  args = parser.parse_args()
+
+  if args.dataset == 'ogb_molhiv':
+    data_path = 'dataset/'
+    dataset_path = 'ogbg_molhiv/'
+    sdf_name = 'mapping/mol.csv'
+    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
+    fgs_filename = os.path.join(data_path, dataset_path, 'fgs.csv')
+    df = pd.read_csv(sdf_path)
+    col_name = 'smiles'
+  
+  elif args.dataset == 'qm9':
+    data_path = 'data/'
+    dataset_path = 'MPNN-QM9/'
+    sdf_name = 'raw/gdb9.sdf'
+    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
+    fgs_filename = os.path.join(data_path, dataset_path, args.dataset +'_fgs.csv')
+    df = LoadSDF(sdf_path, smilesName='SMILES')
+    col_name = 'SMILES'
+  
+  elif args.dataset == 'ogbg_molpcba':
+    data_path = 'dataset/'
+    dataset_path = 'ogbg_molpcba/'
+    sdf_name = 'mapping/mol.csv'
+    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
+    fgs_filename = os.path.join(data_path, dataset_path, 'fgs.csv')
+    df = pd.read_csv(sdf_path)
+    col_name = 'smiles'
+
+  print(df.head())
+
+  print('dataset:', args.dataset, 'path:', sdf_path, 'fgs_filename:', fgs_filename)
+  main(df, fgs_filename, col_name)
 

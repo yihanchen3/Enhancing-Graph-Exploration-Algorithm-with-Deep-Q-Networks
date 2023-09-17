@@ -1,0 +1,17 @@
+Namespace(dropout=0.0, batch_size=8, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True, num_workers=20, gpu_id='0')
+---- Target: 0 ----
+fgs data loaded
+HostName: turin.ee.ucl.ac.uk, LoginName: uceeyc6, Current GPU ID: 0/4, Num of workers: 20/64, CodeFile: /home/uceeyc6/AgentNet/qm9_3_fast_replay.py
+dataset info: 130194 Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4], node_num=[1], fgs=[4]) tensor([1., 0., 0., 0.]) tensor([4])
+AgentNet
+Epoch: 001/350, LR: 0.000100, StartTime: Wed Aug 30 04:03:19 2023
+Epoch: 001, LR: 0.000100, Loss: 0.5329851, Validation MAE: 0.6249472, Test MAE: 0.6282239, Reward: -100.327, Time: 4101.1155, Mem: 4.181, Cached: 13.461
+Epoch: 002/350, LR: 0.000100, StartTime: Wed Aug 30 05:11:40 2023
+Epoch: 002, LR: 0.000100, Loss: 0.3370144, Validation MAE: 0.5558919, Test MAE: 0.5591951, Reward: -100.306, Time: 4126.3735, Mem: 4.181, Cached: 8.051
+Epoch: 003/350, LR: 0.000100, StartTime: Wed Aug 30 06:20:26 2023
+Epoch: 003, LR: 0.000100, Loss: 0.2919536, Validation MAE: 0.5249958, Test MAE: 0.5199480, Reward: -100.306, Time: 4109.0010, Mem: 4.181, Cached: 8.051
+Epoch: 004/350, LR: 0.000100, StartTime: Wed Aug 30 07:28:55 2023
+Epoch: 004, LR: 0.000100, Loss: 0.2681859, Validation MAE: 0.4843867, Test MAE: 0.4848889, Reward: -100.332, Time: 4096.7435, Mem: 4.181, Cached: 8.285
+Epoch: 005/350, LR: 0.000100, StartTime: Wed Aug 30 08:37:12 2023
+Epoch: 005, LR: 0.000100, Loss: 0.2550988, Validation MAE: 0.4710598, Test MAE: 0.4779670, Reward: -100.313, Time: 3674.6334, Mem: 4.181, Cached: 8.285
+Epoch: 006/350, LR: 0.000100, StartTime: Wed Aug 30 09:38:27 2023

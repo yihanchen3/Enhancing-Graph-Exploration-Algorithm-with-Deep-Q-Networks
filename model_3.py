@@ -8,9 +8,9 @@ from math import sqrt, log
 from typing import Optional
 from argparse import ArgumentParser
 from test_tube import HyperOptArgumentParser
-import time
 import random
 import os
+import time
 import numpy as np
 import torch_sparse.tensor
 
@@ -141,6 +141,7 @@ class DeepQNetwork(nn.Module):
         self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         start_epoch = checkpoint['epoch']
  
+ 
 class DQN:
     def __init__(self, alpha, state_dim, action_dim, fc1_dim, fc2_dim,
                  gamma=0.99, tau=0.005, epsilon=1.0, eps_end=0.01, eps_dec=5e-4,
@@ -161,7 +162,7 @@ class DQN:
                                    fc1_dim=fc1_dim, fc2_dim=fc2_dim)
         self.q_target = DeepQNetwork(alpha=alpha, state_dim=state_dim, action_dim=action_dim,
                                      fc1_dim=fc1_dim, fc2_dim=fc2_dim)
- 
+        self.memory = []
         # self.memory = ReplayBuffer(state_dim=state_dim, action_dim=action_dim,
         #                            max_size=max_size, batch_size=batch_size)
  
@@ -177,6 +178,31 @@ class DQN:
     def choose_action(self, state):
         actions = self.q_eval.forward(state)
         return actions
+    
+    def sample_memory(self):
+        if len(self.memory) > self.batch_size:
+            sample =  random.sample(self.memory, self.batch_size)
+        else:
+            sample = self.memory
+        q = torch.stack([x[0] for x in sample]).to(device)
+        target = torch.stack([x[1] for x in sample]).detach()
+        return q, target
+    
+    def learn(self, state, action, reward, state_, done):
+        self.memory.append((state, action, reward, state_, done))
+        # self.memory.store_transition(state, action, reward, state_, done)
+ 
+        if len(self.memory) > self.batch_size:
+            states, targets = self.sample_memory()
+            self.q_eval.optimizer.zero_grad()
+            loss = self.q_eval.loss(states, targets).to(device)
+            loss.backward()
+            self.q_eval.optimizer.step()
+            self.loss_dqn.append(loss.item())
+            self.update_network_parameters()
+ 
+            self.epsilon = self.epsilon - self.eps_dec if self.epsilon > \
+                self.eps_min else self.eps_min
 
     def save_models(self,  episode, checkpoint_path):
         self.q_eval.save_checkpoint(episode, checkpoint_path + 'DQN_Q_eval_{}.pth'.format(episode))
@@ -353,15 +379,18 @@ class AgentNet(nn.Module):
           # define dqn model to choose action
         if self.ogb_mol:
             state_dim = self.dim*3 + 128
+            dqn_batch_size = 64
         elif self.qm9:
             state_dim = self.dim*3 + 5
+            dqn_batch_size = 32
         else:
             state_dim = self.dim*3
+            dqn_batch_size = 32
         action_dim = 1
 
-        self.dqn = DQN(alpha=0.0003, state_dim=state_dim, action_dim=action_dim,
+        self.dqn = DQN(alpha=0.0001, state_dim=state_dim, action_dim=action_dim,
                 fc1_dim=128, fc2_dim=64, gamma=0.99, tau=0.005, epsilon=1.0,
-                eps_end=0.05, eps_dec=5e-4, max_size=1000000, batch_size=32)
+                eps_end=0.05, eps_dec=5e-4, max_size=1000000, batch_size=dqn_batch_size)
         
         self.reset_parameters()
 
@@ -392,11 +421,14 @@ class AgentNet(nn.Module):
             elif isinstance(m, nn.Embedding):
                 m.reset_parameters()
 
-    def save_checkpoint(self, epoch, optimizer, checkpoint_file):
+    def save_checkpoint(self, epoch, optimizer, scheduler, checkpoint_file):
         checkpoint = {'epoch': epoch,
-                        'model_state_dict': self.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()}
-        torch.save(checkpoint, checkpoint_file)
+                        'agent_model': self.state_dict(),
+                        'dqn_eval': self.dqn.q_eval.state_dict(),
+                        'dqn_target': self.dqn.q_target.state_dict(),
+                        'optimizer': optimizer.state_dict(),
+                        'scheduler': scheduler.state_dict()}
+        torch.save(checkpoint, checkpoint_file)                     
     
     def load_checkpoint(self, checkpoint_file):
         checkpoint = torch.load(checkpoint_file)
@@ -404,7 +436,7 @@ class AgentNet(nn.Module):
         self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         start_epoch = checkpoint['epoch']
 
-    def forward(self, x: torch.Tensor, edge_index: torch.Tensor, batch: torch.Tensor, edge_feat: Optional[torch.Tensor] = None, fgs: Optional[torch.Tensor] = None,node_num: Optional[torch.Tensor] = None):
+    def forward(self, x: torch.Tensor, edge_index: torch.Tensor, batch: torch.Tensor, edge_feat: Optional[torch.Tensor] = None, fgs: Optional[torch.Tensor] = None,node_num: Optional[torch.Tensor] = None,cycles: Optional[torch.Tensor] = None, max_degree_node: Optional[torch.Tensor] = None):
         batch_size = (batch.max() + 1).item()
         num_nodes_batch = x.size(0)
         num_agents_batch = int(self.num_agents*batch_size)
@@ -427,6 +459,15 @@ class AgentNet(nn.Module):
             edge_emb = self.edge_input_proj(edge_feat)
         else:
             edge_emb = None
+
+        # initialize dqn variables
+        self.dqn.memory = []
+        self.dqn.loss_dqn = []
+        self.dqn.loss_buffer = []
+        self.dqn.mean_loss = []
+        self.dqn.total_reward = []
+        comparison_old = None
+
 
 
         # Add self loops to let agent stay on a current node
@@ -509,6 +550,7 @@ class AgentNet(nn.Module):
         agent_neighbour = torch.stack(agent_neighbour_coo[:2])
         agent_neighbour_edge_emb = agent_neighbour_coo[2]
         del agent_neighbour_coo
+        # print(agent_neighbour[0].unique().size(0))
         if agent_neighbour[0].unique().size(0) != num_agents_batch: # Check if all agents have a neighbor
             raise ValueError
 
@@ -516,18 +558,9 @@ class AgentNet(nn.Module):
         if self.basic_global_agent or self.basic_agent or self.bias_attention:
             visited_nodes = torch.zeros(num_nodes_batch, self.num_agents, dtype=torch.float, device=agent_neighbour.device)
             visited_nodes.scatter_(0, agent_pos.view(batch_size, self.num_agents), torch.ones(batch_size, self.num_agents, device=agent_pos.device))
-            agent_visited = torch.zeros(agent_pos.size(0),num_nodes_batch, dtype=torch.float, device=agent_pos.device)
-
-        self.dqn.loss_buffer = []
-        self.dqn.total_reward = []
-        comparison_old = None
+        
         
         for i in range(self.num_steps+1):
-
-            time_0 = time.time()
-
-            # print(i, end = ' ')
-            
             # Get time for current step
             time_emb = self.time_emb(torch.tensor([i], device=node_emb.device, dtype=torch.long))
 
@@ -541,6 +574,9 @@ class AgentNet(nn.Module):
                 if agent_neighbour[0].unique().size(0) != num_agents_batch: # Check if all agents have a neighbor
                     print(i, agent_neighbour[0].unique().size(0), agent_neighbour[0], agent_neighbour[1])
                     raise ValueError       
+                
+                # Fill in neighbor attention scores using the learned logits for [back, stay, explored, unexplored]
+                attn_score = torch.zeros_like(agent_neighbour[0], dtype=torch.float)
 
                 # Update tracked positions
                 visited_nodes = visited_nodes * self.visited_decay
@@ -550,10 +586,7 @@ class AgentNet(nn.Module):
                 neighbors_visited = visited_nodes[agent_neighbour[1]].gather(1, (agent_neighbour[0] % self.num_agents).unsqueeze(1)).squeeze(1)
 
                 mask_old = neighbors_visited < 1.0 # Disregard the current node
-
-                time_1 = time.time()
-                            
-                # Move agents using RL algorithm DQN
+                
                 if edge_feat is not None:
                     state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], agent_neighbour_edge_emb, node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
                 else:
@@ -564,29 +597,18 @@ class AgentNet(nn.Module):
                 action_value = self.dqn.choose_action(state)
                 # flatten the attention value
                 attn_score = action_value.flatten()
-                # print('attn_score', attn_score, attn_score.size())
-                # print('num_agents_batch', num_agents_batch,'num_nodes_batch', num_nodes_batch)
-                # print('agent_neighbour', agent_neighbour, agent_neighbour.size())
 
                 agent_neighbour_attention_value = gumbel_softmax(attn_score, agent_neighbour[0], num_nodes=num_agents_batch, hard=True, tau=(self.temp if self.training or not self.test_argmax else 1e-6), i=i)
-                time_4 = time.time()
+
                 if (np.random.random() < self.dqn.epsilon):
-                    # depends on agent_neighbour[0], choose a random neighbour for each agent
-                    agent_num, neighbors_counts = agent_neighbour[0].unique(return_counts=True)
-                    # sampled_indices = []
-                    # for agent, count in zip(agent_num, neighbors_counts):
-                    #     a_indices = torch.where(agent_neighbour[0]==agent)[0]
-                    #     a_count =(torch.randperm(count)[:1]).to(a_indices.device)
-                    #     sampled_indices.extend( a_count+ a_indices[0])
-                    # indices = torch.tensor(sampled_indices)
-                    # q = attn_score[indices]
+                    _, neighbors_counts = agent_neighbour[0].unique(return_counts=True)
                     b = neighbors_counts.tolist()
                     segment_indices = [list(range(sum(b[:i]), sum(b[:i]) + count)) for i, count in enumerate(b)]
                     indices = torch.tensor([random.choice(segment) for segment in segment_indices], device=agent_neighbour[0].device,dtype = agent_neighbour[0].dtype)
                     q = attn_score[indices]
-
-
-                else:       
+  
+                else:     
+                    # print('q',end = '')
                     q = scatter_max(attn_score, agent_neighbour[0], dim=0, dim_size=num_agents_batch)[0]
                 
                     indices = scatter_max(agent_neighbour_attention_value, agent_neighbour[0], dim=0, dim_size=num_agents_batch)[1] # NOTE: could convert this to boolean tensor instead
@@ -601,11 +623,7 @@ class AgentNet(nn.Module):
                             print(agent_neighbour)
                             print(agent_neighbour)
                             raise ValueError # Make sure agents are not placed 'out of bounds', this should not be possible here
-                # Get updated agent positions
-                # print('calc q time', time.time() - time_4, flush=True)
-
-                # print('q time', time.time() - time_1,flush=True)
-
+    
                 agent_pos = agent_neighbour[1][indices]
                 if agent_pos.max() >= num_nodes_batch:
                     print(i, agent_pos, agent_neighbour)
@@ -619,61 +637,36 @@ class AgentNet(nn.Module):
                 node_agent_attn_value = agent_node_attention_value
                 if edge_feat is not None:
                     edge_taken_emb = agent_neighbour_edge_emb.clone()[indices]
-
-                time_2 = time.time()
                 
                 # create reward
-                # reward = torch.zeros_like(agent_pos, dtype=torch.float)
-                reward = torch.full_like(agent_pos, -1, dtype=torch.float)
+                reward = torch.zeros_like(agent_pos, dtype=torch.float)
+                # reward = torch.full_like(agent_pos, -1, dtype=torch.float)
 
                 # if agent walks to a node that has been visited, set the reward to -1, otherwise 0
                 mask_old_agent = mask_old[indices]
                 reward[mask_old_agent] = -1.0
-                # print('reward time_1', time.time() - time_2, flush=True)
-                # print('reward_1', reward, reward.size())
- 
-                # if agent walks to a node of functional gruops, reward = 1.0.
-                reward[fgs[agent_pos] == 1] = +1.0
-                # print('reward_2', reward, reward.size())
 
-                # print('reward time_2', time.time() - time_2, flush=True)
-
-                # if agent walks all the nodes of functional groups, reward = 10.0.
-                # agent_visited = agent_visited.scatter_(1, agent_pos.unsqueeze(1), torch.ones_like(agent_pos, dtype=torch.float))
-
-
-                # head = 0
-                # agent_idx = 0
-                visited_nodes_update = visited_nodes.scatter_(0, agent_pos.view(batch_size, self.num_agents), torch.ones(batch_size, self.num_agents, device=agent_pos.device))
-                # num_agents = visited_nodes_update.size(1)
-                # # print('reward_tensor', reward, reward.size())
-                # for len in node_num:
-                #     tail = head + len
-                #     abs_diff = torch.abs(visited_nodes_update[head:tail].T - fgs[head:tail].unsqueeze(0))
-                #     mask = abs_diff < 0.5
-                #     if mask.all(dim=1).any():
-                #         reward[agent_idx : agent_idx+num_agents][mask.all(dim=1)] += 10.0
-                #     agent_idx += num_agents
-                #     head = tail
-
-                sliced_visited_nodes = torch.split(visited_nodes_update.T, node_num.tolist(),dim=1)
-                sliced_fgs = torch.split(fgs, node_num.tolist(),dim=0)
-                comparison = [torch.all(torch.abs(sliced_visited_node - sliced_fg) < 0.3, dim=1) for sliced_visited_node, sliced_fg in zip(sliced_visited_nodes, sliced_fgs)]
-                comparison_idx = torch.cat(comparison, dim=0)
-                if comparison_old is not None:
-                    reward[comparison_idx ^ comparison_old] += 3.0 # only reward the node the first time it visited all functional groups
-                comparison_old = comparison_idx
+                if fgs is not None:
+                    # if agent walks to a node of functional gruops, reward = 1.0.
+                    reward[fgs[agent_pos] == 1] += 1.0
+                    visited_nodes_update = visited_nodes.scatter_(0, agent_pos.view(batch_size, self.num_agents), torch.ones(batch_size, self.num_agents, device=agent_pos.device))
+                    sliced_visited_nodes = torch.split(visited_nodes_update.T, node_num.tolist(),dim=1)
+                    sliced_fgs = torch.split(fgs, node_num.tolist(),dim=0)
+                    comparison = [torch.all(torch.abs(sliced_visited_node - sliced_fg) < 0.3, dim=1) for sliced_visited_node, sliced_fg in zip(sliced_visited_nodes, sliced_fgs)]
+                    comparison_idx = torch.cat(comparison, dim=0)
+                    if comparison_old is not None:
+                        reward[comparison_idx ^ comparison_old] += 3.0
+                        # only reward the node the first time it visited all functional groups
+                    comparison_old = comparison_idx
                 # print('reward_3', reward, reward.size())
 
-                del indices
-                del mask_old
-                del mask_old_agent
-                del neighbors_visited
-                del agent_neighbour_attention_value
+                if cycles is not None:
+                    reward[cycles[agent_pos] == 1] += 1.0
+                if max_degree_node is not None:
+                    reward[max_degree_node[agent_pos] == 1] += 1.0
 
-                # print('reward time', time.time() - time_2, flush=True)
-                # print('one step time', time.time() - time_0, flush=True)
-                
+                del indices
+
             # Update node embeddings
             active_nodes = torch.unique(agent_pos)
             if self.agent_node_edge_lin is not None:
@@ -751,28 +744,23 @@ class AgentNet(nn.Module):
                 del layer_out
             
             if i > 0:
-                time_3 = time.time()
                 if edge_feat is not None:
                     next_state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], agent_neighbour_edge_emb, node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
                 else:
                     next_state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
-
                 with torch.no_grad():
                     q_ = self.dqn.q_target.forward(next_state)
                     # agent_neighbour_attention_value = gumbel_softmax(action_value, agent_neighbour[0], num_nodes=num_agents_batch, hard=True, tau=(self.temp if self.training or not self.test_argmax else 1e-6), i=i)
                     q_2 = scatter_max(q_.flatten(), agent_neighbour[0], dim=0, dim_size=num_agents_batch)[0]
                     target = reward + self.dqn.gamma * q_2
 
-                loss_dqn = F.mse_loss(q, target.detach())
-                self.dqn.loss_buffer.append(loss_dqn)
+                self.dqn.memory.append([q, target])
                 # Calculate the mean of accumulated losses
                 self.dqn.total_reward.append(reward.sum())
-                # print('train dqn time', time.time() - time_3, flush=True)
                             
 
         if self.final_readout_only:
             out = self.step_readout_mlp(agent_emb.view(batch_size, self.num_agents, -1) + self.step_readout_mlp_time(time_emb))
-
             if self.mean_pool_only:
                 out = torch.mean(out, dim=1)
             else:
@@ -788,8 +776,8 @@ class AgentNet(nn.Module):
         if not self.ogb_mol and not self.regression:
             out = F.log_softmax(out, dim=-1)
         
-        self.dqn.mean_loss = torch.mean(torch.stack(self.dqn.loss_buffer), dim=0)
+        # self.dqn.mean_loss = torch.mean(torch.stack(self.dqn.loss_buffer), dim=0)
         self.dqn.total_reward = torch.mean(torch.stack(self.dqn.total_reward), dim=0)
         # print('-------- self.dqn mean loss: ', self.dqn.mean_loss.item(), ', total reward: ', self.dqn.total_reward.item(), '--------')
 
-        return out, 0, self.dqn
+        return out, 0

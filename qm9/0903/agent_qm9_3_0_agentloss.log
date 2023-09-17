@@ -1,0 +1,522 @@
+Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True, num_workers=20, gpu_id='0')
+---- Target: 0 ----
+fgs data loaded
+HostName: turin.ee.ucl.ac.uk, LoginName: uceeyc6, Current GPU ID: 0/4, Num of workers: 20/64, CodeFile: /home/uceeyc6/AgentNet/qm9_3_fast_replay_scheduler.py
+dataset info: 130194 Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4], node_num=[1], fgs=[4]) tensor([1., 0., 0., 0.]) tensor([4])
+AgentNet
+Epoch: 001/350, LR: 0.000050, StartTime: 0904-0349
+Epoch: 001, LR: 0.000050, Loss: 0.6431204, Validation MAE: 0.8207233, Test MAE: 0.8293388, Reward: -308.432, Time: 500.6148, Mem: 13.876, Cached: 57.025
+Epoch: 002/350, LR: 0.000050, StartTime: 0904-0357
+Epoch: 002, LR: 0.000050, Loss: 0.4480700, Validation MAE: 0.6523169, Test MAE: 0.6565148, Reward: -161.033, Time: 455.8316, Mem: 13.872, Cached: 57.025
+Epoch: 003/350, LR: 0.000050, StartTime: 0904-0405
+Epoch: 003, LR: 0.000050, Loss: 0.3720509, Validation MAE: 0.6147471, Test MAE: 0.6061481, Reward: -228.737, Time: 453.9538, Mem: 13.870, Cached: 57.025
+Epoch: 004/350, LR: 0.000050, StartTime: 0904-0413
+Epoch: 004, LR: 0.000050, Loss: 0.3417647, Validation MAE: 0.5671893, Test MAE: 0.5700511, Reward: -302.141, Time: 449.8282, Mem: 13.859, Cached: 57.025
+Epoch: 005/350, LR: 0.000050, StartTime: 0904-0420
+Epoch: 005, LR: 0.000050, Loss: 0.2938802, Validation MAE: 0.6451535, Test MAE: 0.5700511, Reward: -321.135, Time: 418.7870, Mem: 13.539, Cached: 57.025
+Epoch: 006/350, LR: 0.000050, StartTime: 0904-0427
+Epoch: 006, LR: 0.000050, Loss: 0.2665867, Validation MAE: 0.5235930, Test MAE: 0.5298709, Reward: -350.877, Time: 448.6146, Mem: 13.864, Cached: 57.025
+Epoch: 007/350, LR: 0.000050, StartTime: 0904-0435
+Epoch: 007, LR: 0.000050, Loss: 0.2405919, Validation MAE: 0.4716272, Test MAE: 0.4784425, Reward: -358.431, Time: 448.3686, Mem: 13.860, Cached: 57.025
+Epoch: 008/350, LR: 0.000050, StartTime: 0904-0442
+Epoch: 008, LR: 0.000050, Loss: 0.2197296, Validation MAE: 0.5324048, Test MAE: 0.4784425, Reward: -393.566, Time: 416.4821, Mem: 13.530, Cached: 57.025
+Epoch: 009/350, LR: 0.000050, StartTime: 0904-0449
+Epoch: 009, LR: 0.000050, Loss: 0.2070401, Validation MAE: 0.4403877, Test MAE: 0.4455899, Reward: -424.536, Time: 460.8740, Mem: 13.863, Cached: 57.025
+Epoch: 010/350, LR: 0.000050, StartTime: 0904-0457
+Epoch: 010, LR: 0.000050, Loss: 0.1923542, Validation MAE: 0.4836968, Test MAE: 0.4455899, Reward: -433.719, Time: 433.0318, Mem: 13.531, Cached: 57.025
+Epoch: 011/350, LR: 0.000050, StartTime: 0904-0504
+Epoch: 011, LR: 0.000050, Loss: 0.1806026, Validation MAE: 0.4199665, Test MAE: 0.4275010, Reward: -432.683, Time: 466.3946, Mem: 13.860, Cached: 57.025
+Epoch: 012/350, LR: 0.000050, StartTime: 0904-0512
+Epoch: 012, LR: 0.000050, Loss: 0.1715812, Validation MAE: 0.4354353, Test MAE: 0.4275010, Reward: -454.051, Time: 435.0845, Mem: 13.537, Cached: 57.025
+Epoch: 013/350, LR: 0.000050, StartTime: 0904-0519
+Epoch: 013, LR: 0.000050, Loss: 0.1573897, Validation MAE: 0.4550025, Test MAE: 0.4275010, Reward: -446.975, Time: 424.4397, Mem: 13.534, Cached: 57.025
+Epoch: 014/350, LR: 0.000050, StartTime: 0904-0526
+Epoch: 014, LR: 0.000050, Loss: 0.1493297, Validation MAE: 0.4017107, Test MAE: 0.4060438, Reward: -445.529, Time: 450.2412, Mem: 13.867, Cached: 57.025
+Epoch: 015/350, LR: 0.000050, StartTime: 0904-0533
+Epoch: 015, LR: 0.000050, Loss: 0.1396932, Validation MAE: 0.4478995, Test MAE: 0.4060438, Reward: -438.554, Time: 432.0267, Mem: 13.537, Cached: 64.955
+Epoch: 016/350, LR: 0.000050, StartTime: 0904-0541
+Epoch: 016, LR: 0.000050, Loss: 0.1313799, Validation MAE: 0.3640524, Test MAE: 0.3669820, Reward: -442.201, Time: 466.6835, Mem: 13.864, Cached: 64.955
+Epoch: 017/350, LR: 0.000050, StartTime: 0904-0548
+Epoch: 017, LR: 0.000050, Loss: 0.1244991, Validation MAE: 0.3924352, Test MAE: 0.3669820, Reward: -446.210, Time: 431.9620, Mem: 13.535, Cached: 64.955
+Epoch: 018/350, LR: 0.000050, StartTime: 0904-0556
+Epoch: 018, LR: 0.000050, Loss: 0.1165981, Validation MAE: 0.3818915, Test MAE: 0.3669820, Reward: -434.544, Time: 433.6888, Mem: 13.531, Cached: 64.955
+Epoch: 019/350, LR: 0.000050, StartTime: 0904-0603
+Epoch: 019, LR: 0.000050, Loss: 0.1106068, Validation MAE: 0.3562824, Test MAE: 0.3553654, Reward: -437.727, Time: 466.1317, Mem: 13.863, Cached: 64.955
+Epoch: 020/350, LR: 0.000050, StartTime: 0904-0611
+Epoch: 020, LR: 0.000050, Loss: 0.1049959, Validation MAE: 0.3401859, Test MAE: 0.3474631, Reward: -436.356, Time: 466.8348, Mem: 13.862, Cached: 64.955
+Epoch: 021/350, LR: 0.000050, StartTime: 0904-0618
+Epoch: 021, LR: 0.000050, Loss: 0.0972950, Validation MAE: 0.3119308, Test MAE: 0.3162782, Reward: -423.772, Time: 459.4274, Mem: 13.862, Cached: 64.955
+Epoch: 022/350, LR: 0.000050, StartTime: 0904-0626
+Epoch: 022, LR: 0.000050, Loss: 0.0933716, Validation MAE: 0.3520320, Test MAE: 0.3162782, Reward: -432.011, Time: 421.7022, Mem: 13.533, Cached: 64.955
+Epoch: 023/350, LR: 0.000050, StartTime: 0904-0633
+Epoch: 023, LR: 0.000050, Loss: 0.0876534, Validation MAE: 0.3390942, Test MAE: 0.3162782, Reward: -426.636, Time: 416.8436, Mem: 13.535, Cached: 64.955
+Epoch: 024/350, LR: 0.000050, StartTime: 0904-0640
+Epoch: 024, LR: 0.000050, Loss: 0.0813161, Validation MAE: 0.3103489, Test MAE: 0.3122227, Reward: -426.578, Time: 453.5059, Mem: 13.862, Cached: 64.955
+Epoch: 025/350, LR: 0.000050, StartTime: 0904-0648
+Epoch: 025, LR: 0.000050, Loss: 0.0775988, Validation MAE: 0.2951428, Test MAE: 0.2937516, Reward: -429.821, Time: 449.9655, Mem: 13.866, Cached: 64.955
+Epoch: 026/350, LR: 0.000050, StartTime: 0904-0655
+Epoch: 026, LR: 0.000050, Loss: 0.0752715, Validation MAE: 0.2888315, Test MAE: 0.2902781, Reward: -419.585, Time: 450.5786, Mem: 13.864, Cached: 64.955
+Epoch: 027/350, LR: 0.000050, StartTime: 0904-0703
+Epoch: 027, LR: 0.000050, Loss: 0.0718504, Validation MAE: 0.2923649, Test MAE: 0.2902781, Reward: -421.792, Time: 418.2847, Mem: 13.538, Cached: 64.955
+Epoch: 028/350, LR: 0.000050, StartTime: 0904-0710
+Epoch: 028, LR: 0.000050, Loss: 0.0683314, Validation MAE: 0.2942058, Test MAE: 0.2902781, Reward: -418.023, Time: 419.0742, Mem: 13.535, Cached: 64.955
+Epoch: 029/350, LR: 0.000050, StartTime: 0904-0717
+Epoch: 029, LR: 0.000050, Loss: 0.0666192, Validation MAE: 0.2794031, Test MAE: 0.2819011, Reward: -416.690, Time: 448.9899, Mem: 13.864, Cached: 64.955
+Epoch: 030/350, LR: 0.000050, StartTime: 0904-0724
+Epoch: 030, LR: 0.000050, Loss: 0.0648414, Validation MAE: 0.2876004, Test MAE: 0.2819011, Reward: -418.074, Time: 417.1704, Mem: 13.535, Cached: 64.955
+Epoch: 031/350, LR: 0.000050, StartTime: 0904-0731
+Epoch: 031, LR: 0.000050, Loss: 0.0603078, Validation MAE: 0.3012489, Test MAE: 0.2819011, Reward: -422.127, Time: 418.1972, Mem: 13.534, Cached: 64.955
+Epoch: 032/350, LR: 0.000050, StartTime: 0904-0738
+Epoch: 032, LR: 0.000050, Loss: 0.0615795, Validation MAE: 0.3034268, Test MAE: 0.2819011, Reward: -424.733, Time: 423.1088, Mem: 13.536, Cached: 64.955
+Epoch: 033/350, LR: 0.000049, StartTime: 0904-0745
+Epoch: 033, LR: 0.000049, Loss: 0.0579488, Validation MAE: 0.2511935, Test MAE: 0.2521912, Reward: -431.906, Time: 448.1425, Mem: 13.862, Cached: 64.955
+Epoch: 034/350, LR: 0.000049, StartTime: 0904-0753
+Epoch: 034, LR: 0.000049, Loss: 0.0555725, Validation MAE: 0.2482665, Test MAE: 0.2493797, Reward: -432.027, Time: 449.0234, Mem: 13.864, Cached: 64.955
+Epoch: 035/350, LR: 0.000049, StartTime: 0904-0800
+Epoch: 035, LR: 0.000049, Loss: 0.0548599, Validation MAE: 0.2435871, Test MAE: 0.2460618, Reward: -430.678, Time: 448.2138, Mem: 13.865, Cached: 64.955
+Epoch: 036/350, LR: 0.000049, StartTime: 0904-0807
+Epoch: 036, LR: 0.000049, Loss: 0.0524799, Validation MAE: 0.2651095, Test MAE: 0.2460618, Reward: -427.242, Time: 422.2031, Mem: 13.541, Cached: 64.955
+Epoch: 037/350, LR: 0.000049, StartTime: 0904-0815
+Epoch: 037, LR: 0.000049, Loss: 0.0513096, Validation MAE: 0.2316288, Test MAE: 0.2339637, Reward: -431.464, Time: 465.0838, Mem: 13.863, Cached: 64.955
+Epoch: 038/350, LR: 0.000049, StartTime: 0904-0822
+Epoch: 038, LR: 0.000049, Loss: 0.0491044, Validation MAE: 0.2395294, Test MAE: 0.2339637, Reward: -427.277, Time: 433.8797, Mem: 13.540, Cached: 64.955
+Epoch: 039/350, LR: 0.000049, StartTime: 0904-0830
+Epoch: 039, LR: 0.000049, Loss: 0.0493447, Validation MAE: 0.2261504, Test MAE: 0.2292456, Reward: -428.493, Time: 468.5922, Mem: 13.863, Cached: 64.955
+Epoch: 040/350, LR: 0.000049, StartTime: 0904-0837
+Epoch: 040, LR: 0.000049, Loss: 0.0486928, Validation MAE: 0.2240954, Test MAE: 0.2246836, Reward: -429.400, Time: 448.1737, Mem: 13.865, Cached: 64.955
+Epoch: 041/350, LR: 0.000049, StartTime: 0904-0845
+Epoch: 041, LR: 0.000049, Loss: 0.0449929, Validation MAE: 0.2175020, Test MAE: 0.2221805, Reward: -432.219, Time: 447.8718, Mem: 13.865, Cached: 64.955
+Epoch: 042/350, LR: 0.000049, StartTime: 0904-0852
+Epoch: 042, LR: 0.000049, Loss: 0.0425336, Validation MAE: 0.2313786, Test MAE: 0.2221805, Reward: -425.050, Time: 420.7500, Mem: 13.533, Cached: 64.955
+Epoch: 043/350, LR: 0.000049, StartTime: 0904-0859
+Epoch: 043, LR: 0.000049, Loss: 0.0418954, Validation MAE: 0.2342225, Test MAE: 0.2221805, Reward: -424.288, Time: 416.5525, Mem: 13.539, Cached: 64.955
+Epoch: 044/350, LR: 0.000049, StartTime: 0904-0906
+Epoch: 044, LR: 0.000049, Loss: 0.0409882, Validation MAE: 0.2182018, Test MAE: 0.2221805, Reward: -433.853, Time: 417.9565, Mem: 13.539, Cached: 64.955
+Epoch: 045/350, LR: 0.000049, StartTime: 0904-0913
+Epoch: 045, LR: 0.000049, Loss: 0.0404685, Validation MAE: 0.2185281, Test MAE: 0.2221805, Reward: -424.784, Time: 420.3041, Mem: 13.534, Cached: 64.955
+Epoch: 046/350, LR: 0.000049, StartTime: 0904-0920
+Epoch: 046, LR: 0.000049, Loss: 0.0389537, Validation MAE: 0.2294712, Test MAE: 0.2221805, Reward: -431.704, Time: 417.0656, Mem: 13.536, Cached: 64.955
+Epoch: 047/350, LR: 0.000049, StartTime: 0904-0927
+Epoch: 047, LR: 0.000049, Loss: 0.0384991, Validation MAE: 0.2206694, Test MAE: 0.2221805, Reward: -432.150, Time: 424.1425, Mem: 13.535, Cached: 64.955
+Epoch: 048/350, LR: 0.000049, StartTime: 0904-0934
+Epoch: 048, LR: 0.000049, Loss: 0.0379490, Validation MAE: 0.2052541, Test MAE: 0.2062477, Reward: -435.972, Time: 472.7681, Mem: 13.865, Cached: 64.955
+Epoch: 049/350, LR: 0.000049, StartTime: 0904-0942
+Epoch: 049, LR: 0.000049, Loss: 0.0365726, Validation MAE: 0.2014821, Test MAE: 0.2033520, Reward: -433.485, Time: 453.1017, Mem: 13.864, Cached: 64.955
+Epoch: 050/350, LR: 0.000049, StartTime: 0904-0950
+Epoch: 050, LR: 0.000049, Loss: 0.0365138, Validation MAE: 0.1967025, Test MAE: 0.1991611, Reward: -434.044, Time: 504.4129, Mem: 13.865, Cached: 64.955
+50 epoch Checkpoint saved to qm9/0903/0/checkpoint/
+Epoch: 051/350, LR: 0.000049, StartTime: 0904-0958
+Epoch: 051, LR: 0.000049, Loss: 0.0345593, Validation MAE: 0.1965595, Test MAE: 0.1994157, Reward: -438.906, Time: 451.4142, Mem: 13.864, Cached: 64.955
+Epoch: 052/350, LR: 0.000049, StartTime: 0904-1006
+Epoch: 052, LR: 0.000049, Loss: 0.0357119, Validation MAE: 0.2043213, Test MAE: 0.1994157, Reward: -431.808, Time: 419.7559, Mem: 13.534, Cached: 64.955
+Epoch: 053/350, LR: 0.000049, StartTime: 0904-1013
+Epoch: 053, LR: 0.000049, Loss: 0.0330797, Validation MAE: 0.1900200, Test MAE: 0.1924324, Reward: -426.123, Time: 451.3415, Mem: 13.864, Cached: 64.955
+Epoch: 054/350, LR: 0.000049, StartTime: 0904-1020
+Epoch: 054, LR: 0.000049, Loss: 0.0327047, Validation MAE: 0.1911593, Test MAE: 0.1924324, Reward: -428.739, Time: 431.0334, Mem: 13.538, Cached: 64.955
+Epoch: 055/350, LR: 0.000049, StartTime: 0904-1027
+Epoch: 055, LR: 0.000049, Loss: 0.0315371, Validation MAE: 0.1967338, Test MAE: 0.1924324, Reward: -430.424, Time: 445.1076, Mem: 13.534, Cached: 64.955
+Epoch: 056/350, LR: 0.000048, StartTime: 0904-1035
+Epoch: 056, LR: 0.000048, Loss: 0.0321554, Validation MAE: 0.1933135, Test MAE: 0.1924324, Reward: -436.556, Time: 434.9866, Mem: 13.539, Cached: 64.955
+Epoch: 057/350, LR: 0.000048, StartTime: 0904-1042
+Epoch: 057, LR: 0.000048, Loss: 0.0301604, Validation MAE: 0.1992786, Test MAE: 0.1924324, Reward: -434.576, Time: 435.2873, Mem: 13.534, Cached: 64.955
+Epoch: 058/350, LR: 0.000048, StartTime: 0904-1049
+Epoch: 058, LR: 0.000048, Loss: 0.0306723, Validation MAE: 0.1877646, Test MAE: 0.1901600, Reward: -438.349, Time: 466.7757, Mem: 13.864, Cached: 64.955
+Epoch: 059/350, LR: 0.000048, StartTime: 0904-1057
+Epoch: 059, LR: 0.000048, Loss: 0.0292323, Validation MAE: 0.1880115, Test MAE: 0.1901600, Reward: -421.930, Time: 436.3870, Mem: 13.534, Cached: 64.955
+Epoch: 060/350, LR: 0.000048, StartTime: 0904-1104
+Epoch: 060, LR: 0.000048, Loss: 0.0287821, Validation MAE: 0.1876872, Test MAE: 0.1908797, Reward: -427.567, Time: 453.1471, Mem: 13.868, Cached: 64.955
+Epoch: 061/350, LR: 0.000048, StartTime: 0904-1112
+Epoch: 061, LR: 0.000048, Loss: 0.0281555, Validation MAE: 0.1837622, Test MAE: 0.1863352, Reward: -430.327, Time: 454.5393, Mem: 13.866, Cached: 64.955
+Epoch: 062/350, LR: 0.000048, StartTime: 0904-1119
+Epoch: 062, LR: 0.000048, Loss: 0.0277035, Validation MAE: 0.1908560, Test MAE: 0.1863352, Reward: -436.102, Time: 423.6789, Mem: 13.535, Cached: 64.955
+Epoch: 063/350, LR: 0.000048, StartTime: 0904-1126
+Epoch: 063, LR: 0.000048, Loss: 0.0271555, Validation MAE: 0.1760849, Test MAE: 0.1797660, Reward: -436.403, Time: 452.3335, Mem: 13.864, Cached: 64.955
+Epoch: 064/350, LR: 0.000048, StartTime: 0904-1134
+Epoch: 064, LR: 0.000048, Loss: 0.0263809, Validation MAE: 0.1862664, Test MAE: 0.1797660, Reward: -427.037, Time: 422.3996, Mem: 13.534, Cached: 64.955
+Epoch: 065/350, LR: 0.000048, StartTime: 0904-1141
+Epoch: 065, LR: 0.000048, Loss: 0.0256689, Validation MAE: 0.1923862, Test MAE: 0.1797660, Reward: -434.311, Time: 419.0513, Mem: 13.538, Cached: 64.955
+Epoch: 066/350, LR: 0.000048, StartTime: 0904-1148
+Epoch: 066, LR: 0.000048, Loss: 0.0274987, Validation MAE: 0.1700031, Test MAE: 0.1725006, Reward: -446.623, Time: 450.1155, Mem: 13.869, Cached: 64.955
+Epoch: 067/350, LR: 0.000048, StartTime: 0904-1155
+Epoch: 067, LR: 0.000048, Loss: 0.0262148, Validation MAE: 0.1765343, Test MAE: 0.1725006, Reward: -444.098, Time: 418.0682, Mem: 13.536, Cached: 64.955
+Epoch: 068/350, LR: 0.000048, StartTime: 0904-1202
+Epoch: 068, LR: 0.000048, Loss: 0.0258476, Validation MAE: 0.1803592, Test MAE: 0.1725006, Reward: -432.209, Time: 422.3717, Mem: 13.534, Cached: 64.955
+Epoch: 069/350, LR: 0.000048, StartTime: 0904-1210
+Epoch: 069, LR: 0.000048, Loss: 0.0256888, Validation MAE: 0.1663305, Test MAE: 0.1695288, Reward: -445.716, Time: 450.7456, Mem: 13.865, Cached: 64.955
+Epoch: 070/350, LR: 0.000048, StartTime: 0904-1217
+Epoch: 070, LR: 0.000048, Loss: 0.0240841, Validation MAE: 0.1714348, Test MAE: 0.1695288, Reward: -444.584, Time: 421.0418, Mem: 13.540, Cached: 64.955
+Epoch: 071/350, LR: 0.000048, StartTime: 0904-1224
+Epoch: 071, LR: 0.000048, Loss: 0.0248874, Validation MAE: 0.1783675, Test MAE: 0.1695288, Reward: -441.002, Time: 423.5312, Mem: 13.534, Cached: 64.955
+Epoch: 072/350, LR: 0.000047, StartTime: 0904-1231
+Epoch: 072, LR: 0.000047, Loss: 0.0244440, Validation MAE: 0.1677171, Test MAE: 0.1695288, Reward: -440.889, Time: 425.2360, Mem: 13.533, Cached: 64.955
+Epoch: 073/350, LR: 0.000047, StartTime: 0904-1238
+Epoch: 073, LR: 0.000047, Loss: 0.0256885, Validation MAE: 0.1968380, Test MAE: 0.1695288, Reward: -445.017, Time: 423.0729, Mem: 13.535, Cached: 64.955
+Epoch: 074/350, LR: 0.000047, StartTime: 0904-1245
+Epoch: 074, LR: 0.000047, Loss: 0.0238208, Validation MAE: 0.1632004, Test MAE: 0.1651524, Reward: -430.675, Time: 466.1826, Mem: 13.863, Cached: 64.955
+Epoch: 075/350, LR: 0.000047, StartTime: 0904-1253
+Epoch: 075, LR: 0.000047, Loss: 0.0236389, Validation MAE: 0.1866800, Test MAE: 0.1651524, Reward: -441.003, Time: 435.3725, Mem: 13.535, Cached: 64.955
+Epoch: 076/350, LR: 0.000047, StartTime: 0904-1300
+Epoch: 076, LR: 0.000047, Loss: 0.0240228, Validation MAE: 0.1758095, Test MAE: 0.1651524, Reward: -435.326, Time: 437.0530, Mem: 13.535, Cached: 64.955
+Epoch: 077/350, LR: 0.000047, StartTime: 0904-1308
+Epoch: 077, LR: 0.000047, Loss: 0.0225220, Validation MAE: 0.1628423, Test MAE: 0.1637934, Reward: -443.141, Time: 471.6391, Mem: 13.861, Cached: 64.955
+Epoch: 078/350, LR: 0.000047, StartTime: 0904-1315
+Epoch: 078, LR: 0.000047, Loss: 0.0227556, Validation MAE: 0.2043253, Test MAE: 0.1637934, Reward: -442.392, Time: 425.2424, Mem: 13.537, Cached: 64.955
+Epoch: 079/350, LR: 0.000047, StartTime: 0904-1322
+Epoch: 079, LR: 0.000047, Loss: 0.0223843, Validation MAE: 0.1655142, Test MAE: 0.1637934, Reward: -443.455, Time: 433.4754, Mem: 13.533, Cached: 64.955
+Epoch: 080/350, LR: 0.000047, StartTime: 0904-1330
+Epoch: 080, LR: 0.000047, Loss: 0.0217232, Validation MAE: 0.2064333, Test MAE: 0.1637934, Reward: -450.668, Time: 419.7808, Mem: 13.535, Cached: 64.955
+Epoch: 081/350, LR: 0.000047, StartTime: 0904-1337
+Epoch: 081, LR: 0.000047, Loss: 0.0214203, Validation MAE: 0.1580817, Test MAE: 0.1579099, Reward: -444.242, Time: 450.2495, Mem: 13.866, Cached: 64.955
+Epoch: 082/350, LR: 0.000047, StartTime: 0904-1344
+Epoch: 082, LR: 0.000047, Loss: 0.0211108, Validation MAE: 0.1628117, Test MAE: 0.1579099, Reward: -424.596, Time: 418.3706, Mem: 13.539, Cached: 64.955
+Epoch: 083/350, LR: 0.000047, StartTime: 0904-1351
+Epoch: 083, LR: 0.000047, Loss: 0.0207038, Validation MAE: 0.2105968, Test MAE: 0.1579099, Reward: -431.204, Time: 420.5839, Mem: 13.537, Cached: 64.955
+Epoch: 084/350, LR: 0.000047, StartTime: 0904-1358
+Epoch: 084, LR: 0.000047, Loss: 0.0214203, Validation MAE: 0.1568532, Test MAE: 0.1577546, Reward: -447.780, Time: 452.4296, Mem: 13.868, Cached: 64.955
+Epoch: 085/350, LR: 0.000046, StartTime: 0904-1406
+Epoch: 085, LR: 0.000046, Loss: 0.0201395, Validation MAE: 0.1590237, Test MAE: 0.1577546, Reward: -447.076, Time: 422.9498, Mem: 13.540, Cached: 64.955
+Epoch: 086/350, LR: 0.000046, StartTime: 0904-1413
+Epoch: 086, LR: 0.000046, Loss: 0.0200706, Validation MAE: 0.1571888, Test MAE: 0.1577546, Reward: -436.282, Time: 421.5284, Mem: 13.538, Cached: 64.955
+Epoch: 087/350, LR: 0.000046, StartTime: 0904-1420
+Epoch: 087, LR: 0.000046, Loss: 0.0190132, Validation MAE: 0.1577165, Test MAE: 0.1577546, Reward: -442.219, Time: 417.5700, Mem: 13.537, Cached: 64.955
+Epoch: 088/350, LR: 0.000046, StartTime: 0904-1427
+Epoch: 088, LR: 0.000046, Loss: 0.0195067, Validation MAE: 0.1636815, Test MAE: 0.1577546, Reward: -443.145, Time: 417.9117, Mem: 13.541, Cached: 64.955
+Epoch: 089/350, LR: 0.000046, StartTime: 0904-1434
+Epoch: 089, LR: 0.000046, Loss: 0.0184408, Validation MAE: 0.1497091, Test MAE: 0.1523146, Reward: -437.438, Time: 448.8300, Mem: 13.865, Cached: 64.955
+Epoch: 090/350, LR: 0.000046, StartTime: 0904-1441
+Epoch: 090, LR: 0.000046, Loss: 0.0182232, Validation MAE: 0.1454678, Test MAE: 0.1478113, Reward: -437.918, Time: 464.1430, Mem: 13.866, Cached: 64.955
+Epoch: 091/350, LR: 0.000046, StartTime: 0904-1449
+Epoch: 091, LR: 0.000046, Loss: 0.0183379, Validation MAE: 0.1525345, Test MAE: 0.1478113, Reward: -436.506, Time: 444.9584, Mem: 13.540, Cached: 64.955
+Epoch: 092/350, LR: 0.000046, StartTime: 0904-1456
+Epoch: 092, LR: 0.000046, Loss: 0.0182844, Validation MAE: 0.1542715, Test MAE: 0.1478113, Reward: -449.508, Time: 419.9112, Mem: 13.539, Cached: 64.955
+Epoch: 093/350, LR: 0.000046, StartTime: 0904-1503
+Epoch: 093, LR: 0.000046, Loss: 0.0187635, Validation MAE: 0.1497564, Test MAE: 0.1478113, Reward: -451.388, Time: 420.0097, Mem: 13.537, Cached: 64.955
+Epoch: 094/350, LR: 0.000046, StartTime: 0904-1510
+Epoch: 094, LR: 0.000046, Loss: 0.0178721, Validation MAE: 0.1497620, Test MAE: 0.1478113, Reward: -449.319, Time: 419.7408, Mem: 13.540, Cached: 64.955
+Epoch: 095/350, LR: 0.000046, StartTime: 0904-1517
+Epoch: 095, LR: 0.000046, Loss: 0.0171618, Validation MAE: 0.1525620, Test MAE: 0.1478113, Reward: -443.775, Time: 432.6773, Mem: 13.537, Cached: 64.955
+Epoch: 096/350, LR: 0.000046, StartTime: 0904-1525
+Epoch: 096, LR: 0.000046, Loss: 0.0167308, Validation MAE: 0.1442877, Test MAE: 0.1451747, Reward: -445.131, Time: 459.5803, Mem: 13.867, Cached: 64.955
+Epoch: 097/350, LR: 0.000045, StartTime: 0904-1532
+Epoch: 097, LR: 0.000045, Loss: 0.0172501, Validation MAE: 0.1523823, Test MAE: 0.1451747, Reward: -449.801, Time: 420.8520, Mem: 13.536, Cached: 64.955
+Epoch: 098/350, LR: 0.000045, StartTime: 0904-1539
+Epoch: 098, LR: 0.000045, Loss: 0.0170054, Validation MAE: 0.1710488, Test MAE: 0.1451747, Reward: -447.184, Time: 420.1083, Mem: 13.537, Cached: 64.955
+Epoch: 099/350, LR: 0.000045, StartTime: 0904-1546
+Epoch: 099, LR: 0.000045, Loss: 0.0169112, Validation MAE: 0.1423422, Test MAE: 0.1443397, Reward: -448.923, Time: 460.8055, Mem: 13.869, Cached: 64.955
+Epoch: 100/350, LR: 0.000045, StartTime: 0904-1554
+Epoch: 100, LR: 0.000045, Loss: 0.0171026, Validation MAE: 0.1581426, Test MAE: 0.1443397, Reward: -450.274, Time: 421.2893, Mem: 13.537, Cached: 64.955
+100 epoch Checkpoint saved to qm9/0903/0/checkpoint/
+Epoch: 101/350, LR: 0.000045, StartTime: 0904-1601
+Epoch: 101, LR: 0.000045, Loss: 0.0163860, Validation MAE: 0.1428042, Test MAE: 0.1443397, Reward: -443.996, Time: 424.5864, Mem: 13.539, Cached: 64.955
+Epoch: 102/350, LR: 0.000045, StartTime: 0904-1608
+Epoch: 102, LR: 0.000045, Loss: 0.0156271, Validation MAE: 0.1370256, Test MAE: 0.1402755, Reward: -442.747, Time: 657.1148, Mem: 13.865, Cached: 64.955
+Epoch: 103/350, LR: 0.000045, StartTime: 0904-1619
+Epoch: 103, LR: 0.000045, Loss: 0.0154625, Validation MAE: 0.1468404, Test MAE: 0.1402755, Reward: -440.489, Time: 611.1983, Mem: 13.539, Cached: 64.955
+Epoch: 104/350, LR: 0.000045, StartTime: 0904-1629
+Epoch: 104, LR: 0.000045, Loss: 0.0154837, Validation MAE: 0.1441393, Test MAE: 0.1402755, Reward: -432.182, Time: 428.4575, Mem: 13.535, Cached: 64.955
+Epoch: 105/350, LR: 0.000045, StartTime: 0904-1636
+Epoch: 105, LR: 0.000045, Loss: 0.0154890, Validation MAE: 0.1437489, Test MAE: 0.1402755, Reward: -436.439, Time: 436.8794, Mem: 13.535, Cached: 64.955
+Epoch: 106/350, LR: 0.000045, StartTime: 0904-1644
+Epoch: 106, LR: 0.000045, Loss: 0.0153242, Validation MAE: 0.1468864, Test MAE: 0.1402755, Reward: -440.748, Time: 439.0437, Mem: 13.539, Cached: 64.955
+Epoch: 107/350, LR: 0.000044, StartTime: 0904-1651
+Epoch: 107, LR: 0.000044, Loss: 0.0146573, Validation MAE: 0.1503754, Test MAE: 0.1402755, Reward: -439.125, Time: 439.3384, Mem: 13.537, Cached: 64.955
+Epoch: 108/350, LR: 0.000044, StartTime: 0904-1658
+Epoch: 108, LR: 0.000044, Loss: 0.0143916, Validation MAE: 0.1354038, Test MAE: 0.1355808, Reward: -439.406, Time: 455.8715, Mem: 13.865, Cached: 64.955
+Epoch: 109/350, LR: 0.000044, StartTime: 0904-1706
+Epoch: 109, LR: 0.000044, Loss: 0.0144087, Validation MAE: 0.1446543, Test MAE: 0.1355808, Reward: -444.342, Time: 422.1334, Mem: 13.535, Cached: 64.955
+Epoch: 110/350, LR: 0.000044, StartTime: 0904-1713
+Epoch: 110, LR: 0.000044, Loss: 0.0154367, Validation MAE: 0.1517852, Test MAE: 0.1355808, Reward: -456.610, Time: 425.8091, Mem: 13.537, Cached: 64.955
+Epoch: 111/350, LR: 0.000044, StartTime: 0904-1720
+Epoch: 111, LR: 0.000044, Loss: 0.0157666, Validation MAE: 0.1447150, Test MAE: 0.1355808, Reward: -458.769, Time: 420.6868, Mem: 13.537, Cached: 64.955
+Epoch: 112/350, LR: 0.000044, StartTime: 0904-1727
+Epoch: 112, LR: 0.000044, Loss: 0.0145865, Validation MAE: 0.1327401, Test MAE: 0.1331202, Reward: -457.584, Time: 453.5921, Mem: 13.867, Cached: 64.955
+Epoch: 113/350, LR: 0.000044, StartTime: 0904-1735
+Epoch: 113, LR: 0.000044, Loss: 0.0146388, Validation MAE: 0.1454288, Test MAE: 0.1331202, Reward: -457.744, Time: 436.8133, Mem: 13.542, Cached: 64.955
+Epoch: 114/350, LR: 0.000044, StartTime: 0904-1742
+Epoch: 114, LR: 0.000044, Loss: 0.0144597, Validation MAE: 0.1452539, Test MAE: 0.1331202, Reward: -460.884, Time: 430.2357, Mem: 13.537, Cached: 64.955
+Epoch: 115/350, LR: 0.000044, StartTime: 0904-1749
+Epoch: 115, LR: 0.000044, Loss: 0.0142137, Validation MAE: 0.1344665, Test MAE: 0.1331202, Reward: -459.045, Time: 427.7981, Mem: 13.537, Cached: 64.955
+Epoch: 116/350, LR: 0.000043, StartTime: 0904-1756
+Epoch: 116, LR: 0.000043, Loss: 0.0163647, Validation MAE: 0.1344474, Test MAE: 0.1331202, Reward: -456.054, Time: 435.7942, Mem: 13.537, Cached: 64.955
+Epoch: 117/350, LR: 0.000043, StartTime: 0904-1803
+Epoch: 117, LR: 0.000043, Loss: 0.0133335, Validation MAE: 0.1424169, Test MAE: 0.1331202, Reward: -453.071, Time: 447.9060, Mem: 13.537, Cached: 64.955
+Epoch: 118/350, LR: 0.000043, StartTime: 0904-1811
+Epoch: 118, LR: 0.000043, Loss: 0.0143654, Validation MAE: 0.1348967, Test MAE: 0.1331202, Reward: -453.357, Time: 469.9237, Mem: 13.542, Cached: 64.955
+Epoch: 119/350, LR: 0.000043, StartTime: 0904-1819
+Epoch: 119, LR: 0.000043, Loss: 0.0132608, Validation MAE: 0.1385102, Test MAE: 0.1331202, Reward: -448.777, Time: 445.0724, Mem: 13.536, Cached: 64.955
+Epoch: 120/350, LR: 0.000043, StartTime: 0904-1826
+Epoch: 120, LR: 0.000043, Loss: 0.0133319, Validation MAE: 0.1469991, Test MAE: 0.1331202, Reward: -455.845, Time: 429.8649, Mem: 13.536, Cached: 64.955
+Epoch: 121/350, LR: 0.000043, StartTime: 0904-1833
+Epoch: 121, LR: 0.000043, Loss: 0.0132945, Validation MAE: 0.1329958, Test MAE: 0.1331202, Reward: -448.486, Time: 469.4508, Mem: 13.538, Cached: 64.955
+Epoch: 122/350, LR: 0.000043, StartTime: 0904-1841
+Epoch: 122, LR: 0.000043, Loss: 0.0126226, Validation MAE: 0.1312820, Test MAE: 0.1342054, Reward: -443.211, Time: 481.5348, Mem: 13.866, Cached: 64.955
+Epoch: 123/350, LR: 0.000043, StartTime: 0904-1849
+Epoch: 123, LR: 0.000043, Loss: 0.0133613, Validation MAE: 0.1343295, Test MAE: 0.1342054, Reward: -455.307, Time: 452.6699, Mem: 13.537, Cached: 64.955
+Epoch: 124/350, LR: 0.000043, StartTime: 0904-1857
+Epoch: 124, LR: 0.000043, Loss: 0.0129120, Validation MAE: 0.1287894, Test MAE: 0.1282843, Reward: -452.358, Time: 495.8753, Mem: 13.865, Cached: 64.955
+Epoch: 125/350, LR: 0.000042, StartTime: 0904-1905
+Epoch: 125, LR: 0.000042, Loss: 0.0124479, Validation MAE: 0.1243753, Test MAE: 0.1268071, Reward: -449.413, Time: 494.3145, Mem: 13.866, Cached: 64.955
+Epoch: 126/350, LR: 0.000042, StartTime: 0904-1913
+Epoch: 126, LR: 0.000042, Loss: 0.0131297, Validation MAE: 0.1281175, Test MAE: 0.1268071, Reward: -448.728, Time: 443.5358, Mem: 13.537, Cached: 64.955
+Epoch: 127/350, LR: 0.000042, StartTime: 0904-1921
+Epoch: 127, LR: 0.000042, Loss: 0.0121267, Validation MAE: 0.1288629, Test MAE: 0.1268071, Reward: -455.559, Time: 458.2303, Mem: 13.544, Cached: 64.955
+Epoch: 128/350, LR: 0.000042, StartTime: 0904-1928
+Epoch: 128, LR: 0.000042, Loss: 0.0123545, Validation MAE: 0.1374753, Test MAE: 0.1268071, Reward: -454.103, Time: 442.5488, Mem: 13.537, Cached: 64.955
+Epoch: 129/350, LR: 0.000042, StartTime: 0904-1936
+Epoch: 129, LR: 0.000042, Loss: 0.0121564, Validation MAE: 0.1301298, Test MAE: 0.1268071, Reward: -450.672, Time: 440.3209, Mem: 13.541, Cached: 64.955
+Epoch: 130/350, LR: 0.000042, StartTime: 0904-1943
+Epoch: 130, LR: 0.000042, Loss: 0.0119369, Validation MAE: 0.1343248, Test MAE: 0.1268071, Reward: -456.270, Time: 762.6866, Mem: 13.537, Cached: 64.955
+Epoch: 131/350, LR: 0.000042, StartTime: 0904-1956
+Epoch: 131, LR: 0.000042, Loss: 0.0118367, Validation MAE: 0.1291876, Test MAE: 0.1268071, Reward: -451.587, Time: 431.3978, Mem: 13.542, Cached: 64.955
+Epoch: 132/350, LR: 0.000042, StartTime: 0904-2003
+Epoch: 132, LR: 0.000042, Loss: 0.0115716, Validation MAE: 0.1330412, Test MAE: 0.1268071, Reward: -450.779, Time: 431.0927, Mem: 13.539, Cached: 64.955
+Epoch: 133/350, LR: 0.000041, StartTime: 0904-2010
+Epoch: 133, LR: 0.000041, Loss: 0.0111917, Validation MAE: 0.1277207, Test MAE: 0.1268071, Reward: -448.725, Time: 447.6507, Mem: 13.538, Cached: 64.955
+Epoch: 134/350, LR: 0.000041, StartTime: 0904-2017
+Epoch: 134, LR: 0.000041, Loss: 0.0120483, Validation MAE: 0.1211460, Test MAE: 0.1225598, Reward: -455.061, Time: 475.9956, Mem: 13.870, Cached: 64.955
+Epoch: 135/350, LR: 0.000041, StartTime: 0904-2025
+Epoch: 135, LR: 0.000041, Loss: 0.0107588, Validation MAE: 0.1182600, Test MAE: 0.1196767, Reward: -447.617, Time: 498.4164, Mem: 13.868, Cached: 64.955
+Epoch: 136/350, LR: 0.000041, StartTime: 0904-2034
+Epoch: 136, LR: 0.000041, Loss: 0.0110755, Validation MAE: 0.1247722, Test MAE: 0.1196767, Reward: -452.157, Time: 443.7001, Mem: 13.541, Cached: 64.955
+Epoch: 137/350, LR: 0.000041, StartTime: 0904-2041
+Epoch: 137, LR: 0.000041, Loss: 0.0109505, Validation MAE: 0.1216314, Test MAE: 0.1196767, Reward: -449.478, Time: 460.6532, Mem: 13.538, Cached: 64.955
+Epoch: 138/350, LR: 0.000041, StartTime: 0904-2049
+Epoch: 138, LR: 0.000041, Loss: 0.0114138, Validation MAE: 0.1211156, Test MAE: 0.1196767, Reward: -456.238, Time: 458.2400, Mem: 13.539, Cached: 64.955
+Epoch: 139/350, LR: 0.000041, StartTime: 0904-2056
+Epoch: 139, LR: 0.000041, Loss: 0.0114588, Validation MAE: 0.1297645, Test MAE: 0.1196767, Reward: -460.369, Time: 462.1632, Mem: 13.538, Cached: 64.955
+Epoch: 140/350, LR: 0.000041, StartTime: 0904-2104
+Epoch: 140, LR: 0.000041, Loss: 0.0106029, Validation MAE: 0.1241478, Test MAE: 0.1196767, Reward: -458.434, Time: 461.1965, Mem: 13.539, Cached: 64.955
+Epoch: 141/350, LR: 0.000040, StartTime: 0904-2112
+Epoch: 141, LR: 0.000040, Loss: 0.0105710, Validation MAE: 0.1216170, Test MAE: 0.1196767, Reward: -456.941, Time: 460.2344, Mem: 13.538, Cached: 64.955
+Epoch: 142/350, LR: 0.000040, StartTime: 0904-2119
+Epoch: 142, LR: 0.000040, Loss: 0.0105869, Validation MAE: 0.1257586, Test MAE: 0.1196767, Reward: -455.441, Time: 463.0581, Mem: 13.539, Cached: 64.955
+Epoch: 143/350, LR: 0.000040, StartTime: 0904-2127
+Epoch: 143, LR: 0.000040, Loss: 0.0103053, Validation MAE: 0.1173492, Test MAE: 0.1173188, Reward: -449.897, Time: 496.4246, Mem: 13.871, Cached: 64.955
+Epoch: 144/350, LR: 0.000040, StartTime: 0904-2135
+Epoch: 144, LR: 0.000040, Loss: 0.0102599, Validation MAE: 0.1208019, Test MAE: 0.1173188, Reward: -444.464, Time: 464.5030, Mem: 13.540, Cached: 64.955
+Epoch: 145/350, LR: 0.000040, StartTime: 0904-2143
+Epoch: 145, LR: 0.000040, Loss: 0.0101468, Validation MAE: 0.1186516, Test MAE: 0.1173188, Reward: -453.998, Time: 465.4974, Mem: 13.540, Cached: 64.955
+Epoch: 146/350, LR: 0.000040, StartTime: 0904-2151
+Epoch: 146, LR: 0.000040, Loss: 0.0109069, Validation MAE: 0.1196632, Test MAE: 0.1173188, Reward: -460.421, Time: 455.4632, Mem: 13.542, Cached: 64.955
+Epoch: 147/350, LR: 0.000040, StartTime: 0904-2159
+Epoch: 147, LR: 0.000040, Loss: 0.0098946, Validation MAE: 0.1138124, Test MAE: 0.1153441, Reward: -452.227, Time: 482.3893, Mem: 13.871, Cached: 64.955
+Epoch: 148/350, LR: 0.000040, StartTime: 0904-2207
+Epoch: 148, LR: 0.000040, Loss: 0.0105075, Validation MAE: 0.1274331, Test MAE: 0.1153441, Reward: -458.352, Time: 458.7013, Mem: 13.543, Cached: 64.957
+Epoch: 149/350, LR: 0.000039, StartTime: 0904-2214
+Epoch: 149, LR: 0.000039, Loss: 0.0096560, Validation MAE: 0.1241230, Test MAE: 0.1153441, Reward: -459.599, Time: 440.2616, Mem: 13.538, Cached: 64.957
+Epoch: 150/350, LR: 0.000039, StartTime: 0904-2222
+Epoch: 150, LR: 0.000039, Loss: 0.0100579, Validation MAE: 0.1159723, Test MAE: 0.1153441, Reward: -458.427, Time: 450.2942, Mem: 13.539, Cached: 64.957
+150 epoch Checkpoint saved to qm9/0903/0/checkpoint/
+Epoch: 151/350, LR: 0.000039, StartTime: 0904-2229
+Epoch: 151, LR: 0.000039, Loss: 0.0093651, Validation MAE: 0.1165687, Test MAE: 0.1153441, Reward: -447.785, Time: 451.0639, Mem: 13.540, Cached: 64.957
+Epoch: 152/350, LR: 0.000039, StartTime: 0904-2237
+Epoch: 152, LR: 0.000039, Loss: 0.0093562, Validation MAE: 0.1160987, Test MAE: 0.1153441, Reward: -461.770, Time: 450.1015, Mem: 13.540, Cached: 64.957
+Epoch: 153/350, LR: 0.000039, StartTime: 0904-2244
+Epoch: 153, LR: 0.000039, Loss: 0.0096079, Validation MAE: 0.1175165, Test MAE: 0.1153441, Reward: -454.113, Time: 451.4484, Mem: 13.539, Cached: 64.957
+Epoch: 154/350, LR: 0.000039, StartTime: 0904-2252
+Epoch: 154, LR: 0.000039, Loss: 0.0091935, Validation MAE: 0.1148949, Test MAE: 0.1153441, Reward: -450.662, Time: 454.6420, Mem: 13.542, Cached: 64.957
+Epoch: 155/350, LR: 0.000039, StartTime: 0904-2259
+Epoch: 155, LR: 0.000039, Loss: 0.0096716, Validation MAE: 0.1177337, Test MAE: 0.1153441, Reward: -454.880, Time: 448.1653, Mem: 13.537, Cached: 64.957
+Epoch: 156/350, LR: 0.000038, StartTime: 0904-2307
+Epoch: 156, LR: 0.000038, Loss: 0.0098512, Validation MAE: 0.1226411, Test MAE: 0.1153441, Reward: -456.520, Time: 469.0734, Mem: 13.540, Cached: 64.957
+Epoch: 157/350, LR: 0.000038, StartTime: 0904-2314
+Epoch: 157, LR: 0.000038, Loss: 0.0094519, Validation MAE: 0.1383519, Test MAE: 0.1153441, Reward: -455.769, Time: 465.8169, Mem: 13.537, Cached: 64.957
+Epoch: 158/350, LR: 0.000038, StartTime: 0904-2322
+Epoch: 158, LR: 0.000038, Loss: 0.0093646, Validation MAE: 0.1272519, Test MAE: 0.1153441, Reward: -453.680, Time: 474.4987, Mem: 13.537, Cached: 64.957
+Epoch: 159/350, LR: 0.000038, StartTime: 0904-2330
+Epoch: 159, LR: 0.000038, Loss: 0.0094495, Validation MAE: 0.1250091, Test MAE: 0.1153441, Reward: -454.015, Time: 490.3595, Mem: 13.538, Cached: 64.957
+Epoch: 160/350, LR: 0.000038, StartTime: 0904-2338
+Epoch: 160, LR: 0.000038, Loss: 0.0100226, Validation MAE: 0.1302632, Test MAE: 0.1153441, Reward: -461.398, Time: 487.4699, Mem: 13.538, Cached: 64.957
+Epoch: 161/350, LR: 0.000038, StartTime: 0904-2346
+Epoch: 161, LR: 0.000038, Loss: 0.0096944, Validation MAE: 0.1249148, Test MAE: 0.1153441, Reward: -461.198, Time: 492.2844, Mem: 13.537, Cached: 64.957
+Epoch: 162/350, LR: 0.000038, StartTime: 0904-2355
+Epoch: 162, LR: 0.000038, Loss: 0.0094801, Validation MAE: 0.1151792, Test MAE: 0.1153441, Reward: -464.925, Time: 491.4874, Mem: 13.541, Cached: 64.957
+Epoch: 163/350, LR: 0.000037, StartTime: 0905-0003
+Epoch: 163, LR: 0.000037, Loss: 0.0098909, Validation MAE: 0.1148020, Test MAE: 0.1153441, Reward: -471.324, Time: 490.5659, Mem: 13.540, Cached: 64.957
+Epoch: 164/350, LR: 0.000037, StartTime: 0905-0011
+Epoch: 164, LR: 0.000037, Loss: 0.0102827, Validation MAE: 0.1174517, Test MAE: 0.1153441, Reward: -469.271, Time: 485.3116, Mem: 13.540, Cached: 64.957
+Epoch: 165/350, LR: 0.000037, StartTime: 0905-0019
+Epoch: 165, LR: 0.000037, Loss: 0.0088816, Validation MAE: 0.1200362, Test MAE: 0.1153441, Reward: -462.912, Time: 491.4571, Mem: 13.540, Cached: 64.957
+Epoch: 166/350, LR: 0.000037, StartTime: 0905-0027
+Epoch: 166, LR: 0.000037, Loss: 0.0090196, Validation MAE: 0.1130975, Test MAE: 0.1150448, Reward: -455.541, Time: 509.2914, Mem: 13.871, Cached: 64.957
+Epoch: 167/350, LR: 0.000037, StartTime: 0905-0036
+Epoch: 167, LR: 0.000037, Loss: 0.0083665, Validation MAE: 0.1110948, Test MAE: 0.1117403, Reward: -447.712, Time: 495.0390, Mem: 13.870, Cached: 64.957
+Epoch: 168/350, LR: 0.000037, StartTime: 0905-0044
+Epoch: 168, LR: 0.000037, Loss: 0.0083688, Validation MAE: 0.1079166, Test MAE: 0.1096546, Reward: -455.245, Time: 520.7136, Mem: 13.871, Cached: 64.957
+Epoch: 169/350, LR: 0.000036, StartTime: 0905-0053
+Epoch: 169, LR: 0.000036, Loss: 0.0083238, Validation MAE: 0.1121660, Test MAE: 0.1096546, Reward: -455.395, Time: 449.5090, Mem: 13.541, Cached: 64.957
+Epoch: 170/350, LR: 0.000036, StartTime: 0905-0100
+Epoch: 170, LR: 0.000036, Loss: 0.0090650, Validation MAE: 0.1280702, Test MAE: 0.1096546, Reward: -463.241, Time: 467.3708, Mem: 13.540, Cached: 64.957
+Epoch: 171/350, LR: 0.000036, StartTime: 0905-0108
+Epoch: 171, LR: 0.000036, Loss: 0.0087941, Validation MAE: 0.1079798, Test MAE: 0.1096546, Reward: -460.065, Time: 475.2297, Mem: 13.538, Cached: 64.957
+Epoch: 172/350, LR: 0.000036, StartTime: 0905-0116
+Epoch: 172, LR: 0.000036, Loss: 0.0085126, Validation MAE: 0.1241274, Test MAE: 0.1096546, Reward: -454.104, Time: 447.9440, Mem: 13.540, Cached: 64.957
+Epoch: 173/350, LR: 0.000036, StartTime: 0905-0123
+Epoch: 173, LR: 0.000036, Loss: 0.0085646, Validation MAE: 0.1139202, Test MAE: 0.1096546, Reward: -459.442, Time: 446.2646, Mem: 13.542, Cached: 64.957
+Epoch: 174/350, LR: 0.000036, StartTime: 0905-0131
+Epoch: 174, LR: 0.000036, Loss: 0.0083240, Validation MAE: 0.1059326, Test MAE: 0.1083306, Reward: -461.549, Time: 486.8980, Mem: 13.868, Cached: 64.957
+Epoch: 175/350, LR: 0.000036, StartTime: 0905-0139
+Epoch: 175, LR: 0.000036, Loss: 0.0082832, Validation MAE: 0.1188520, Test MAE: 0.1083306, Reward: -466.079, Time: 472.8259, Mem: 13.542, Cached: 64.957
+Epoch: 176/350, LR: 0.000035, StartTime: 0905-0147
+Epoch: 176, LR: 0.000035, Loss: 0.0080821, Validation MAE: 0.1126011, Test MAE: 0.1083306, Reward: -463.998, Time: 466.6210, Mem: 13.540, Cached: 64.957
+Epoch: 177/350, LR: 0.000035, StartTime: 0905-0155
+Epoch: 177, LR: 0.000035, Loss: 0.0081823, Validation MAE: 0.1052239, Test MAE: 0.1070403, Reward: -467.527, Time: 504.6904, Mem: 13.871, Cached: 64.957
+Epoch: 178/350, LR: 0.000035, StartTime: 0905-0203
+Epoch: 178, LR: 0.000035, Loss: 0.0077618, Validation MAE: 0.1075745, Test MAE: 0.1070403, Reward: -459.583, Time: 450.0652, Mem: 13.539, Cached: 64.957
+Epoch: 179/350, LR: 0.000035, StartTime: 0905-0211
+Epoch: 179, LR: 0.000035, Loss: 0.0079026, Validation MAE: 0.1097295, Test MAE: 0.1070403, Reward: -465.012, Time: 464.2585, Mem: 13.538, Cached: 64.957
+Epoch: 180/350, LR: 0.000035, StartTime: 0905-0218
+Epoch: 180, LR: 0.000035, Loss: 0.0076169, Validation MAE: 0.1119118, Test MAE: 0.1070403, Reward: -452.858, Time: 448.5762, Mem: 13.537, Cached: 64.957
+Epoch: 181/350, LR: 0.000035, StartTime: 0905-0226
+Epoch: 181, LR: 0.000035, Loss: 0.0077045, Validation MAE: 0.1066397, Test MAE: 0.1070403, Reward: -454.121, Time: 446.9014, Mem: 13.538, Cached: 64.957
+Epoch: 182/350, LR: 0.000034, StartTime: 0905-0233
+Epoch: 182, LR: 0.000034, Loss: 0.0077017, Validation MAE: 0.1115747, Test MAE: 0.1070403, Reward: -461.034, Time: 454.3015, Mem: 13.538, Cached: 64.957
+Epoch: 183/350, LR: 0.000034, StartTime: 0905-0241
+Epoch: 183, LR: 0.000034, Loss: 0.0074595, Validation MAE: 0.1049645, Test MAE: 0.1064989, Reward: -450.004, Time: 515.1870, Mem: 13.866, Cached: 64.957
+Epoch: 184/350, LR: 0.000034, StartTime: 0905-0249
+Epoch: 184, LR: 0.000034, Loss: 0.0074471, Validation MAE: 0.1077209, Test MAE: 0.1064989, Reward: -450.289, Time: 475.8077, Mem: 13.541, Cached: 64.957
+Epoch: 185/350, LR: 0.000034, StartTime: 0905-0257
+Epoch: 185, LR: 0.000034, Loss: 0.0073951, Validation MAE: 0.1058387, Test MAE: 0.1064989, Reward: -453.985, Time: 474.4968, Mem: 13.537, Cached: 64.957
+Epoch: 186/350, LR: 0.000034, StartTime: 0905-0305
+Epoch: 186, LR: 0.000034, Loss: 0.0075240, Validation MAE: 0.1056047, Test MAE: 0.1064989, Reward: -458.172, Time: 466.6047, Mem: 13.543, Cached: 64.957
+Epoch: 187/350, LR: 0.000034, StartTime: 0905-0313
+Epoch: 187, LR: 0.000034, Loss: 0.0071928, Validation MAE: 0.1049866, Test MAE: 0.1064989, Reward: -453.326, Time: 484.2747, Mem: 13.543, Cached: 64.957
+Epoch: 188/350, LR: 0.000033, StartTime: 0905-0321
+Epoch: 188, LR: 0.000033, Loss: 0.0072294, Validation MAE: 0.1170757, Test MAE: 0.1064989, Reward: -456.385, Time: 448.6787, Mem: 13.538, Cached: 64.957
+Epoch: 189/350, LR: 0.000033, StartTime: 0905-0328
+Epoch: 189, LR: 0.000033, Loss: 0.0074870, Validation MAE: 0.1096691, Test MAE: 0.1064989, Reward: -465.942, Time: 445.1328, Mem: 13.541, Cached: 64.957
+Epoch: 190/350, LR: 0.000033, StartTime: 0905-0336
+Epoch: 190, LR: 0.000033, Loss: 0.0073794, Validation MAE: 0.1015487, Test MAE: 0.1023451, Reward: -466.408, Time: 483.0743, Mem: 13.867, Cached: 64.957
+Epoch: 191/350, LR: 0.000033, StartTime: 0905-0344
+Epoch: 191, LR: 0.000033, Loss: 0.0070561, Validation MAE: 0.1101251, Test MAE: 0.1023451, Reward: -453.929, Time: 446.3148, Mem: 13.539, Cached: 64.957
+Epoch: 192/350, LR: 0.000033, StartTime: 0905-0351
+Epoch: 192, LR: 0.000033, Loss: 0.0066904, Validation MAE: 0.1016422, Test MAE: 0.1023451, Reward: -449.411, Time: 444.1021, Mem: 13.542, Cached: 64.957
+Epoch: 193/350, LR: 0.000033, StartTime: 0905-0359
+Epoch: 193, LR: 0.000033, Loss: 0.0067282, Validation MAE: 0.1001687, Test MAE: 0.1007361, Reward: -453.849, Time: 481.6815, Mem: 13.870, Cached: 64.957
+Epoch: 194/350, LR: 0.000032, StartTime: 0905-0407
+Epoch: 194, LR: 0.000032, Loss: 0.0070276, Validation MAE: 0.1048293, Test MAE: 0.1007361, Reward: -464.210, Time: 449.3331, Mem: 13.539, Cached: 64.957
+Epoch: 195/350, LR: 0.000032, StartTime: 0905-0414
+Epoch: 195, LR: 0.000032, Loss: 0.0067047, Validation MAE: 0.1010696, Test MAE: 0.1007361, Reward: -456.156, Time: 448.9819, Mem: 13.542, Cached: 64.957
+Epoch: 196/350, LR: 0.000032, StartTime: 0905-0422
+Epoch: 196, LR: 0.000032, Loss: 0.0073141, Validation MAE: 0.0996303, Test MAE: 0.1001375, Reward: -463.679, Time: 478.6885, Mem: 13.871, Cached: 64.957
+Epoch: 197/350, LR: 0.000032, StartTime: 0905-0430
+Epoch: 197, LR: 0.000032, Loss: 0.0067112, Validation MAE: 0.1010243, Test MAE: 0.1001375, Reward: -467.234, Time: 448.3105, Mem: 13.541, Cached: 64.957
+Epoch: 198/350, LR: 0.000032, StartTime: 0905-0437
+Epoch: 198, LR: 0.000032, Loss: 0.0069251, Validation MAE: 0.1008502, Test MAE: 0.1001375, Reward: -469.245, Time: 451.1852, Mem: 13.541, Cached: 64.957
+Epoch: 199/350, LR: 0.000032, StartTime: 0905-0445
+Epoch: 199, LR: 0.000032, Loss: 0.0069788, Validation MAE: 0.1070042, Test MAE: 0.1001375, Reward: -468.121, Time: 458.3349, Mem: 13.539, Cached: 64.957
+Epoch: 200/350, LR: 0.000031, StartTime: 0905-0452
+Epoch: 200, LR: 0.000031, Loss: 0.0071028, Validation MAE: 0.1019799, Test MAE: 0.1001375, Reward: -475.174, Time: 464.7860, Mem: 13.540, Cached: 64.957
+200 epoch Checkpoint saved to qm9/0903/0/checkpoint/
+Epoch: 201/350, LR: 0.000031, StartTime: 0905-0500
+Epoch: 201, LR: 0.000031, Loss: 0.0067416, Validation MAE: 0.0985142, Test MAE: 0.0994088, Reward: -464.547, Time: 506.1681, Mem: 13.869, Cached: 64.957
+Epoch: 202/350, LR: 0.000031, StartTime: 0905-0509
+Epoch: 202, LR: 0.000031, Loss: 0.0068522, Validation MAE: 0.1001108, Test MAE: 0.0994088, Reward: -471.936, Time: 446.2347, Mem: 13.539, Cached: 64.957
+Epoch: 203/350, LR: 0.000031, StartTime: 0905-0516
+Epoch: 203, LR: 0.000031, Loss: 0.0070542, Validation MAE: 0.1002633, Test MAE: 0.0994088, Reward: -474.842, Time: 446.6336, Mem: 13.541, Cached: 64.957
+Epoch: 204/350, LR: 0.000031, StartTime: 0905-0523
+Epoch: 204, LR: 0.000031, Loss: 0.0068505, Validation MAE: 0.1191924, Test MAE: 0.0994088, Reward: -472.044, Time: 451.8094, Mem: 13.541, Cached: 64.957
+Epoch: 205/350, LR: 0.000030, StartTime: 0905-0531
+Epoch: 205, LR: 0.000030, Loss: 0.0071313, Validation MAE: 0.1031891, Test MAE: 0.0994088, Reward: -479.493, Time: 449.7686, Mem: 13.539, Cached: 64.957
+Epoch: 206/350, LR: 0.000030, StartTime: 0905-0539
+Epoch: 206, LR: 0.000030, Loss: 0.0062754, Validation MAE: 0.1026423, Test MAE: 0.0994088, Reward: -462.861, Time: 455.1860, Mem: 13.543, Cached: 64.957
+Epoch: 207/350, LR: 0.000030, StartTime: 0905-0546
+Epoch: 207, LR: 0.000030, Loss: 0.0067231, Validation MAE: 0.1068058, Test MAE: 0.0994088, Reward: -471.486, Time: 484.5328, Mem: 13.540, Cached: 64.957
+Epoch: 208/350, LR: 0.000030, StartTime: 0905-0554
+Epoch: 208, LR: 0.000030, Loss: 0.0073171, Validation MAE: 0.1132226, Test MAE: 0.0994088, Reward: -477.139, Time: 469.0926, Mem: 13.540, Cached: 64.957
+Epoch: 209/350, LR: 0.000030, StartTime: 0905-0602
+Epoch: 209, LR: 0.000030, Loss: 0.0072950, Validation MAE: 0.1038950, Test MAE: 0.0994088, Reward: -484.573, Time: 464.7546, Mem: 13.542, Cached: 64.957
+Epoch: 210/350, LR: 0.000030, StartTime: 0905-0610
+Epoch: 210, LR: 0.000030, Loss: 0.0067468, Validation MAE: 0.0980484, Test MAE: 0.0977859, Reward: -474.020, Time: 501.7552, Mem: 13.867, Cached: 64.957
+Epoch: 211/350, LR: 0.000029, StartTime: 0905-0618
+Epoch: 211, LR: 0.000029, Loss: 0.0062593, Validation MAE: 0.1016194, Test MAE: 0.0977859, Reward: -467.143, Time: 458.2481, Mem: 13.542, Cached: 64.957
+Epoch: 212/350, LR: 0.000029, StartTime: 0905-0626
+Epoch: 212, LR: 0.000029, Loss: 0.0062773, Validation MAE: 0.0979771, Test MAE: 0.0982705, Reward: -468.063, Time: 495.0641, Mem: 13.869, Cached: 64.957
+Epoch: 213/350, LR: 0.000029, StartTime: 0905-0634
+Epoch: 213, LR: 0.000029, Loss: 0.0066659, Validation MAE: 0.1093700, Test MAE: 0.0982705, Reward: -477.198, Time: 466.1871, Mem: 13.541, Cached: 64.957
+Epoch: 214/350, LR: 0.000029, StartTime: 0905-0642
+Epoch: 214, LR: 0.000029, Loss: 0.0065844, Validation MAE: 0.0997574, Test MAE: 0.0982705, Reward: -474.765, Time: 450.0774, Mem: 13.541, Cached: 64.957
+Epoch: 215/350, LR: 0.000029, StartTime: 0905-0649
+Epoch: 215, LR: 0.000029, Loss: 0.0062881, Validation MAE: 0.1017882, Test MAE: 0.0982705, Reward: -472.318, Time: 441.1533, Mem: 13.541, Cached: 64.957
+Epoch: 216/350, LR: 0.000028, StartTime: 0905-0657
+Epoch: 216, LR: 0.000028, Loss: 0.0062682, Validation MAE: 0.0974681, Test MAE: 0.0978361, Reward: -465.497, Time: 475.4816, Mem: 13.871, Cached: 64.957
+Epoch: 217/350, LR: 0.000028, StartTime: 0905-0705
+Epoch: 217, LR: 0.000028, Loss: 0.0059647, Validation MAE: 0.0965909, Test MAE: 0.0963651, Reward: -466.230, Time: 492.4630, Mem: 13.870, Cached: 64.957
+Epoch: 218/350, LR: 0.000028, StartTime: 0905-0713
+Epoch: 218, LR: 0.000028, Loss: 0.0059408, Validation MAE: 0.0956000, Test MAE: 0.0960989, Reward: -464.014, Time: 503.6971, Mem: 13.870, Cached: 64.957
+Epoch: 219/350, LR: 0.000028, StartTime: 0905-0721
+Epoch: 219, LR: 0.000028, Loss: 0.0060834, Validation MAE: 0.1032639, Test MAE: 0.0960989, Reward: -470.166, Time: 462.9513, Mem: 13.539, Cached: 64.957
+Epoch: 220/350, LR: 0.000028, StartTime: 0905-0729
+Epoch: 220, LR: 0.000028, Loss: 0.0058505, Validation MAE: 0.1064058, Test MAE: 0.0960989, Reward: -470.794, Time: 461.7281, Mem: 13.540, Cached: 64.957
+Epoch: 221/350, LR: 0.000028, StartTime: 0905-0737
+Epoch: 221, LR: 0.000028, Loss: 0.0060275, Validation MAE: 0.1050574, Test MAE: 0.0960989, Reward: -472.719, Time: 463.8956, Mem: 13.539, Cached: 64.957
+Epoch: 222/350, LR: 0.000027, StartTime: 0905-0744
+Epoch: 222, LR: 0.000027, Loss: 0.0060120, Validation MAE: 0.0975181, Test MAE: 0.0960989, Reward: -473.699, Time: 463.6096, Mem: 13.540, Cached: 64.957
+Epoch: 223/350, LR: 0.000027, StartTime: 0905-0752
+Epoch: 223, LR: 0.000027, Loss: 0.0058225, Validation MAE: 0.1000962, Test MAE: 0.0960989, Reward: -473.306, Time: 463.2930, Mem: 13.542, Cached: 64.957
+Epoch: 224/350, LR: 0.000027, StartTime: 0905-0800
+Epoch: 224, LR: 0.000027, Loss: 0.0057729, Validation MAE: 0.0962785, Test MAE: 0.0960989, Reward: -461.349, Time: 463.2031, Mem: 13.541, Cached: 64.957
+Epoch: 225/350, LR: 0.000027, StartTime: 0905-0807
+Epoch: 225, LR: 0.000027, Loss: 0.0057769, Validation MAE: 0.0940099, Test MAE: 0.0937211, Reward: -463.936, Time: 497.2545, Mem: 13.869, Cached: 64.957
+Epoch: 226/350, LR: 0.000027, StartTime: 0905-0816
+Epoch: 226, LR: 0.000027, Loss: 0.0060779, Validation MAE: 0.0987000, Test MAE: 0.0937211, Reward: -471.117, Time: 464.1627, Mem: 13.540, Cached: 64.957
+Epoch: 227/350, LR: 0.000026, StartTime: 0905-0823
+Epoch: 227, LR: 0.000026, Loss: 0.0060277, Validation MAE: 0.0981126, Test MAE: 0.0937211, Reward: -472.626, Time: 465.0239, Mem: 13.540, Cached: 64.957
+Epoch: 228/350, LR: 0.000026, StartTime: 0905-0831
+Epoch: 228, LR: 0.000026, Loss: 0.0060364, Validation MAE: 0.0985083, Test MAE: 0.0937211, Reward: -478.639, Time: 462.6979, Mem: 13.538, Cached: 64.957
+Epoch: 229/350, LR: 0.000026, StartTime: 0905-0839
+Epoch: 229, LR: 0.000026, Loss: 0.0058419, Validation MAE: 0.1039787, Test MAE: 0.0937211, Reward: -471.061, Time: 463.1848, Mem: 13.538, Cached: 64.957
+Epoch: 230/350, LR: 0.000026, StartTime: 0905-0847
+Epoch: 230, LR: 0.000026, Loss: 0.0059053, Validation MAE: 0.0951822, Test MAE: 0.0937211, Reward: -471.484, Time: 461.7789, Mem: 13.542, Cached: 64.957
+Epoch: 231/350, LR: 0.000026, StartTime: 0905-0854
+Epoch: 231, LR: 0.000026, Loss: 0.0055556, Validation MAE: 0.0952422, Test MAE: 0.0937211, Reward: -467.566, Time: 462.4609, Mem: 13.542, Cached: 64.957
+Epoch: 232/350, LR: 0.000025, StartTime: 0905-0902
+Epoch: 232, LR: 0.000025, Loss: 0.0057715, Validation MAE: 0.0962721, Test MAE: 0.0937211, Reward: -473.764, Time: 464.8575, Mem: 13.542, Cached: 64.957
+Epoch: 233/350, LR: 0.000025, StartTime: 0905-0910
+Epoch: 233, LR: 0.000025, Loss: 0.0061776, Validation MAE: 0.1055340, Test MAE: 0.0937211, Reward: -482.612, Time: 468.0731, Mem: 13.538, Cached: 64.957
+Epoch: 234/350, LR: 0.000025, StartTime: 0905-0918
+Epoch: 234, LR: 0.000025, Loss: 0.0059867, Validation MAE: 0.0972245, Test MAE: 0.0937211, Reward: -481.898, Time: 465.6024, Mem: 13.540, Cached: 64.957
+Epoch: 235/350, LR: 0.000025, StartTime: 0905-0925
+Epoch: 235, LR: 0.000025, Loss: 0.0055214, Validation MAE: 0.0976218, Test MAE: 0.0937211, Reward: -473.440, Time: 462.3010, Mem: 13.539, Cached: 64.957
+Epoch: 236/350, LR: 0.000025, StartTime: 0905-0933
+Epoch: 236, LR: 0.000025, Loss: 0.0053688, Validation MAE: 0.0991072, Test MAE: 0.0937211, Reward: -467.247, Time: 463.0012, Mem: 13.541, Cached: 64.957
+Epoch: 237/350, LR: 0.000024, StartTime: 0905-0941
+Epoch: 237, LR: 0.000024, Loss: 0.0053925, Validation MAE: 0.0947214, Test MAE: 0.0937211, Reward: -468.148, Time: 467.0694, Mem: 13.540, Cached: 64.957
+Epoch: 238/350, LR: 0.000024, StartTime: 0905-0949
+Epoch: 238, LR: 0.000024, Loss: 0.0053092, Validation MAE: 0.0985117, Test MAE: 0.0937211, Reward: -466.666, Time: 463.0576, Mem: 13.541, Cached: 64.957
+Epoch: 239/350, LR: 0.000024, StartTime: 0905-0956
+Epoch: 239, LR: 0.000024, Loss: 0.0050707, Validation MAE: 0.0930237, Test MAE: 0.0932932, Reward: -459.678, Time: 493.2377, Mem: 13.870, Cached: 64.957
+Epoch: 240/350, LR: 0.000024, StartTime: 0905-1005
+Epoch: 240, LR: 0.000024, Loss: 0.0050231, Validation MAE: 0.0941273, Test MAE: 0.0932932, Reward: -453.690, Time: 458.4831, Mem: 13.542, Cached: 64.957
+Epoch: 241/350, LR: 0.000024, StartTime: 0905-1012
+Epoch: 241, LR: 0.000024, Loss: 0.0051091, Validation MAE: 0.0917049, Test MAE: 0.0912722, Reward: -466.979, Time: 496.0764, Mem: 13.871, Cached: 64.957
+Epoch: 242/350, LR: 0.000023, StartTime: 0905-1020
+Epoch: 242, LR: 0.000023, Loss: 0.0053490, Validation MAE: 0.1020212, Test MAE: 0.0912722, Reward: -474.720, Time: 460.8450, Mem: 13.540, Cached: 64.957
+Epoch: 243/350, LR: 0.000023, StartTime: 0905-1028
+Epoch: 243, LR: 0.000023, Loss: 0.0051466, Validation MAE: 0.0937685, Test MAE: 0.0912722, Reward: -472.402, Time: 462.6513, Mem: 13.542, Cached: 64.957
+Epoch: 244/350, LR: 0.000023, StartTime: 0905-1036
+Epoch: 244, LR: 0.000023, Loss: 0.0054447, Validation MAE: 0.0980119, Test MAE: 0.0912722, Reward: -478.587, Time: 461.3857, Mem: 13.542, Cached: 64.957
+Epoch: 245/350, LR: 0.000023, StartTime: 0905-1043
+Epoch: 245, LR: 0.000023, Loss: 0.0050516, Validation MAE: 0.0928380, Test MAE: 0.0912722, Reward: -471.481, Time: 465.2082, Mem: 13.539, Cached: 64.957
+Epoch: 246/350, LR: 0.000023, StartTime: 0905-1051
+Epoch: 246, LR: 0.000023, Loss: 0.0050769, Validation MAE: 0.0913576, Test MAE: 0.0928805, Reward: -470.713, Time: 493.5839, Mem: 13.870, Cached: 64.957
+Epoch: 247/350, LR: 0.000022, StartTime: 0905-1059
+Epoch: 247, LR: 0.000022, Loss: 0.0051278, Validation MAE: 0.0953920, Test MAE: 0.0928805, Reward: -474.968, Time: 460.8788, Mem: 13.543, Cached: 64.957
+Epoch: 248/350, LR: 0.000022, StartTime: 0905-1107
+Epoch: 248, LR: 0.000022, Loss: 0.0051926, Validation MAE: 0.0919623, Test MAE: 0.0928805, Reward: -472.322, Time: 465.5763, Mem: 13.546, Cached: 64.957
+Epoch: 249/350, LR: 0.000022, StartTime: 0905-1115
+Epoch: 249, LR: 0.000022, Loss: 0.0049033, Validation MAE: 0.0901070, Test MAE: 0.0911665, Reward: -463.916, Time: 494.3766, Mem: 13.869, Cached: 64.957
+Epoch: 250/350, LR: 0.000022, StartTime: 0905-1123
+Epoch: 250, LR: 0.000022, Loss: 0.0048393, Validation MAE: 0.0898138, Test MAE: 0.0919456, Reward: -468.137, Time: 503.5666, Mem: 13.870, Cached: 64.957
+250 epoch Checkpoint saved to qm9/0903/0/checkpoint/
+Epoch: 251/350, LR: 0.000022, StartTime: 0905-1132
+Epoch: 251, LR: 0.000022, Loss: 0.0050076, Validation MAE: 0.0917663, Test MAE: 0.0919456, Reward: -471.595, Time: 479.1925, Mem: 13.538, Cached: 64.957
+Epoch: 252/350, LR: 0.000021, StartTime: 0905-1140
+Epoch: 252, LR: 0.000021, Loss: 0.0052339, Validation MAE: 0.0934089, Test MAE: 0.0919456, Reward: -477.277, Time: 465.0718, Mem: 13.542, Cached: 64.957
+Epoch: 253/350, LR: 0.000021, StartTime: 0905-1147
+Epoch: 253, LR: 0.000021, Loss: 0.0049383, Validation MAE: 0.0887215, Test MAE: 0.0896751, Reward: -470.094, Time: 496.2838, Mem: 13.869, Cached: 64.957
+Epoch: 254/350, LR: 0.000021, StartTime: 0905-1156
+Epoch: 254, LR: 0.000021, Loss: 0.0047563, Validation MAE: 0.0960902, Test MAE: 0.0896751, Reward: -468.336, Time: 464.7916, Mem: 13.543, Cached: 64.957
+Epoch: 255/350, LR: 0.000021, StartTime: 0905-1203
+Epoch: 255, LR: 0.000021, Loss: 0.0048474, Validation MAE: 0.0881786, Test MAE: 0.0890596, Reward: -472.012, Time: 496.2653, Mem: 13.872, Cached: 64.957
+Epoch: 256/350, LR: 0.000021, StartTime: 0905-1212

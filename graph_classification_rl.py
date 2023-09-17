@@ -342,17 +342,15 @@ def main(args, cluster=None):
                  
                 loss = 0.75*loss + 0.25*aux_loss
 
-
-            loss.backward(retain_graph=True)
-
             loss_all += data.num_graphs * loss.item()
             if args.clip_grad > 0:
                 nn.utils.clip_grad_norm_(model.parameters(), max_norm=args.clip_grad, norm_type=2) # Like in most transformers
-            
 
-            loss_dqn = dqn.mean_loss + loss
+            q,target = dqn.sample_memory()
+            dqn_loss = F.mse_loss(q, target)
+            tol_loss = loss + dqn_loss
             
-            loss_dqn.backward()
+            tol_loss.backward()
 
             optimizer.step()
             
@@ -399,7 +397,9 @@ def main(args, cluster=None):
     for i, (train_idx, test_idx) in enumerate(splits):
         model.reset_parameters()
         optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+        model.dqn.q_eval.optimizer = torch.optim.AdamW(model.dqn.q_eval.parameters(), lr=args.lr, weight_decay=args.weight_decay)
         scheduler = get_cosine_schedule_with_warmup(optimizer, args.warmup, args.epochs, min_lr_mult=args.min_lr_mult)
+        scheduler_dqn = get_cosine_schedule_with_warmup(model.dqn.q_eval.optimizer, args.warmup, args.epochs, min_lr_mult=args.min_lr_mult)
 
         test_dataset = dataset[test_idx.tolist()]
         train_dataset = dataset[train_idx.tolist()]
@@ -417,6 +417,7 @@ def main(args, cluster=None):
                 start = time.time()
                 torch.cuda.reset_peak_memory_stats(0)
             lr = scheduler.optimizer.param_groups[0]['lr']
+            print('dqn_lr', model.dqn.q_eval.optimizer.param_groups[0]['lr'])
             if args.gumbel_warmup < 0:
                 gumbel_warmup = args.warmup
             else:
@@ -424,6 +425,7 @@ def main(args, cluster=None):
             model.temp = cos_anneal(gumbel_warmup, gumbel_warmup + args.gumbel_decay_epochs, args.gumbel_temp, args.gumbel_min_temp, epoch)
             train_loss, train_acc, train_aux_acc, train_reward = train(epoch, train_loader, optimizer)
             scheduler.step()
+            scheduler_dqn.step()
             test_acc = test(test_loader)
             if args.verbose or epoch == 350:
                 print('Epoch: {:03d}, LR: {:.7f}, Gumbel Temp: {:.4f}, Train Loss: {:.7f}, Train Acc: {:.4f}, Train Aux Acc: {:.4f}, Test Acc: {:.4f}, Reward: {:.4f} , Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}, Steps: {:02d}'.format(epoch, lr, model.temp, train_loss, train_acc, train_aux_acc, test_acc, train_reward, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3, len(train_loader)), flush=True)
@@ -443,7 +445,6 @@ def main(args, cluster=None):
     print('Mean: {:7f}, Std: {:7f}'.format(acc[:,best_epoch].mean(), acc[:,best_epoch].std()), flush=True)
 
     # plot_learning_curve
-    print('size of acc', acc.size(),'size of acc_mean', acc_mean.size(), flush=True)
     save_path = 'log/graph_classification_rl/results/figs/'
     plot_learning_curve(np.arange(1, args.epochs+1), acc_mean, 'Learning Curve', 'Accuracy', save_path+args.dataset+'_rl_acc.png')
 

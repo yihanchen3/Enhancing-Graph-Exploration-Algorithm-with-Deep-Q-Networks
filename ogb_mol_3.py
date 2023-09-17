@@ -10,6 +10,7 @@ import socket
 import time
 import pandas as pd
 import torch_geometric.transforms as T
+import torch.nn.functional as F
 
 from tqdm import tqdm
 import numpy as np
@@ -39,21 +40,19 @@ def add_attributes(dataset,fgs):
     return new_dataset
 
 
-def train(model, device, loader, optimizer, task_type, use_aux_loss=False, verbose=True):
+def train(model, device, loader, optimizer, task_type, use_aux_loss=False):
     model.train()
 
-    for step, batch in enumerate(tqdm(loader, desc="Iteration", disable=not verbose)):
+    for batch in tqdm(loader, desc="Iteration", disable=not args.bar):
         batch = batch.to(device)
         if batch.x.shape[0] == 1 or batch.batch[-1] == 0:
             pass
         else:
             if use_aux_loss:
-                pred, aux_pred, dqn = model(batch.x, batch.edge_index, batch.batch, batch.edge_attr, batch.fgs, batch.node_num)
+                pred, aux_pred = model(x = batch.x, edge_index = batch.edge_index, batch = batch.batch, edge_feat = batch.edge_attr, fgs = batch.fgs, node_num = batch.node_num)
             else:
-                pred, _, dqn = model(batch.x, batch.edge_index, batch.batch, batch.edge_attr, batch.fgs, batch.node_num)
-            # print('aux_pred', aux_pred)
-            optimizer.zero_grad()
-            dqn.q_eval.optimizer.zero_grad()
+                pred, _, = model(x = batch.x, edge_index = batch.edge_index, batch = batch.batch, edge_feat = batch.edge_attr, fgs = batch.fgs, node_num = batch.node_num) 
+            
             ## ignore nan targets (unlabeled) when computing training loss.
             is_labeled = batch.y == batch.y
             if "classification" in task_type: 
@@ -66,23 +65,21 @@ def train(model, device, loader, optimizer, task_type, use_aux_loss=False, verbo
                 else:
                     aux_loss = reg_criterion(aux_pred[is_labeled.unsqueeze(1).expand(-1,aux_pred.size(1),-1)].to(torch.float32).view(-1), batch.y.to(torch.float32)[is_labeled].unsqueeze(1).expand(-1,aux_pred.size(1)).clone().view(-1))
                 loss = 0.75*loss + 0.25*aux_loss
+                
+            optimizer.zero_grad()
+            # model.dqn.q_eval.optimizer.zero_grad()
+         
+            q,target = model.dqn.sample_memory()
+            dqn_loss = F.mse_loss(q, target)
+            tol_loss = loss + dqn_loss * args.discount
 
-            # print('loss',loss.item(),'dqn',dqn.mean_loss.item(),'reward',dqn.total_reward.item())
-            tol_loss = loss + dqn.mean_loss
             tol_loss.backward()
-            
-            
-            # loss.backward(retain_graph=True)
-
-            # loss_dqn = dqn.mean_loss + loss
-            # loss_dqn.backward()
 
             optimizer.step()
-            dqn.q_eval.optimizer.step()
-            dqn.epsilon = dqn.epsilon - dqn.eps_dec if dqn.epsilon > dqn.eps_min else dqn.eps_min
-            dqn.update_network_parameters()
-            # print('dqn','reward',dqn.total_reward, 'e',dqn.epsilon,'loss_dqn',loss_dqn.item(),'agent_loss',loss.item(),loss_dqn.item()-loss.item())
-    return loss.item(),dqn
+            # dqn.q_eval.optimizer.step()
+            model.dqn.epsilon = model.dqn.epsilon - model.dqn.eps_dec if model.dqn.epsilon > model.dqn.eps_min else model.dqn.eps_min
+            model.dqn.update_network_parameters()
+
 
 def eval(model, device, loader, evaluator, use_aux_loss=False):
     model.eval()
@@ -90,15 +87,15 @@ def eval(model, device, loader, evaluator, use_aux_loss=False):
     y_pred = []
     rewards = []
 
-    for step, batch in enumerate(tqdm(loader, desc="Iteration")):
+    for batch in tqdm(loader, desc="Iteration",disable=not args.bar):
         batch = batch.to(device)
 
         if batch.x.shape[0] == 1:
             pass
         else:
             with torch.no_grad():
-                pred, _, dqn = model(batch.x, batch.edge_index, batch.batch, batch.edge_attr, batch.fgs, batch.node_num)
-            reward = dqn.total_reward/len(batch.y)
+                pred, _ = model(x = batch.x, edge_index = batch.edge_index, batch = batch.batch, edge_feat = batch.edge_attr, fgs = batch.fgs, node_num = batch.node_num)
+            reward = model.dqn.total_reward/len(batch.y)
             rewards.append(reward.detach().cpu())
             y_true.append(batch.y.view(pred.shape).detach().cpu())
             y_pred.append(pred.detach().cpu())
@@ -112,9 +109,10 @@ def eval(model, device, loader, evaluator, use_aux_loss=False):
 
 
 def main(args, cluster=None):
+
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_id
-    print('HostName: {}, LoginName: {}, Current GPU ID: {}/{}, CodeFile: {}'.format(
-        socket.gethostname(), os.getlogin(), os.environ['CUDA_VISIBLE_DEVICES'], torch.cuda.device_count(),__file__), flush=True)
+    print('HostName: {}, GPU ID: {}/{}, StartTime: {}, LoginName: {}, CodeFile: {}'.format(
+        socket.gethostname(), os.environ['CUDA_VISIBLE_DEVICES'], torch.cuda.device_count(), time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), os.getlogin(),__file__), flush=True)
     
     print(args, flush=True)
 
@@ -126,6 +124,7 @@ def main(args, cluster=None):
     np.random.seed(args.seed)
     random.seed(args.seed)
 
+    # Load fgs data
     if args.dataset == 'ogbg-molhiv':
         fgs_filename = os.path.join('dataset/ogbg_molhiv/fgs.csv') 
     elif args.dataset == 'ogbg-molpcba':
@@ -134,9 +133,9 @@ def main(args, cluster=None):
     df['fgs'] = df['fgs'].astype(str)
     df['fgs'] = df['fgs'].apply(lambda x: ast.literal_eval(x))
     fgs = df['fgs'].tolist()
-    print('fgs data loaded')
+    print('------Functional Groups Data Loaded------', flush=True)
 
-    ### automatic dataloading and splitting
+    # add fgs to data as a node attribute
     pyg_dataset = PygGraphPropPredDataset(name = args.dataset)
     dataset = add_attributes(pyg_dataset,fgs)
 
@@ -148,7 +147,7 @@ def main(args, cluster=None):
         dataset.data.x = dataset.data.x[:,:2]
         dataset.data.edge_attr = dataset.data.edge_attr[:,:2]
     
-
+    ### automatic dataloading and splitting
     split_idx = dataset.get_idx_split()
 
     ### automatic evaluator. takes dataset name as input
@@ -169,9 +168,11 @@ def main(args, cluster=None):
                     final_readout_only=args.final_readout_only, ogb_mol=True).to(device)
 
 
-    # optimizer = optim.Adam(model.parameters(), lr=args.lr)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
-    scheduler = get_cosine_schedule_with_warmup(optimizer, args.warmup, args.epochs, min_lr_mult=args.min_lr_mult)
+    optimizer = torch.optim.AdamW([
+        {'params': model.parameters(), 'lr': args.lr},
+        {'params': model.dqn.q_eval.parameters(), 'lr': args.lr_dqn}
+    ], weight_decay=args.weight_decay)
+
     scheduler = get_cosine_schedule_with_warmup(optimizer, args.warmup, args.epochs, min_lr_mult=args.min_lr_mult)
 
     valid_curve = []
@@ -179,10 +180,9 @@ def main(args, cluster=None):
     train_curve = []
     reward_curve = []
     save_every = 50
-    save_path = 'ogb-mol/' +args.dataset + '/test/' 
-    # + time.strftime("%m%d-%H%M") + '/'
-    checkpoint_path = save_path + 'checkpoint/'
-    curve_path = save_path + 'figs/'
+    save_path = os.path.join('results', args.dataset , args.save_path)
+    checkpoint_path = os.path.join(save_path, 'checkpoints/')
+    curve_path = os.path.join(save_path, 'curves/')
     if not os.path.exists(save_path):
         os.makedirs(save_path)
         os.makedirs(checkpoint_path)
@@ -191,33 +191,34 @@ def main(args, cluster=None):
     for epoch in range(1, args.epochs + 1):
         torch.cuda.reset_peak_memory_stats(0)
         print("=====Epoch {}=====".format(epoch))
-        print('Training...')
-        lr = scheduler.optimizer.param_groups[0]['lr']
+        # print('Training...')
+        lr, lr_dqn = [param_group['lr'] for param_group in scheduler.optimizer.param_groups]
+
         if args.gumbel_warmup < 0:
             gumbel_warmup = args.warmup
         else:
             gumbel_warmup = args.gumbel_warmup
         model.temp = cos_anneal(gumbel_warmup, gumbel_warmup + args.gumbel_decay_epochs, args.gumbel_temp, args.gumbel_min_temp, epoch)
-        loss, dqn = train(model, device, train_loader, optimizer, dataset.task_type, use_aux_loss=args.use_aux_loss)
+        train(model, device, train_loader, optimizer, dataset.task_type, use_aux_loss=args.use_aux_loss)
         scheduler.step()
+        # scheduler_dqn.step()
 
-        print('Evaluating...')
+        # print('Evaluating...')
         train_perf, train_reward= eval(model, device, train_loader, evaluator, use_aux_loss=args.use_aux_loss)
-        valid_perf, valid_reward = eval(model, device, valid_loader, evaluator, use_aux_loss=args.use_aux_loss)
-        test_perf, test_reward = eval(model, device, test_loader, evaluator, use_aux_loss=args.use_aux_loss)
-
-        print({'Train': [train_perf, train_reward.item()] , 'Validation': [valid_perf,valid_reward.item()], 'Test': [test_perf,test_reward.item()], 'LR': lr, 'Mem': round(torch.cuda.max_memory_allocated()/1024.0**3, 3), 'Cached': round(torch.cuda.max_memory_reserved()/1024.0**3, 3)})
-
         train_curve.append(train_perf[dataset.eval_metric])
-        valid_curve.append(valid_perf[dataset.eval_metric])
-        test_curve.append(test_perf[dataset.eval_metric])
         reward_curve.append(int(train_reward))
+        print({'train_loss': train_perf, 'train_reward' : train_reward.item(), 'lr': lr, 'lr_dqn': lr_dqn}, flush=True)
+
+        if args.fast is None or (args.fast is not None and epoch % args.fast == 0):
+            valid_perf, valid_reward = eval(model, device, valid_loader, evaluator, use_aux_loss=args.use_aux_loss)
+            test_perf, test_reward = eval(model, device, test_loader, evaluator, use_aux_loss=args.use_aux_loss)
+            valid_curve.append(valid_perf[dataset.eval_metric])
+            test_curve.append(test_perf[dataset.eval_metric])
+            print({'Train': [train_perf, train_reward.item()] , 'Validation': [valid_perf,valid_reward.item()], 'Test': [test_perf,test_reward.item()], 'LR': lr, 'Mem': round(torch.cuda.max_memory_allocated()/1024.0**3, 3), 'Cached': round(torch.cuda.max_memory_reserved()/1024.0**3, 3)})
+        
 
         if epoch % save_every == 0:
-
-            checkpoint = {'epoch': epoch, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict(), 'scheduler_state_dict': scheduler.state_dict()}
-            torch.save(checkpoint, checkpoint_path + 'AgentNet_{}.pt'.format(epoch))
-            dqn.save_models(epoch, checkpoint_path)
+            model.save_checkpoint(epoch,optimizer,scheduler,checkpoint_path + 'DAgent_' + args.dataset + '_{}.pt'.format(epoch))
             print('{} epoch Checkpoint saved to {}'.format(epoch, checkpoint_path))
 
     if 'classification' in dataset.task_type:
@@ -232,11 +233,9 @@ def main(args, cluster=None):
     print('Best validation score: {}'.format(valid_curve[best_val_epoch]))
     print('Test score: {}'.format(test_curve[best_val_epoch]))
 
-
-
     plot_learning_curve(np.arange(1, args.epochs+1), train_curve, 'Learning Curve', 'train', curve_path + 'train_curve.png')
-    plot_learning_curve(np.arange(1, args.epochs+1), valid_curve, 'Learning Curve', 'valid', curve_path + 'valid_curve.png')
-    plot_learning_curve(np.arange(1, args.epochs+1), test_curve, 'Learning Curve', 'test', curve_path + 'test_curve.png')
+    plot_learning_curve(np.arange(1, len(valid_curve)+1), valid_curve, 'Learning Curve', 'valid', curve_path + 'valid_curve.png')
+    plot_learning_curve(np.arange(1, len(test_curve)+1), test_curve, 'Learning Curve', 'test', curve_path + 'test_curve.png')
     plot_learning_curve(np.arange(1, args.epochs+1), reward_curve , 'Learning Curve', 'rewards', curve_path + 'reward_curve.png')
 
 if __name__ == "__main__":
@@ -267,8 +266,12 @@ if __name__ == "__main__":
     # Run all seeds
     parser.opt_list('--seed', type=int, default=0, tunable=True, options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
-    parser.add_argument('--gpu_id', type=str, default='0')
-
+    parser.add_argument('--gpu_id', type=str, default='0', help = 'specify which gpu on server to use')
+    parser.add_argument('--lr_dqn', type=float, default=0.0001)
+    parser.add_argument('--discount', type=float, default=0.2, help = 'discount factor for DQN loss')
+    parser.add_argument('--save_path', type=str, default='0915', help = 'specify which gpu on server to use')
+    parser.add_argument('--fast', type = int, default = None, help = 'for fast training, only evaluate validation every n epochs')
+    parser.add_argument('--bar', action = 'store_true', default = False, help = 'display a progress bar for training and evaluation')
     args = parser.parse_args()
 
     if args.slurm:

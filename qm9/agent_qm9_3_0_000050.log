@@ -1,0 +1,53 @@
+Namespace(dropout=0.0, batch_size=32, hidden_units=128, use_aux_loss=False, lr=0.0001, num_agents=18, num_steps=8, reduce='log', epochs=350, warmup=0, self_loops=True, node_readout=False, use_step_readout_lin=False, gumbel_temp=0.66666667, gumbel_min_temp=0.66666667, gumbel_warmup=-1, gumbel_decay_epochs=50, min_lr_mult=1e-07, weight_decay=0.01, num_pos_attention_heads=1, clip_grad=1.0, readout_mlp=True, post_ln=False, attn_dropout=0.0, no_time_cond=False, mlp_width_mult=2, activation_function='leaky_relu', negative_slope=0.01, input_mlp=True, attn_width_mult=1, importance_init=False, random_agent=False, test_argmax=False, global_agent_pool=True, agent_global_extra=False, basic_global_agent=False, basic_agent=False, bias_attention=True, visited_decay=0.9, sparse_conv=False, mean_pool_only=False, edge_negative_slope=0.01, final_readout_only=False, target='0', aux_loss=False, complete_graph=True, num_workers=20, gpu_id='0')
+---- Target: 0 ----
+fgs data loaded
+HostName: turin.ee.ucl.ac.uk, LoginName: uceeyc6, Current GPU ID: 0/4, Num of workers: 20/64, CodeFile: /home/uceeyc6/AgentNet/qm9_3_fast_replay_scheduler.py
+dataset info: 130194 Data(x=[4, 11], edge_index=[2, 12], edge_attr=[12, 5], y=[1], pos=[4, 3], idx=[1], name='gdb_2', z=[4], node_num=[1], fgs=[4]) tensor([1., 0., 0., 0.]) tensor([4])
+AgentNet
+Epoch: 001/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0424
+Epoch: 001, LR: 0.000100, Loss: 0.6628863, Validation MAE: 0.7775488, Test MAE: 0.7826706, Reward: -380.394, Time: 2006.8067, Mem: 13.701, Cached: 41.521
+Epoch: 002/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0457
+Epoch: 002, LR: 0.000100, Loss: 0.4828600, Validation MAE: 0.7675807, Test MAE: 0.7746222, Reward: -377.952, Time: 1860.8401, Mem: 13.701, Cached: 41.521
+Epoch: 003/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0528
+Epoch: 003, LR: 0.000100, Loss: 0.4566716, Validation MAE: 0.7374842, Test MAE: 0.7472831, Reward: -362.265, Time: 1846.3896, Mem: 13.688, Cached: 49.041
+Epoch: 004/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0559
+Epoch: 004, LR: 0.000100, Loss: 0.4907627, Validation MAE: 0.7440539, Test MAE: 0.7472831, Reward: -365.719, Time: 1683.3463, Mem: 13.569, Cached: 56.717
+Epoch: 005/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0627
+Epoch: 005, LR: 0.000100, Loss: 0.5394458, Validation MAE: 0.7930048, Test MAE: 0.7472831, Reward: -373.592, Time: 1698.0368, Mem: 13.554, Cached: 56.717
+Epoch: 006/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0655
+Epoch: 006, LR: 0.000100, Loss: 0.6001009, Validation MAE: 0.8235105, Test MAE: 0.7472831, Reward: -348.127, Time: 1674.3266, Mem: 13.552, Cached: 56.717
+Epoch: 007/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0723
+Epoch: 007, LR: 0.000100, Loss: 0.6174160, Validation MAE: 0.8665768, Test MAE: 0.7472831, Reward: -334.415, Time: 1682.0257, Mem: 13.547, Cached: 56.717
+Epoch: 008/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0751
+Epoch: 008, LR: 0.000100, Loss: 0.6748606, Validation MAE: 0.9926331, Test MAE: 0.7472831, Reward: -328.509, Time: 1671.1796, Mem: 13.558, Cached: 56.717
+Epoch: 009/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0819
+Epoch: 009, LR: 0.000100, Loss: 0.7531696, Validation MAE: 0.9818730, Test MAE: 0.7472831, Reward: -370.303, Time: 1674.0598, Mem: 13.554, Cached: 56.717
+Epoch: 010/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0847
+Epoch: 010, LR: 0.000100, Loss: 0.8055372, Validation MAE: 1.0453315, Test MAE: 0.7472831, Reward: -403.273, Time: 1667.4100, Mem: 13.551, Cached: 56.717
+Epoch: 011/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0915
+Epoch: 011, LR: 0.000100, Loss: 0.8436191, Validation MAE: 1.0048054, Test MAE: 0.7472831, Reward: -422.287, Time: 1655.7004, Mem: 13.547, Cached: 56.717
+Epoch: 012/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-0942
+Epoch: 012, LR: 0.000100, Loss: 0.7877623, Validation MAE: 0.9693879, Test MAE: 0.7472831, Reward: -419.354, Time: 1656.3213, Mem: 13.546, Cached: 56.717
+Epoch: 013/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1010
+Epoch: 013, LR: 0.000100, Loss: 0.7379203, Validation MAE: 0.9425725, Test MAE: 0.7472831, Reward: -414.735, Time: 1656.0702, Mem: 13.550, Cached: 64.510
+Epoch: 014/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1037
+Epoch: 014, LR: 0.000100, Loss: 0.7368090, Validation MAE: 1.0043033, Test MAE: 0.7472831, Reward: -421.370, Time: 1649.6789, Mem: 13.549, Cached: 64.510
+Epoch: 015/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1105
+Epoch: 015, LR: 0.000100, Loss: 0.7763433, Validation MAE: 0.9860596, Test MAE: 0.7472831, Reward: -458.328, Time: 1672.1080, Mem: 13.546, Cached: 64.510
+Epoch: 016/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1133
+Epoch: 016, LR: 0.000100, Loss: 0.7872155, Validation MAE: 1.0356020, Test MAE: 0.7472831, Reward: -474.606, Time: 1679.0211, Mem: 13.549, Cached: 64.510
+Epoch: 017/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1201
+Epoch: 017, LR: 0.000100, Loss: 0.7849766, Validation MAE: 1.0280929, Test MAE: 0.7472831, Reward: -485.695, Time: 1670.5051, Mem: 13.554, Cached: 64.510
+Epoch: 018/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1229
+Epoch: 018, LR: 0.000100, Loss: 0.8292700, Validation MAE: 1.0021811, Test MAE: 0.7472831, Reward: -428.768, Time: 1675.4309, Mem: 13.548, Cached: 64.510
+Epoch: 019/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1257
+Epoch: 019, LR: 0.000100, Loss: 0.8364934, Validation MAE: 1.0302003, Test MAE: 0.7472831, Reward: -375.030, Time: 1668.4223, Mem: 13.548, Cached: 64.510
+Epoch: 020/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1324
+Epoch: 020, LR: 0.000100, Loss: 0.8404891, Validation MAE: 1.0352727, Test MAE: 0.7472831, Reward: -121.553, Time: 822.7802, Mem: 13.543, Cached: 64.510
+Epoch: 021/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1338
+Epoch: 021, LR: 0.000100, Loss: 0.8845536, Validation MAE: 0.9793325, Test MAE: 0.7472831, Reward: -129.949, Time: 584.3805, Mem: 13.544, Cached: 64.510
+Epoch: 022/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1348
+Epoch: 022, LR: 0.000100, Loss: 0.9471461, Validation MAE: 1.1514071, Test MAE: 0.7472831, Reward: -381.347, Time: 577.4891, Mem: 13.547, Cached: 64.510
+Epoch: 023/350, LR: 0.000100, dqn_lr:0.000050, StartTime: 0902-1357
+Epoch: 023, LR: 0.000100, Loss: 0.9924077, Validation MAE: 1.1447011, Test MAE: 0.7472831, Reward: -323.875, Time: 571.7572, Mem: 13.546, Cached: 64.510
+Epoch: 024/350, LR: 0.000099, dqn_lr:0.000050, StartTime: 0902-1407

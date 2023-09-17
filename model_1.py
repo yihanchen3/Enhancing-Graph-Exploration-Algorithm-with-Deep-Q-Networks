@@ -9,6 +9,8 @@ from typing import Optional
 from argparse import ArgumentParser
 from test_tube import HyperOptArgumentParser
 import random
+import os
+import numpy as np
 import torch_sparse.tensor
 
 from ogb.graphproppred.mol_encoder import AtomEncoder, BondEncoder
@@ -16,7 +18,7 @@ from ogb.graphproppred.mol_encoder import AtomEncoder, BondEncoder
 from util import gumbel_softmax, spmm, scatter
 
 import torch.optim as optim
-import numpy as np
+
 # from torchrl.data import ReplayBuffer, ListStorage
 # from utils import plot_learning_curve, create_directory
 
@@ -126,15 +128,26 @@ class DeepQNetwork(nn.Module):
  
         return q
  
-    def save_checkpoint(self, checkpoint_file):
-        torch.save(self.state_dict(), checkpoint_file, _use_new_zipfile_serialization=False)
+    def save_checkpoint(self, epoch, checkpoint_file):
+        checkpoint = {'epoch': epoch,
+                        'model_state_dict': self.state_dict(),
+                        'optimizer_state_dict': self.optimizer.state_dict()}
+        torch.save(checkpoint, checkpoint_file)
  
     def load_checkpoint(self, checkpoint_file):
-        self.load_state_dict(torch.load(checkpoint_file))
+        checkpoint = torch.load(checkpoint_file)
+        self.load_state_dict(checkpoint['model_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        start_epoch = checkpoint['epoch']
+    def reset_parameters(self):
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
+                nn.init.zeros_(m.bias)
  
  
 class DQN:
-    def __init__(self, alpha, state_dim, action_dim, fc1_dim, fc2_dim, ckpt_dir,
+    def __init__(self, alpha, state_dim, action_dim, fc1_dim, fc2_dim,
                  gamma=0.99, tau=0.005, epsilon=1.0, eps_end=0.01, eps_dec=5e-4,
                  max_size=1000000, batch_size=256):
         self.tau = tau
@@ -144,7 +157,6 @@ class DQN:
         self.eps_dec = eps_dec
         self.batch_size = batch_size
         self.action_space = [i for i in range(action_dim)]
-        self.checkpoint_dir = ckpt_dir
         self.loss_dqn = []
         self.loss_buffer = []
         self.mean_loss = []
@@ -154,7 +166,7 @@ class DQN:
                                    fc1_dim=fc1_dim, fc2_dim=fc2_dim)
         self.q_target = DeepQNetwork(alpha=alpha, state_dim=state_dim, action_dim=action_dim,
                                      fc1_dim=fc1_dim, fc2_dim=fc2_dim)
- 
+        self.memory = []
         # self.memory = ReplayBuffer(state_dim=state_dim, action_dim=action_dim,
         #                            max_size=max_size, batch_size=batch_size)
  
@@ -167,52 +179,27 @@ class DQN:
         for q_target_params, q_eval_params in zip(self.q_target.parameters(), self.q_eval.parameters()):
             q_target_params.data.copy_(tau * q_eval_params + (1 - tau) * q_target_params)
  
-    # def remember(self, state, action, reward, state_):
-    #     self.memory.store_transition(state, action, reward, state_)
- 
-    def choose_action(self, observation, isTrain=True):
-        # state = torch.tensor([observation], dtype=torch.float).to(device)
-        state = observation
+    def choose_action(self, state):
         actions = self.q_eval.forward(state)
-        
-        # action = torch.argmax(actions).item()
- 
-        # if (np.random.random() < self.epsilon) and isTrain:
-        #     action = np.random.choice(self.action_space)
- 
         return actions
+    
+    def sample_memory(self):
+        if len(self.memory) > self.batch_size:
+            sample =  random.sample(self.memory, self.batch_size)
+        else:
+            sample = self.memory
+        q = torch.stack([x[0] for x in sample]).to(device)
+        target = torch.stack([x[1] for x in sample]).detach()
+        return q, target
+
+    def save_models(self,  episode, checkpoint_path):
+        self.q_eval.save_checkpoint(episode, checkpoint_path + 'DQN_Q_eval_{}.pth'.format(episode))
+        self.q_target.save_checkpoint(episode, checkpoint_path + 'DQN_Q_target_{}.pth'.format(episode))
  
-    # def learn(self):
-    #     if not self.memory.ready():
-    #         return
- 
-    #     states, actions, rewards, next_states, terminals = self.memory.sample_buffer()
-    #     batch_idx = np.arange(self.batch_size)
- 
-    #     states_tensor = torch.tensor(states, dtype=torch.float).to(device)
-    #     rewards_tensor = torch.tensor(rewards, dtype=torch.float).to(device)
-    #     next_states_tensor = torch.tensor(next_states, dtype=torch.float).to(device)
-    #     terminals_tensor = torch.tensor(terminals).to(device)
- 
-    #     with torch.no_grad():
-    #         q_ = self.q_target.forward(next_states_tensor)
-    #         q_[terminals_tensor] = 0.0
-    #         target = rewards_tensor + self.gamma * torch.max(q_, dim=-1)[0]
-    #     q = self.q_eval.forward(states_tensor)[batch_idx, actions]
- 
-    #     loss = F.mse_loss(q, target.detach())
-    #     self.q_eval.optimizer.zero_grad()
-    #     loss.backward()
-    #     self.q_eval.optimizer.step()
- 
-    #     self.update_network_parameters()
-    #     self.epsilon = self.epsilon - self.eps_dec if self.epsilon > self.eps_min else self.eps_min
- 
-    def save_models(self, episode):
-        self.q_eval.save_checkpoint(self.checkpoint_dir + 'Q_eval/DQN_q_eval_{}.pth'.format(episode))
-        print('Saving Q_eval network successfully!')
-        self.q_target.save_checkpoint(self.checkpoint_dir + 'Q_target/DQN_Q_target_{}.pth'.format(episode))
-        print('Saving Q_target network successfully!')
+    
+    def reset_parameters(self):
+        self.q_eval.reset_parameters()
+        self.q_target.reset_parameters()
  
 
 class AgentNet(nn.Module):
@@ -381,19 +368,23 @@ class AgentNet(nn.Module):
                 self.fc = nn.Sequential(nn.Linear(out_dim*(1 if self.mean_pool_only else 2), self.dim*2), activation, nn.Dropout(self.dropout), nn.Linear(self.dim*2, self.num_out_classes))
             else:
                 self.fc = nn.Linear(out_dim*(1 if self.mean_pool_only else 2), self.num_out_classes)
-        
+
+          # define dqn model to choose action
         if self.ogb_mol:
             state_dim = self.dim*3 + 128
+            dqn_batch_size = 64
+        elif self.qm9:
+            state_dim = self.dim*3 + 5
+            dqn_batch_size = 32
         else:
             state_dim = self.dim*3
+            dqn_batch_size = 32
         action_dim = 1
-        ckpt_dir = 'tmp/dqn'
 
-        self.dqn = DQN(alpha=0.0003, state_dim=state_dim, action_dim=action_dim,
-                fc1_dim=128, fc2_dim=64, ckpt_dir=ckpt_dir, gamma=0.99, tau=0.005, epsilon=1.0,
-                eps_end=0.05, eps_dec=5e-4, max_size=1000000, batch_size=32)
-
-
+        self.dqn = DQN(alpha=0.0001, state_dim=state_dim, action_dim=action_dim,
+                fc1_dim=128, fc2_dim=64, gamma=0.99, tau=0.005, epsilon=1.0,
+                eps_end=0.05, eps_dec=5e-4, max_size=1000000, batch_size=dqn_batch_size)
+        
         self.reset_parameters()
 
     def reset_parameters(self):
@@ -422,8 +413,23 @@ class AgentNet(nn.Module):
                 m.reset_parameters()
             elif isinstance(m, nn.Embedding):
                 m.reset_parameters()
+        # reset dqn parameters
+        self.dqn.reset_parameters()
 
-    def forward(self, x: torch.Tensor, edge_index: torch.Tensor, batch: torch.Tensor, edge_feat: Optional[torch.Tensor] = None):
+
+    def save_checkpoint(self, epoch, optimizer, checkpoint_file):
+        checkpoint = {'epoch': epoch,
+                        'model_state_dict': self.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict()}
+        torch.save(checkpoint, checkpoint_file)
+    
+    def load_checkpoint(self, checkpoint_file):
+        checkpoint = torch.load(checkpoint_file)
+        self.load_state_dict(checkpoint['model_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        start_epoch = checkpoint['epoch']
+
+    def forward(self, x: torch.Tensor, edge_index: torch.Tensor, batch: torch.Tensor, edge_feat: Optional[torch.Tensor] = None, fgs: Optional[torch.Tensor] = None,node_num: Optional[torch.Tensor] = None):
         batch_size = (batch.max() + 1).item()
         num_nodes_batch = x.size(0)
         num_agents_batch = int(self.num_agents*batch_size)
@@ -446,6 +452,14 @@ class AgentNet(nn.Module):
             edge_emb = self.edge_input_proj(edge_feat)
         else:
             edge_emb = None
+
+        # initialize dqn variables
+        self.dqn.memory = []
+        self.dqn.loss_dqn = []
+        self.dqn.loss_buffer = []
+        self.dqn.mean_loss = []
+        self.dqn.total_reward = []
+
 
 
         # Add self loops to let agent stay on a current node
@@ -538,7 +552,8 @@ class AgentNet(nn.Module):
 
         self.dqn.loss_buffer = []
         self.dqn.total_reward = []
-
+        comparison_old = None
+        
         for i in range(self.num_steps+1):
             # Get time for current step
             time_emb = self.time_emb(torch.tensor([i], device=node_emb.device, dtype=torch.long))
@@ -621,9 +636,11 @@ class AgentNet(nn.Module):
                     edge_taken_emb = agent_neighbour_edge_emb.clone()[indices]
                 
                 # create reward
-                mask_old_agent = mask_old[indices]
-                # if negibors_visited_new is visited, set the reward to -1, otherwise 0
                 reward = torch.zeros_like(agent_pos, dtype=torch.float)
+                # reward = torch.full_like(agent_pos, -1, dtype=torch.float)
+
+                # if agent walks to a node that has been visited, set the reward to -1, otherwise 0
+                mask_old_agent = mask_old[indices]
                 reward[mask_old_agent] = -1.0
                 del indices
 
@@ -704,24 +721,21 @@ class AgentNet(nn.Module):
                 del layer_out
             
             if i > 0:
-                if edge_feat is not None:
-                    next_state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], agent_neighbour_edge_emb, node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
-                else:
-                    next_state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
-
+              
                 with torch.no_grad():
+                    if edge_feat is not None:
+                        next_state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], agent_neighbour_edge_emb, node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
+                    else:
+                        next_state = torch.cat([agent_emb[agent_neighbour[0]], node_emb[agent_neighbour[1]], node_emb[agent_node[1]][agent_neighbour[0]]], dim=-1)
+
                     q_ = self.dqn.q_target.forward(next_state)
-                    q_1 = q_.flatten()
                     # agent_neighbour_attention_value = gumbel_softmax(action_value, agent_neighbour[0], num_nodes=num_agents_batch, hard=True, tau=(self.temp if self.training or not self.test_argmax else 1e-6), i=i)
-                    q_2 = scatter_max(q_1, agent_neighbour[0], dim=0, dim_size=num_agents_batch)[0]
+                    q_2 = scatter_max(q_.flatten(), agent_neighbour[0], dim=0, dim_size=num_agents_batch)[0]
                     target = reward + self.dqn.gamma * q_2
 
-                loss_dqn = F.mse_loss(q, target.detach())
-                # print('loss_dqn', loss_dqn)
-                self.dqn.loss_buffer.append(loss_dqn)
-                # print('loss_buffer', self.dqn.loss_buffer)
+                
+                self.dqn.memory.append([q, target])
                 # Calculate the mean of accumulated losses
-                # print('reward', reward.sum())
                 self.dqn.total_reward.append(reward.sum())
                 # print('total_reward', self.dqn.total_reward)
 
@@ -743,6 +757,6 @@ class AgentNet(nn.Module):
         if not self.ogb_mol and not self.regression:
             out = F.log_softmax(out, dim=-1)
         
-        self.dqn.mean_loss = torch.mean(torch.stack(self.dqn.loss_buffer), dim=0)
+        # self.dqn.mean_loss = torch.mean(torch.stack(self.dqn.loss_buffer), dim=0)
         self.dqn.total_reward = torch.mean(torch.stack(self.dqn.total_reward), dim=0)
         return out, 0, self.dqn

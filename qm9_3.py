@@ -19,14 +19,34 @@ from util import cos_anneal, get_cosine_schedule_with_warmup, plot_learning_curv
 from model_3 import AgentNet, add_model_args
 
 
-parser = add_model_args()
+parser = add_model_args(None, hyper=True)
 parser.add_argument('--target', default=0)
 parser.add_argument('--aux_loss', action='store_true', default=False)
 parser.add_argument('--complete_graph', action='store_true', default=False)
-parser.add_argument('--num_worders',type = int, default=10)
+parser.add_argument('--num_workers',type = int, default=15)
 parser.add_argument('--gpu_id',type=str, default="0")
+parser.add_argument('--lr_dqn', type=float, default=0.0001)
+parser.add_argument('--discount', type=float, default=0.2, help = 'discount factor for DQN loss')
+parser.add_argument('--bar', action = 'store_true', default = False, help = 'display a progress bar for training and evaluation')
+
+parser.add_argument('--save_path', type=str, default='0915', help = 'specify which gpu on server to use')
 args = parser.parse_args()
-print(args)
+
+
+os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_id
+set_num_workers = args.num_workers
+
+print('HostName: {}, GPU ID: {}/{}, # Workers: {} , StartTime: {}, LoginName: {}, CodeFile: {}'.format(
+        socket.gethostname(),
+        os.environ['CUDA_VISIBLE_DEVICES'],torch.cuda.device_count(),
+        set_num_workers,
+        time.strftime("%Y-%m-%d %H:%M:%S", 
+        time.localtime()), 
+        os.getlogin(),__file__),
+        flush=True)
+
+print(args,flush=True)
+
 target = int(args.target)
 print('---- Target: {} ----'.format(target))
 
@@ -39,32 +59,39 @@ dict = df.set_index('ID')['fgs'].to_dict()
 print('fgs data loaded')
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_id
-set_num_workers = args.num_worders
-print('HostName: {}, LoginName: {}, Current GPU ID: {}/{}, Num of workers: {}/{}, CodeFile: {}'.format(
-        socket.gethostname(), os.getlogin(), 
-        os.environ['CUDA_VISIBLE_DEVICES'], torch.cuda.device_count(), 
-        set_num_workers, torch.get_num_threads(), __file__), flush=True)
+def add_attributes(dataset,dict):
+    data_list = []
+    for i, data in enumerate(dataset):
+        node_num = data.x.size(0)
+        fgs_onehot = torch.zeros(node_num)
+        data.node_num = node_num
+        if dict.get(data.name) != None:
+            fgs = dict[data.name]
+            fgs_onehot[fgs] = 1
+            # only adds data that has fgs
+            data.fgs = fgs_onehot
+            data_list.append(data)
+    
+    new_dataset = dataset.__class__(root=dataset.root, transform=dataset.transform)
+    new_dataset.data, new_dataset.slices = dataset.collate(data_list)
+    return new_dataset
 
 
 class MyTransform(object):
-    def __init__(self, dict):
-        self.dict = dict
     def __call__(self, data):
         data.y = data.y[:, int(args.target)]  # Specify target: 0 = mu
 
-        node_num = data.x.size(0)
-        # make a one hot fgs vector
-        node_fgs = torch.zeros(node_num)
-        data.node_num = node_num
+        # node_num = data.x.size(0)
+        # # make a one hot fgs vector
+        # node_fgs = torch.zeros(node_num)
+        # data.node_num = node_num
         
-        if dict.get(data.name) != None:
-            fgs = dict[data.name]
-            node_fgs[fgs] = 1
-            data.fgs = node_fgs
-        else:
-            data.fgs = node_fgs
-
+        # if dict.get(data.name) != None:
+        #     fgs = dict[data.name]
+        #     node_fgs[fgs] = 1
+        #     data.fgs = node_fgs
+        # else:
+        #     data.fgs = node_fgs
         return data
 
 if args.complete_graph:
@@ -93,13 +120,20 @@ if args.complete_graph:
 
             return data
     
-    path = osp.join(osp.dirname(osp.realpath(__file__)), 'data', 'MPNN-QM9')
-    transform = T.Compose([MyTransform(df), Complete(), T.Distance(norm=False)])
-    dataset = QM9(path, transform=transform)
+
 else:
     path = osp.join(osp.dirname(osp.realpath(__file__)), 'data', '1-QM9')
     dataset = QM9(path, transform=T.Compose([MyTransform(), T.Distance()]))
 
+
+path = osp.join(osp.dirname(osp.realpath(__file__)), 'data', 'MPNN-QM9')
+transform = T.Compose([MyTransform(), Complete(), T.Distance(norm=False)])
+dataset = QM9(path)
+
+dataset = add_attributes(dataset,dict)
+dataset.transform = transform
+
+print('example of dataset:',len(dataset),dataset[1],dataset[1].fgs,dataset[1].node_num)
 
 dataset = dataset.shuffle()
 
@@ -131,8 +165,10 @@ model = AgentNet(num_features=dataset.num_features, hidden_units=args.hidden_uni
                 sparse_conv=args.sparse_conv, mean_pool_only=args.mean_pool_only, edge_negative_slope=args.edge_negative_slope,
                 final_readout_only=args.final_readout_only, num_edge_features=5, regression=True, qm9=True).to(device)
 
-
-optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+optimizer = torch.optim.AdamW([
+        {'params': model.parameters(), 'lr': args.lr},
+        {'params': model.dqn.q_eval.parameters(), 'lr': args.lr_dqn}
+    ], weight_decay=args.weight_decay)
 scheduler = get_cosine_schedule_with_warmup(optimizer, args.warmup, args.epochs, min_lr_mult=args.min_lr_mult)
 
 mean, std = mean[target].to(device), std[target].to(device)
@@ -141,36 +177,40 @@ def train(epoch):
     model.train()
     loss_all = 0
     rewards = []
-    verbose = True
 
     # for data in train_loader:
-    for step, data in enumerate(tqdm(train_loader, desc="Iteration", disable=not verbose)):
+    for data in tqdm(train_loader, desc="Iteration", disable=not args.bar):
         # print('step:',step,'of',len(train_loader))
         data = data.to(device)
-        optimizer.zero_grad()
-        pred, aux_pred, dqn = model(data.x, data.edge_index, data.batch, data.edge_attr, data.fgs, data.node_num)
-
-        dqn.q_eval.optimizer.zero_grad()
-
+        
+        pred, aux_pred = model(x = data.x, edge_index = data.edge_index, batch = data.batch, edge_feat = data.edge_attr, fgs = data.fgs, node_num = data.node_num)
         loss = F.mse_loss(pred.view(-1), data.y)
         if use_aux_loss:
             aux_loss = F.mse_loss(aux_pred.view(-1), data.y.unsqueeze(1).expand(-1,aux_pred.size(1)).clone().view(-1))
             loss = 0.75*loss + 0.25*aux_loss
         loss_all += loss.item() * data.num_graphs
+        
+        optimizer.zero_grad()
 
-        tol_loss = dqn.mean_loss + loss
-            
+        q,target = model.dqn.sample_memory()
+        dqn_loss = F.mse_loss(q, target)
+        tol_loss = loss + dqn_loss * args.discount
+
         tol_loss.backward()
+        # print('q.grad', q.grad)
+        # print('pred.grad', pred.grad)
+        # print('target.grad', target.grad)
+        # print('dqn_loss.grad', dqn_loss.grad)
+        # print('loss.grad', loss.grad)
+        # print('tol_loss.grad', tol_loss.grad)
 
         optimizer.step()
-        
-        dqn.q_eval.optimizer.step()
-        dqn.epsilon = dqn.epsilon - dqn.eps_dec if dqn.epsilon > dqn.eps_min else dqn.eps_min
-        dqn.update_network_parameters()
 
-        rewards.append(dqn.total_reward)
+        model.dqn.epsilon = model.dqn.epsilon - model.dqn.eps_dec if model.dqn.epsilon > model.dqn.eps_min else model.dqn.eps_min
+        model.dqn.update_network_parameters()
+        rewards.append((model.dqn.total_reward/len(data.y)).detach().cpu())
 
-    return loss_all / len(train_loader.dataset), sum(rewards)/len(rewards), dqn
+    return loss_all / len(train_loader.dataset), sum(rewards)/len(rewards)
 
 def test(loader):
     model.eval()
@@ -178,12 +218,12 @@ def test(loader):
 
     for data in loader:
         data = data.to(device)
-        pred, _, _ = model(data.x, data.edge_index, data.batch, data.edge_attr, data.fgs, data.node_num)
+        pred, _, = model(x = data.x, edge_index = data.edge_index, batch = data.batch, edge_feat = data.edge_attr, fgs = data.fgs, node_num = data.node_num)
         error += ((pred.view(-1) * std) -
                   (data.y * std)).abs().sum().item() # MAE
     return error / len(loader.dataset)
 
-# del dict
+
 print(model.__class__.__name__)
 best_val_error = None
 losses = []
@@ -191,10 +231,10 @@ val_errors = []
 rewards = []
 
 save_every = 50
-save_path = 'qm9/' + '/'+args.target+'/' 
-# + time.strftime("%m%d-%H%M") + '/'
-checkpoint_path = save_path + 'checkpoint/'
-curve_path = save_path + 'figs/'
+save_path = os.path.join('results', 'qm9' , args.save_path, args.target)
+checkpoint_path = os.path.join(save_path, 'checkpoints/')
+curve_path = os.path.join(save_path, 'curves/')
+
 if not os.path.exists(save_path):
     os.makedirs(save_path)
     os.makedirs(checkpoint_path)
@@ -203,16 +243,14 @@ if not os.path.exists(save_path):
 for epoch in range(1, args.epochs+1):
     torch.cuda.reset_peak_memory_stats(0)
     start = time.time()
-    lr = scheduler.optimizer.param_groups[0]['lr']
-
-    print('Epoch: {:03d}/{:03d}, LR: {:7f}, StartTime: {}'.format(epoch, args.epochs, lr, time.asctime()), flush=True)
+    lr, lr_dqn = [param_group['lr'] for param_group in scheduler.optimizer.param_groups]
 
     if args.gumbel_warmup < 0:
         gumbel_warmup = args.warmup
     else:
         gumbel_warmup = args.gumbel_warmup
     model.temp = cos_anneal(gumbel_warmup, gumbel_warmup + args.gumbel_decay_epochs, args.gumbel_temp, args.gumbel_min_temp, epoch)
-    loss, reward, dqn = train(epoch)
+    loss, reward = train(epoch)
     val_error = test(val_loader)
     scheduler.step()#val_error
 
@@ -222,16 +260,14 @@ for epoch in range(1, args.epochs+1):
         test_error = test(test_loader)
         best_val_error = val_error
     
-    print('Epoch: {:03d}, LR: {:7f}, Loss: {:.7f}, Validation MAE: {:.7f}, Test MAE: {:.7f}, Reward: {:.3f}, Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}'.format(
-        epoch, lr, loss, val_error, test_error, reward, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3), flush=True)
+    print('Epoch: {:03d}, LR: {:7f}, LR_dqn: {:7f}, Loss: {:.7f}, Validation MAE: {:.7f}, Test MAE: {:.7f}, Reward: {:.3f}, Time: {:.4f}, Mem: {:.3f}, Cached: {:.3f}'.format(
+        epoch, lr, lr_dqn, loss, val_error, test_error, reward, time.time() - start, torch.cuda.max_memory_allocated()/1024.0**3, torch.cuda.max_memory_reserved()/1024.0**3), flush=True)
     losses.append(loss)
     val_errors.append(val_error)
     rewards.append(reward)
 
     if epoch % save_every == 0:
-        checkpoint = {'epoch': epoch, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict(), 'scheduler_state_dict': scheduler.state_dict()}
-        torch.save(checkpoint, checkpoint_path + 'AgentNet_{}.pt'.format(epoch))
-        dqn.save_models(epoch, checkpoint_path)
+        model.save_checkpoint(epoch,optimizer,scheduler,checkpoint_path + 'DAgent_' + 'qm9' + '_{}.pt'.format(epoch))
         print('{} epoch Checkpoint saved to {}'.format(epoch, checkpoint_path))
 
 print('---------------- Final Result ----------------')

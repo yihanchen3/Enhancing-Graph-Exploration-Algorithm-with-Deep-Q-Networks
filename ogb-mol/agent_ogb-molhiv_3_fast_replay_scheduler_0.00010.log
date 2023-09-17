@@ -1,0 +1,221 @@
+HostName: geneva.ee.ucl.ac.uk, LoginName: uceeyc6, Current GPU ID: 1/4, CodeFile: /home/uceeyc6/AgentNet/ogb_mol_3_fast_replay_scheduler.py, StartTime: 2023-09-01 11:56:05
+----------------------------------------------------------------------------------------------------
+Hyperparameters:
+dropout             : 0.0
+batch_size          : 64
+hidden_units        : 128
+use_aux_loss        : False
+lr                  : 0.0001
+num_agents          : 26
+num_steps           : 16
+reduce              : log
+epochs              : 350
+warmup              : 0
+self_loops          : True
+node_readout        : False
+use_step_readout_lin: False
+gumbel_temp         : 0.66666667
+gumbel_min_temp     : 0.66666667
+gumbel_warmup       : -1
+gumbel_decay_epochs : 50
+min_lr_mult         : 1e-07
+weight_decay        : 0.01
+num_pos_attention_heads: 1
+clip_grad           : 1.0
+readout_mlp         : False
+post_ln             : False
+attn_dropout        : 0.0
+no_time_cond        : False
+mlp_width_mult      : 2
+activation_function : leaky_relu
+negative_slope      : 0.01
+input_mlp           : True
+attn_width_mult     : 1
+importance_init     : False
+random_agent        : False
+test_argmax         : False
+global_agent_pool   : True
+agent_global_extra  : False
+basic_global_agent  : False
+basic_agent         : False
+bias_attention      : True
+visited_decay       : 0.9
+sparse_conv         : False
+mean_pool_only      : False
+edge_negative_slope : 0.2
+final_readout_only  : False
+device              : 0
+gnn                 : gin-virtual
+drop_ratio          : 0.5
+num_layer           : 5
+emb_dim             : 300
+num_workers         : 0
+dataset             : ogbg-molhiv
+feature             : full
+slurm               : False
+grid_search         : False
+gpu_jobs            : False
+seed                : 0
+gpu_id              : 1
+fast                : None
+hpc_exp_number      : None
+trials              : <bound method HyperOptArgumentParser.opt_trials of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel   : <bound method HyperOptArgumentParser.optimize_parallel of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_gpu: <bound method HyperOptArgumentParser.optimize_parallel_gpu of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_cpu: <bound method HyperOptArgumentParser.optimize_parallel_cpu of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+generate_trials     : <bound method HyperOptArgumentParser.generate_trials of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_trials_parallel_gpu: <bound method HyperOptArgumentParser.optimize_trials_parallel_gpu of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+
+fgs data loaded
+=====Epoch 1=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.6721936688465471} -4.495388507843018 9.999899289930123e-05
+{'Train': [{'rocauc': 0.6721936688465471}, -4.495388507843018], 'Validation': [{'rocauc': 0.6833664021164021}, -5.206121921539307], 'Test': [{'rocauc': 0.6607678788698121}, -4.787398815155029], 'LR': 0.0001, 'Mem': 1.048, 'Cached': 1.105}
+=====Epoch 2=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7017015595159837} -1.1014328002929688 9.999597161748995e-05
+{'Train': [{'rocauc': 0.7017015595159837}, -1.1014328002929688], 'Validation': [{'rocauc': 0.6785836762688614}, -2.122143507003784], 'Test': [{'rocauc': 0.7206724733965507}, -1.4515457153320312], 'LR': 9.999899289930123e-05, 'Mem': 1.031, 'Cached': 1.105}
+=====Epoch 3=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7407983625676795} 4.297557353973389 9.999093621542087e-05
+{'Train': [{'rocauc': 0.7407983625676795}, 4.297557353973389], 'Validation': [{'rocauc': 0.7222405937683716}, 3.288346767425537], 'Test': [{'rocauc': 0.7266942196643427}, 3.0455281734466553], 'LR': 9.999597161748995e-05, 'Mem': 1.025, 'Cached': 1.113}
+=====Epoch 4=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7365923028706429} 7.278893947601318 9.998388679451714e-05
+{'Train': [{'rocauc': 0.7365923028706429}, 7.278893947601318], 'Validation': [{'rocauc': 0.7435485253772292}, 6.458423137664795], 'Test': [{'rocauc': 0.7181038645010525}, 6.283305644989014], 'LR': 9.999093621542087e-05, 'Mem': 1.008, 'Cached': 1.127}
+=====Epoch 5=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7434736609975013} 10.431764602661133 9.997482349676831e-05
+{'Train': [{'rocauc': 0.7434736609975013}, 10.431764602661133], 'Validation': [{'rocauc': 0.7304832941407016}, 9.856186866760254], 'Test': [{'rocauc': 0.7064833233550282}, 9.556193351745605], 'LR': 9.998388679451714e-05, 'Mem': 0.954, 'Cached': 1.145}
+=====Epoch 6=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7361640449528053} 9.781765937805176 9.996374650472746e-05
+{'Train': [{'rocauc': 0.7361640449528053}, 9.781765937805176], 'Validation': [{'rocauc': 0.7363223838918282}, 9.410724639892578], 'Test': [{'rocauc': 0.73179667432743}, 9.421086311340332], 'LR': 9.997482349676831e-05, 'Mem': 0.978, 'Cached': 1.148}
+=====Epoch 7=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7273513997054762} 5.97509241104126 9.995065604150757e-05
+{'Train': [{'rocauc': 0.7273513997054762}, 5.97509241104126], 'Validation': [{'rocauc': 0.7026075347834606}, 5.46592378616333], 'Test': [{'rocauc': 0.7030784681048302}, 5.279045581817627], 'LR': 9.996374650472746e-05, 'Mem': 0.978, 'Cached': 1.148}
+=====Epoch 8=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7409383941155943} 9.892425537109375 9.993555237077691e-05
+{'Train': [{'rocauc': 0.7409383941155943}, 9.892425537109375], 'Validation': [{'rocauc': 0.7223875661375662}, 9.16662311553955], 'Test': [{'rocauc': 0.7351107591880879}, 9.40642261505127], 'LR': 9.995065604150757e-05, 'Mem': 0.969, 'Cached': 1.154}
+=====Epoch 9=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.747671044812966} 4.768607139587402 9.991843579675388e-05
+{'Train': [{'rocauc': 0.747671044812966}, 4.768607139587402], 'Validation': [{'rocauc': 0.7115146727415247}, 4.481756687164307], 'Test': [{'rocauc': 0.7502558952471078}, 4.457459926605225], 'LR': 9.993555237077691e-05, 'Mem': 0.962, 'Cached': 1.154}
+=====Epoch 10=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7434738532253058} 7.125027656555176 9.989930666420082e-05
+{'Train': [{'rocauc': 0.7434738532253058}, 7.125027656555176], 'Validation': [{'rocauc': 0.7396598814422888}, 6.586187839508057], 'Test': [{'rocauc': 0.742553931130381}, 6.671690464019775], 'LR': 9.991843579675388e-05, 'Mem': 0.997, 'Cached': 1.154}
+=====Epoch 11=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7463973946417346} 5.3559980392456055 9.987816535841696e-05
+{'Train': [{'rocauc': 0.7463973946417346}, 5.3559980392456055], 'Validation': [{'rocauc': 0.7279480207720948}, 4.150365829467773], 'Test': [{'rocauc': 0.746063075764306}, 4.2652974128723145], 'LR': 9.989930666420082e-05, 'Mem': 0.984, 'Cached': 1.154}
+=====Epoch 12=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7499055777024768} 8.160006523132324 9.985501230523086e-05
+{'Train': [{'rocauc': 0.7499055777024768}, 8.160006523132324], 'Validation': [{'rocauc': 0.7699392514207329}, 7.512396812438965], 'Test': [{'rocauc': 0.7354120396299658}, 7.65916633605957], 'LR': 9.987816535841696e-05, 'Mem': 0.975, 'Cached': 1.154}
+=====Epoch 13=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7503425499474475} 7.621352672576904 9.982984797099169e-05
+{'Train': [{'rocauc': 0.7503425499474475}, 7.621352672576904], 'Validation': [{'rocauc': 0.7556400646678424}, 7.557285785675049], 'Test': [{'rocauc': 0.7293091793970529}, 7.268894195556641], 'LR': 9.985501230523086e-05, 'Mem': 0.968, 'Cached': 1.156}
+=====Epoch 14=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7504138664628812} 5.838566780090332 9.980267286255988e-05
+{'Train': [{'rocauc': 0.7504138664628812}, 5.838566780090332], 'Validation': [{'rocauc': 0.7074147560258671}, 5.4353532791137695], 'Test': [{'rocauc': 0.7304022866413025}, 5.1592888832092285], 'LR': 9.982984797099169e-05, 'Mem': 0.985, 'Cached': 1.16}
+=====Epoch 15=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7495589397103891} 7.687209129333496 9.977348752729686e-05
+{'Train': [{'rocauc': 0.7495589397103891}, 7.687209129333496], 'Validation': [{'rocauc': 0.7355109739368999}, 7.143881320953369], 'Test': [{'rocauc': 0.7275072906004365}, 7.144506454467773], 'LR': 9.980267286255988e-05, 'Mem': 0.957, 'Cached': 1.16}
+=====Epoch 16=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7549485203687657} 4.809741973876953 9.974229255305416e-05
+{'Train': [{'rocauc': 0.7549485203687657}, 4.809741973876953], 'Validation': [{'rocauc': 0.7317325592788556}, 4.37910270690918], 'Test': [{'rocauc': 0.7374688580312483}, 4.264961242675781], 'LR': 9.977348752729686e-05, 'Mem': 0.964, 'Cached': 1.16}
+=====Epoch 17=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7447848340361524} 7.363532066345215 9.970908856816141e-05
+{'Train': [{'rocauc': 0.7447848340361524}, 7.363532066345215], 'Validation': [{'rocauc': 0.7085354203409759}, 6.610325336456299], 'Test': [{'rocauc': 0.7474825701539234}, 6.838557720184326], 'LR': 9.974229255305416e-05, 'Mem': 0.961, 'Cached': 1.16}
+=====Epoch 18=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7393472220570487} 7.252748489379883 9.967387624141384e-05
+{'Train': [{'rocauc': 0.7393472220570487}, 7.252748489379883], 'Validation': [{'rocauc': 0.7164259994121105}, 6.605373382568359], 'Test': [{'rocauc': 0.7308851078622608}, 6.570098400115967], 'LR': 9.970908856816141e-05, 'Mem': 0.974, 'Cached': 1.16}
+=====Epoch 19=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7376284748123139} 8.756064414978027 9.963665628205869e-05
+{'Train': [{'rocauc': 0.7376284748123139}, 8.756064414978027], 'Validation': [{'rocauc': 0.734929208308838}, 8.357758522033691], 'Test': [{'rocauc': 0.7177098823847506}, 8.539552688598633], 'LR': 9.967387624141384e-05, 'Mem': 0.977, 'Cached': 1.16}
+=====Epoch 20=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7374873155279467} 6.272642135620117 9.959742943978098e-05
+{'Train': [{'rocauc': 0.7374873155279467}, 6.272642135620117], 'Validation': [{'rocauc': 0.7367234959827552}, 5.778594970703125], 'Test': [{'rocauc': 0.7266807006701558}, 5.694891929626465], 'LR': 9.963665628205869e-05, 'Mem': 0.985, 'Cached': 1.16}
+=====Epoch 21=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7446190055168866} 5.304445743560791 9.955619650468836e-05
+{'Train': [{'rocauc': 0.7446190055168866}, 5.304445743560791], 'Validation': [{'rocauc': 0.6875520527140897}, 4.421178817749023], 'Test': [{'rocauc': 0.736893335135866}, 4.51924991607666], 'LR': 9.959742943978098e-05, 'Mem': 0.991, 'Cached': 1.16}
+=====Epoch 22=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.733162382156667} 7.954266548156738 9.95129583072953e-05
+{'Train': [{'rocauc': 0.733162382156667}, 7.954266548156738], 'Validation': [{'rocauc': 0.7335390946502057}, 7.102055549621582], 'Test': [{'rocauc': 0.736659649664922}, 7.695564270019531], 'LR': 9.955619650468836e-05, 'Mem': 0.999, 'Cached': 1.16}
+=====Epoch 23=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7244443129891044} 7.067661285400391 9.946771571850627e-05
+{'Train': [{'rocauc': 0.7244443129891044}, 7.067661285400391], 'Validation': [{'rocauc': 0.7068942288849696}, 6.360406398773193], 'Test': [{'rocauc': 0.7274281079201994}, 6.999164581298828], 'LR': 9.95129583072953e-05, 'Mem': 1.0, 'Cached': 1.16}
+=====Epoch 24=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7017208463723589} 9.890998840332031 9.94204696495982e-05
+{'Train': [{'rocauc': 0.7017208463723589}, 9.890998840332031], 'Validation': [{'rocauc': 0.6931048525377229}, 9.27862548828125], 'Test': [{'rocauc': 0.7411016048977385}, 9.682769775390625], 'LR': 9.946771571850627e-05, 'Mem': 0.997, 'Cached': 1.16}
+=====Epoch 25=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.716392646358662} 3.73724627494812 9.937122105220217e-05
+{'Train': [{'rocauc': 0.716392646358662}, 3.73724627494812], 'Validation': [{'rocauc': 0.7127884332745443}, 3.2500078678131104], 'Test': [{'rocauc': 0.725939087274764}, 3.2444350719451904], 'LR': 9.94204696495982e-05, 'Mem': 0.982, 'Cached': 1.164}
+=====Epoch 26=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7252179658258947} 2.5048797130584717 9.931997091828421e-05
+{'Train': [{'rocauc': 0.7252179658258947}, 2.5048797130584717], 'Validation': [{'rocauc': 0.6990587644522831}, 2.1710212230682373], 'Test': [{'rocauc': 0.7290156240947101}, 1.942834496498108], 'LR': 9.937122105220217e-05, 'Mem': 0.972, 'Cached': 1.164}
+=====Epoch 27=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7210544141040051} 1.518720030784607 9.926672028012533e-05
+{'Train': [{'rocauc': 0.7210544141040051}, 1.518720030784607], 'Validation': [{'rocauc': 0.6826621595140112}, 1.3941326141357422], 'Test': [{'rocauc': 0.7275285347341587}, 1.307534098625183], 'LR': 9.931997091828421e-05, 'Mem': 1.004, 'Cached': 1.164}
+=====Epoch 28=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7122131909897548} 4.791931629180908 9.921147021030079e-05
+{'Train': [{'rocauc': 0.7122131909897548}, 4.791931629180908], 'Validation': [{'rocauc': 0.6898699294532629}, 4.222318649291992], 'Test': [{'rocauc': 0.7291759207400683}, 4.368721961975098], 'LR': 9.926672028012533e-05, 'Mem': 1.005, 'Cached': 1.164}
+=====Epoch 29=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7075442211093399} 4.978816509246826 9.915422182165828e-05
+{'Train': [{'rocauc': 0.7075442211093399}, 4.978816509246826], 'Validation': [{'rocauc': 0.6862874779541447}, 4.783034324645996], 'Test': [{'rocauc': 0.7086849881225981}, 4.4190754890441895], 'LR': 9.921147021030079e-05, 'Mem': 0.973, 'Cached': 1.164}
+=====Epoch 30=====
+Training...
+Evaluating...
+Train: {'rocauc': 0.7066967143500978} 8.321625709533691 9.909497626729587e-05
+{'Train': [{'rocauc': 0.7066967143500978}, 8.321625709533691], 'Validation': [{'rocauc': 0.6689539241622575}, 7.482179641723633], 'Test': [{'rocauc': 0.7064273160933969}, 7.46687126159668], 'LR': 9.915422182165828e-05, 'Mem': 0.99, 'Cached': 1.164}
+=====Epoch 31=====
+Training...

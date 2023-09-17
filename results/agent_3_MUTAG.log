@@ -1,0 +1,95 @@
+HostName: geneva.ee.ucl.ac.uk, GPU ID: 0/4, StartTime: 2023-09-17 20:56:36, LoginName: uceeyc6, CodeFile: /home/uceeyc6/AgentNet/graph_classification_3.py
+----------------------------------------------------------------------------------------------------
+Hyperparameters:
+dropout             : 0.0
+use_aux_loss        : False
+lr                  : 0.0001
+num_agents          : 18
+reduce              : log
+epochs              : 350
+warmup              : 0
+self_loops          : True
+node_readout        : False
+use_step_readout_lin: False
+gumbel_temp         : 0.66666667
+gumbel_min_temp     : 0.66666667
+gumbel_warmup       : -1
+gumbel_decay_epochs : 500
+min_lr_mult         : 1e-07
+weight_decay        : 0.01
+num_pos_attention_heads: 1
+clip_grad           : 1.0
+readout_mlp         : False
+post_ln             : False
+attn_dropout        : 0.0
+no_time_cond        : False
+mlp_width_mult      : 2
+activation_function : leaky_relu
+negative_slope      : 0.01
+input_mlp           : True
+attn_width_mult     : 1
+importance_init     : False
+random_agent        : False
+test_argmax         : False
+global_agent_pool   : True
+agent_global_extra  : False
+basic_global_agent  : False
+basic_agent         : False
+bias_attention      : True
+visited_decay       : 0.9
+sparse_conv         : False
+mean_pool_only      : False
+edge_negative_slope : 0.2
+final_readout_only  : False
+batch_size          : 32
+hidden_units        : 128
+num_steps           : 16
+iters_per_epoch     : 50
+verbose             : True
+slurm               : False
+grid_search         : False
+gpu_jobs            : False
+dataset             : MUTAG
+one_hot_degree      : False
+baseline_in_mlp     : False
+layers_per_conv     : 1
+model_type          : agent
+gpu_id              : 0
+lr_dqn              : 0.0001
+discount            : 0.0
+save_path           : None
+hpc_exp_number      : None
+trials              : <bound method HyperOptArgumentParser.opt_trials of HyperOptArgumentParser(prog='graph_classification_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel   : <bound method HyperOptArgumentParser.optimize_parallel of HyperOptArgumentParser(prog='graph_classification_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_gpu: <bound method HyperOptArgumentParser.optimize_parallel_gpu of HyperOptArgumentParser(prog='graph_classification_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_cpu: <bound method HyperOptArgumentParser.optimize_parallel_cpu of HyperOptArgumentParser(prog='graph_classification_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+generate_trials     : <bound method HyperOptArgumentParser.generate_trials of HyperOptArgumentParser(prog='graph_classification_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_trials_parallel_gpu: <bound method HyperOptArgumentParser.optimize_trials_parallel_gpu of HyperOptArgumentParser(prog='graph_classification_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+
+/home/uceeyc6/.conda/envs/AgentNet/lib/python3.9/site-packages/torch_geometric/data/dataset.py:158: UserWarning: The `pre_filter` argument differs from the one used in the pre-processed version of this dataset. If you want to make use of another pre-fitering technique, make sure to delete '{self.processed_dir}' first
+  warnings.warn(
+MUTAG(188)
+example of dataset Data(edge_index=[2, 38], x=[17, 7], edge_attr=[38, 4], y=[1], cycles=[17], max_degree_node=[17]) tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0.]) tensor([0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+Mean Degree: 2.207653522491455
+Max Degree: 4
+Min Degree: 1
+Mean number of nodes: 17.930850982666016
+Max number of nodes: 28.0
+Min number of nodes: 10.0
+Number of graphs: 188
+Number of runs: 17.930850982666016
+Sampling probability: 0.10564765428829875
+Device: cuda
+AgentNet
+---------------- Split 0 ----------------
+Epoch: 001, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.5833870, Train Acc: 0.7137, Train Aux Acc: 0.0000, Test Acc: 0.6316, Train Reward: 2.5111 , Time: 76.2528, Mem: 0.259, Cached: 0.273, Steps: 50
+Epoch: 002, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.4989517, Train Acc: 0.7600, Train Aux Acc: 0.0000, Test Acc: 0.6842, Train Reward: 2.5853 , Time: 73.3458, Mem: 0.258, Cached: 0.273, Steps: 50
+Epoch: 003, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.4952462, Train Acc: 0.7638, Train Aux Acc: 0.0000, Test Acc: 0.7895, Train Reward: 2.5154 , Time: 73.1810, Mem: 0.259, Cached: 0.273, Steps: 50
+Epoch: 004, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.4626852, Train Acc: 0.7881, Train Aux Acc: 0.0000, Test Acc: 0.7368, Train Reward: 2.3972 , Time: 73.2295, Mem: 0.260, Cached: 0.273, Steps: 50
+Epoch: 005, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.4423215, Train Acc: 0.8006, Train Aux Acc: 0.0000, Test Acc: 0.6842, Train Reward: 2.4245 , Time: 73.1413, Mem: 0.258, Cached: 0.273, Steps: 50
+Epoch: 006, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.4304788, Train Acc: 0.8106, Train Aux Acc: 0.0000, Test Acc: 0.6842, Train Reward: 2.3008 , Time: 73.0311, Mem: 0.261, Cached: 0.273, Steps: 50
+Epoch: 007, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.4077539, Train Acc: 0.8237, Train Aux Acc: 0.0000, Test Acc: 0.7368, Train Reward: 2.0205 , Time: 72.7565, Mem: 0.259, Cached: 0.273, Steps: 50
+Epoch: 008, LR: 0.0001000, DQN_LR: 0.0001000, Gumbel Temp: 0.6667, Train Loss: 0.3914844, Train Acc: 0.8306, Train Aux Acc: 0.0000, Test Acc: 0.7368, Train Reward: 2.1349 , Time: 72.6613, Mem: 0.259, Cached: 0.273, Steps: 50
+Epoch: 009, LR: 0.0000999, DQN_LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.3999938, Train Acc: 0.8300, Train Aux Acc: 0.0000, Test Acc: 0.7368, Train Reward: 2.0219 , Time: 71.0569, Mem: 0.257, Cached: 0.273, Steps: 50
+Epoch: 010, LR: 0.0000999, DQN_LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.3745260, Train Acc: 0.8469, Train Aux Acc: 0.0000, Test Acc: 0.7368, Train Reward: 2.0210 , Time: 71.0107, Mem: 0.259, Cached: 0.273, Steps: 50
+Epoch: 011, LR: 0.0000999, DQN_LR: 0.0000999, Gumbel Temp: 0.6667, Train Loss: 0.4133153, Train Acc: 0.8150, Train Aux Acc: 0.0000, Test Acc: 0.6842, Train Reward: 1.8768 , Time: 68.6904, Mem: 0.258, Cached: 0.273, Steps: 50

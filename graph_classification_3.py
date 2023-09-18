@@ -438,7 +438,7 @@ def main(args, cluster=None):
         return correct / len(loader.dataset)
 
     acc = []
-    reward = []
+    reward_curve = []
 
     splits = separate_data(len(dataset), seed=0)
     print(model.__class__.__name__)
@@ -482,7 +482,7 @@ def main(args, cluster=None):
             acc_temp.append(test_acc)
             reward_tmp.append(train_reward)
         acc.append(torch.tensor(acc_temp))
-        reward.append(torch.tensor(reward_tmp))
+        reward_curve.append(torch.tensor(reward_tmp))
 
 
     acc = torch.stack(acc, dim=0)
@@ -540,7 +540,7 @@ if __name__ == '__main__':
     parser.add_argument('--gpu_id', type=str, default="0")
     parser.add_argument('--lr_dqn', type=float, default=0.0001)
     parser.add_argument('--discount', type=float, default=0.2, help = 'discount factor for DQN loss')
-    parser.add_argument('--save_path', type=str, default=None, help = 'specify which gpu on server to use')
+    parser.add_argument('--save_path', type=str, default='', help = 'specify which gpu on server to use')
 
     
 

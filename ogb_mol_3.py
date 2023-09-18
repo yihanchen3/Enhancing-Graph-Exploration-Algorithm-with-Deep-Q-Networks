@@ -125,10 +125,7 @@ def main(args, cluster=None):
     random.seed(args.seed)
 
     # Load fgs data
-    if args.dataset == 'ogbg-molhiv':
-        fgs_filename = os.path.join('dataset/ogbg_molhiv/fgs.csv') 
-    elif args.dataset == 'ogbg-molpcba':
-        fgs_filename = os.path.join('dataset/ogbg_molpcba/fgs.csv')  
+    fgs_filename = os.path.join('data/fgs', args.dataset+'_fgs.csv')
     df = pd.read_csv(fgs_filename,usecols=['fgs'])
     df['fgs'] = df['fgs'].astype(str)
     df['fgs'] = df['fgs'].apply(lambda x: ast.literal_eval(x))
@@ -136,7 +133,8 @@ def main(args, cluster=None):
     print('------Functional Groups Data Loaded------', flush=True)
 
     # add fgs to data as a node attribute
-    pyg_dataset = PygGraphPropPredDataset(name = args.dataset)
+    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', args.dataset)
+    pyg_dataset = PygGraphPropPredDataset(name = args.dataset,root=path)
     dataset = add_attributes(pyg_dataset,fgs)
 
     if args.feature == 'full':
@@ -269,7 +267,7 @@ if __name__ == "__main__":
     parser.add_argument('--gpu_id', type=str, default='0', help = 'specify which gpu on server to use')
     parser.add_argument('--lr_dqn', type=float, default=0.0001)
     parser.add_argument('--discount', type=float, default=0.2, help = 'discount factor for DQN loss')
-    parser.add_argument('--save_path', type=str, default='0915', help = 'specify which gpu on server to use')
+    parser.add_argument('--save_path', type=str, default='', help = 'specify which gpu on server to use')
     parser.add_argument('--fast', type = int, default = None, help = 'for fast training, only evaluate validation every n epochs')
     parser.add_argument('--bar', action = 'store_true', default = False, help = 'display a progress bar for training and evaluation')
     args = parser.parse_args()

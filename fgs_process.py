@@ -103,30 +103,21 @@ if __name__ == "__main__":
   parser.add_argument('--dataset', type=str, default='qm9')
   args = parser.parse_args()
 
-  if args.dataset == 'ogb_molhiv':
-    data_path = 'dataset/'
-    dataset_path = 'ogbg_molhiv/'
-    sdf_name = 'mapping/mol.csv'
-    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
-    fgs_filename = os.path.join(data_path, dataset_path, 'fgs.csv')
+  if args.dataset == 'ogbg-molhiv':
+    sdf_path = os.path.join('data', args.dataset, 'ogbg_molhiv/mapping/mol.csv')
+    fgs_filename = os.path.join('data/fgs', f'{args.dataset}_fgs.csv')
     df = pd.read_csv(sdf_path)
     col_name = 'smiles'
   
   elif args.dataset == 'qm9':
-    data_path = 'data/'
-    dataset_path = 'MPNN-QM9/'
-    sdf_name = 'raw/gdb9.sdf'
-    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
-    fgs_filename = os.path.join(data_path, dataset_path, args.dataset +'_fgs.csv')
+    sdf_path = os.path.join('data','MPNN-QM9/raw/gdb9.sdf')
+    fgs_filename = os.path.join('data/fgs', 'MPNN-QM9'+'_fgs.csv')
     df = LoadSDF(sdf_path, smilesName='SMILES')
     col_name = 'SMILES'
-  
-  elif args.dataset == 'ogbg_molpcba':
-    data_path = 'dataset/'
-    dataset_path = 'ogbg_molpcba/'
-    sdf_name = 'mapping/mol.csv'
-    sdf_path = os.path.join(data_path, dataset_path, sdf_name)
-    fgs_filename = os.path.join(data_path, dataset_path, 'fgs.csv')
+
+  if args.dataset == 'ogbg-molpcba':
+    sdf_path = os.path.join('data', args.dataset, 'ogbg_molpcba/mapping/mol.csv')
+    fgs_filename = os.path.join('data/fgs', f'{args.dataset}_fgs.csv')
     df = pd.read_csv(sdf_path)
     col_name = 'smiles'
 

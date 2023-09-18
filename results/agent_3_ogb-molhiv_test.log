@@ -1,0 +1,74 @@
+HostName: geneva.ee.ucl.ac.uk, GPU ID: 2/4, StartTime: 2023-09-18 18:38:49, LoginName: uceeyc6, CodeFile: /home/uceeyc6/AgentNet/ogb_mol_3.py
+----------------------------------------------------------------------------------------------------
+Hyperparameters:
+dropout             : 0.0
+batch_size          : 64
+hidden_units        : 128
+use_aux_loss        : False
+lr                  : 0.0001
+num_agents          : 26
+num_steps           : 16
+reduce              : log
+epochs              : 100
+warmup              : 0
+self_loops          : True
+node_readout        : False
+use_step_readout_lin: False
+gumbel_temp         : 0.66666667
+gumbel_min_temp     : 0.66666667
+gumbel_warmup       : -1
+gumbel_decay_epochs : 50
+min_lr_mult         : 1e-07
+weight_decay        : 0.01
+num_pos_attention_heads: 1
+clip_grad           : 1.0
+readout_mlp         : False
+post_ln             : False
+attn_dropout        : 0.0
+no_time_cond        : False
+mlp_width_mult      : 2
+activation_function : leaky_relu
+negative_slope      : 0.01
+input_mlp           : True
+attn_width_mult     : 1
+importance_init     : False
+random_agent        : False
+test_argmax         : False
+global_agent_pool   : True
+agent_global_extra  : False
+basic_global_agent  : False
+basic_agent         : False
+bias_attention      : True
+visited_decay       : 0.9
+sparse_conv         : False
+mean_pool_only      : False
+edge_negative_slope : 0.2
+final_readout_only  : False
+device              : 0
+gnn                 : gin-virtual
+drop_ratio          : 0.5
+num_layer           : 5
+emb_dim             : 300
+num_workers         : 0
+dataset             : ogbg-molhiv
+feature             : full
+slurm               : False
+grid_search         : False
+gpu_jobs            : False
+seed                : 0
+gpu_id              : 2
+lr_dqn              : 0.0001
+discount            : 0.0
+save_path           : 
+fast                : None
+bar                 : True
+hpc_exp_number      : None
+trials              : <bound method HyperOptArgumentParser.opt_trials of HyperOptArgumentParser(prog='ogb_mol_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel   : <bound method HyperOptArgumentParser.optimize_parallel of HyperOptArgumentParser(prog='ogb_mol_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_gpu: <bound method HyperOptArgumentParser.optimize_parallel_gpu of HyperOptArgumentParser(prog='ogb_mol_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_parallel_cpu: <bound method HyperOptArgumentParser.optimize_parallel_cpu of HyperOptArgumentParser(prog='ogb_mol_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+generate_trials     : <bound method HyperOptArgumentParser.generate_trials of HyperOptArgumentParser(prog='ogb_mol_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+optimize_trials_parallel_gpu: <bound method HyperOptArgumentParser.optimize_trials_parallel_gpu of HyperOptArgumentParser(prog='ogb_mol_3.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
+
+------Functional Groups Data Loaded------
+=====Epoch 1=====

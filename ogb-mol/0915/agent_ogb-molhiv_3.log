@@ -1,73 +1,0 @@
-HostName: geneva.ee.ucl.ac.uk, GPU ID: 2/4, StartTime: 2023-09-16 22:40:27, LoginName: uceeyc6, CodeFile: /home/uceeyc6/AgentNet/ogb_mol_3_fast_replay_scheduler.py
-----------------------------------------------------------------------------------------------------
-Hyperparameters:
-dropout             : 0.0
-batch_size          : 64
-hidden_units        : 128
-use_aux_loss        : False
-lr                  : 0.0001
-num_agents          : 26
-num_steps           : 16
-reduce              : log
-epochs              : 150
-warmup              : 0
-self_loops          : True
-node_readout        : False
-use_step_readout_lin: False
-gumbel_temp         : 0.66666667
-gumbel_min_temp     : 0.66666667
-gumbel_warmup       : -1
-gumbel_decay_epochs : 50
-min_lr_mult         : 1e-07
-weight_decay        : 0.01
-num_pos_attention_heads: 1
-clip_grad           : 1.0
-readout_mlp         : False
-post_ln             : False
-attn_dropout        : 0.0
-no_time_cond        : False
-mlp_width_mult      : 2
-activation_function : leaky_relu
-negative_slope      : 0.01
-input_mlp           : True
-attn_width_mult     : 1
-importance_init     : False
-random_agent        : False
-test_argmax         : False
-global_agent_pool   : True
-agent_global_extra  : False
-basic_global_agent  : False
-basic_agent         : False
-bias_attention      : True
-visited_decay       : 0.9
-sparse_conv         : False
-mean_pool_only      : False
-edge_negative_slope : 0.2
-final_readout_only  : False
-device              : 0
-gnn                 : gin-virtual
-drop_ratio          : 0.5
-num_layer           : 5
-emb_dim             : 300
-num_workers         : 0
-dataset             : ogbg-molhiv
-feature             : full
-slurm               : False
-grid_search         : False
-gpu_jobs            : False
-seed                : 0
-gpu_id              : 2
-lr_dqn              : 0.0001
-save_path           : 0915
-fast                : None
-hpc_exp_number      : None
-trials              : <bound method HyperOptArgumentParser.opt_trials of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
-optimize_parallel   : <bound method HyperOptArgumentParser.optimize_parallel of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
-optimize_parallel_gpu: <bound method HyperOptArgumentParser.optimize_parallel_gpu of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
-optimize_parallel_cpu: <bound method HyperOptArgumentParser.optimize_parallel_cpu of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
-generate_trials     : <bound method HyperOptArgumentParser.generate_trials of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
-optimize_trials_parallel_gpu: <bound method HyperOptArgumentParser.optimize_trials_parallel_gpu of HyperOptArgumentParser(prog='ogb_mol_3_fast_replay_scheduler.py', usage=None, description=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='resolve', add_help=False)>
-
-fgs data loaded
-=====Epoch 1=====
-Iteration:   0%|          | 0/515 [00:00<?, ?it/s]Iteration:   0%|          | 1/515 [00:01<13:11,  1.54s/it]Iteration:   0%|          | 2/515 [00:02<08:35,  1.00s/it]Iteration:   1%|          | 3/515 [00:02<07:08,  1.19it/s]Iteration:   1%|          | 4/515 [00:03<06:27,  1.32it/s]Iteration:   1%|          | 5/515 [00:04<06:00,  1.42it/s]Iteration:   1%|          | 6/515 [00:04<05:48,  1.46it/s]Iteration:   1%|▏         | 7/515 [00:05<05:39,  1.49it/s]Iteration:   2%|▏         | 8/515 [00:05<05:33,  1.52it/s]Iteration:   2%|▏         | 9/515 [00:06<05:29,  1.54it/s]Iteration:   2%|▏         | 10/515 [00:07<05:21,  1.57it/s]Iteration:   2%|▏         | 11/515 [00:07<05:17,  1.59it/s]Iteration:   2%|▏         | 12/515 [00:08<05:17,  1.58it/s]Iteration:   3%|▎         | 13/515 [00:09<05:18,  1.58it/s]Iteration:   3%|▎         | 14/515 [00:09<05:18,  1.57it/s]Iteration:   3%|▎         | 15/515 [00:10<05:15,  1.58it/s]Iteration:   3%|▎         | 16/515 [00:11<05:16,  1.58it/s]Iteration:   3%|▎         | 17/515 [00:11<05:15,  1.58it/s]Iteration:   3%|▎         | 18/515 [00:12<05:14,  1.58it/s]Iteration:   4%|▎         | 19/515 [00:12<05:14,  1.57it/s]Iteration:   4%|▍         | 20/515 [00:13<05:14,  1.57it/s]Iteration:   4%|▍         | 21/515 [00:14<05:13,  1.58it/s]Iteration:   4%|▍         | 22/515 [00:14<05:17,  1.55it/s]Iteration:   4%|▍         | 23/515 [00:15<05:17,  1.55it/s]Iteration:   5%|▍         | 24/515 [00:16<05:13,  1.57it/s]Iteration:   5%|▍         | 25/515 [00:16<05:12,  1.57it/s]Iteration:   5%|▌         | 26/515 [00:17<05:12,  1.57it/s]Iteration:   5%|▌         | 27/515 [00:17<05:05,  1.59it/s]Iteration:   5%|▌         | 28/515 [00:18<05:32,  1.46it/s]Iteration:   6%|▌         | 29/515 [00:19<05:22,  1.51it/s]Iteration:   6%|▌         | 30/515 [00:20<05:14,  1.54it/s]Iteration:   6%|▌         | 31/515 [00:20<05:12,  1.55it/s]Iteration:   6%|▌         | 32/515 [00:21<05:08,  1.56it/s]Iteration:   6%|▋         | 33/515 [00:21<05:08,  1.56it/s]Iteration:   7%|▋         | 34/515 [00:22<05:08,  1.56it/s]Iteration:   7%|▋         | 35/515 [00:23<05:07,  1.56it/s]Iteration:   7%|▋         | 36/515 [00:23<05:04,  1.57it/s]Iteration:   7%|▋         | 37/515 [00:24<05:03,  1.57it/s]Iteration:   7%|▋         | 38/515 [00:25<05:01,  1.58it/s]

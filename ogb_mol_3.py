@@ -269,7 +269,7 @@ if __name__ == "__main__":
     parser.add_argument('--gpu_id', type=str, default='0', help = 'specify which gpu on server to use')
     parser.add_argument('--lr_dqn', type=float, default=0.0001)
     parser.add_argument('--discount', type=float, default=0.2, help = 'discount factor for DQN loss')
-    parser.add_argument('--save_path', type=str, default='0915', help = 'specify which gpu on server to use')
+    parser.add_argument('--save_path', type=str, default=None, help = 'specify which gpu on server to use')
     parser.add_argument('--fast', type = int, default = None, help = 'for fast training, only evaluate validation every n epochs')
     parser.add_argument('--bar', action = 'store_true', default = False, help = 'display a progress bar for training and evaluation')
     args = parser.parse_args()

@@ -438,7 +438,7 @@ def main(args, cluster=None):
         return correct / len(loader.dataset)
 
     acc = []
-    reward = []
+    reward_curve = []
 
     splits = separate_data(len(dataset), seed=0)
     print(model.__class__.__name__)
@@ -482,7 +482,7 @@ def main(args, cluster=None):
             acc_temp.append(test_acc)
             reward_tmp.append(train_reward)
         acc.append(torch.tensor(acc_temp))
-        reward.append(torch.tensor(reward_tmp))
+        reward_curve.append(torch.tensor(reward_tmp))
 
 
     acc = torch.stack(acc, dim=0)

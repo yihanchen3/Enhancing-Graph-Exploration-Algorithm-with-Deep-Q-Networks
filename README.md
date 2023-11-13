@@ -1,5 +1,5 @@
-# Agent-walk-based Graph Representation Learning enhanced by Deep Q-network
-This project reformalised the agent walking strategy of AgentNet[Agent-based Graph Neural Networks](https://arxiv.org/abs/2206.11010) as a reinforcement learning problem and implemented a Deep Q-network to find the optimal agent transition. By combining the reinforcement learning with graph neural networks, we achieve better performance on graph classification tasks with sepcific target-oriented agents.
+# Agent-based GNN enhanced by Deep Q-network
+This project reformalised the agent walking strategy of AgentNet(https://arxiv.org/abs/2206.11010) as a reinforcement learning problem and implemented a Deep Q-network to find the optimal agent transition. By combining the reinforcement learning with graph neural networks, we achieve better performance on graph classification tasks with sepcific target-oriented agents.
 
 
 ## Getting Started

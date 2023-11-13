@@ -1,4 +1,4 @@
-# Agent-based GNN enhanced by Deep Q-network
+# DQN Enhanced Agent-based GNNs for Target-Oriented Graph Classification
 This project reformalised the agent walking strategy of AgentNet(https://arxiv.org/abs/2206.11010) as a reinforcement learning problem and implemented a Deep Q-network to find the optimal agent transition. By combining the reinforcement learning with graph neural networks, we achieve better performance on graph classification tasks with sepcific target-oriented agents.
 
 
